@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07B88BB0C7230678806E39B2 /* libPods-Sight Assistant.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */; };
 		8E9251C21E350C9800003EA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C11E350C9800003EA6 /* main.m */; };
 		8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C41E350C9800003EA6 /* AppDelegate.m */; };
 		8E9251C81E350C9800003EA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C71E350C9800003EA6 /* ViewController.m */; };
@@ -16,6 +17,8 @@
 		8E9251D31E350C9800003EA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9251D11E350C9800003EA6 /* LaunchScreen.storyboard */; };
 		8E9251DE1E350C9800003EA6 /* Sight_AssistantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251DD1E350C9800003EA6 /* Sight_AssistantTests.m */; };
 		8E9251E91E350C9800003EA6 /* Sight_AssistantUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */; };
+		AB685021AEE3ACDDED568055 /* libPods-Sight AssistantUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C891B0ABC8E03202C6BA6841 /* libPods-Sight AssistantUITests.a */; };
+		D8D301BCDD4D14F3D984E98D /* libPods-Sight AssistantTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046BC6397C6722C7B7848AF5 /* libPods-Sight AssistantTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046BC6397C6722C7B7848AF5 /* libPods-Sight AssistantTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sight AssistantTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		131BA5DE301B145EFA8D4B7A /* Pods-Sight AssistantUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantUITests/Pods-Sight AssistantUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1FA6BA5E8C170CBE7B306BB8 /* Pods-Sight Assistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight Assistant.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sight Assistant/Pods-Sight Assistant.debug.xcconfig"; sourceTree = "<group>"; };
+		300A5F19A2015469FB26C171 /* Pods-Sight AssistantTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantTests/Pods-Sight AssistantTests.release.xcconfig"; sourceTree = "<group>"; };
+		395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sight Assistant.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD27D0D07FCC6A7DCC25C6D /* Pods-Sight AssistantUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantUITests/Pods-Sight AssistantUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4BC82370B4138B8836937886 /* Pods-Sight Assistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight Assistant.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sight Assistant/Pods-Sight Assistant.release.xcconfig"; sourceTree = "<group>"; };
+		6863CB21A5D027A82E449A16 /* Pods-Sight AssistantTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantTests/Pods-Sight AssistantTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8E9251BD1E350C9800003EA6 /* Sight Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sight Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251C11E350C9800003EA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E9251C31E350C9800003EA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,6 +64,7 @@
 		8E9251E41E350C9800003EA6 /* Sight AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sight AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sight_AssistantUITests.m; sourceTree = "<group>"; };
 		8E9251EA1E350C9800003EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C891B0ABC8E03202C6BA6841 /* libPods-Sight AssistantUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sight AssistantUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07B88BB0C7230678806E39B2 /* libPods-Sight Assistant.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D301BCDD4D14F3D984E98D /* libPods-Sight AssistantTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +88,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB685021AEE3ACDDED568055 /* libPods-Sight AssistantUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26A56CFAC710C809715086CA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1FA6BA5E8C170CBE7B306BB8 /* Pods-Sight Assistant.debug.xcconfig */,
+				4BC82370B4138B8836937886 /* Pods-Sight Assistant.release.xcconfig */,
+				6863CB21A5D027A82E449A16 /* Pods-Sight AssistantTests.debug.xcconfig */,
+				300A5F19A2015469FB26C171 /* Pods-Sight AssistantTests.release.xcconfig */,
+				3FD27D0D07FCC6A7DCC25C6D /* Pods-Sight AssistantUITests.debug.xcconfig */,
+				131BA5DE301B145EFA8D4B7A /* Pods-Sight AssistantUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8E9251B41E350C9700003EA6 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +115,8 @@
 				8E9251DC1E350C9800003EA6 /* Sight AssistantTests */,
 				8E9251E71E350C9800003EA6 /* Sight AssistantUITests */,
 				8E9251BE1E350C9800003EA6 /* Products */,
+				26A56CFAC710C809715086CA /* Pods */,
+				A153161389EAA6CE5E15C350 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +173,16 @@
 			path = "Sight AssistantUITests";
 			sourceTree = "<group>";
 		};
+		A153161389EAA6CE5E15C350 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */,
+				046BC6397C6722C7B7848AF5 /* libPods-Sight AssistantTests.a */,
+				C891B0ABC8E03202C6BA6841 /* libPods-Sight AssistantUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E9251ED1E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight Assistant" */;
 			buildPhases = (
+				58E3155CA7AE8CF586653845 /* [CP] Check Pods Manifest.lock */,
 				8E9251B91E350C9700003EA6 /* Sources */,
 				8E9251BA1E350C9700003EA6 /* Frameworks */,
 				8E9251BB1E350C9700003EA6 /* Resources */,
+				7BA9A757B88406D0EAF6B9D5 /* [CP] Embed Pods Frameworks */,
+				482F3EB59A0FAFDC6647C5D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +210,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E9251F01E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantTests" */;
 			buildPhases = (
+				9DF28364F6A7B59D5601762F /* [CP] Check Pods Manifest.lock */,
 				8E9251D51E350C9800003EA6 /* Sources */,
 				8E9251D61E350C9800003EA6 /* Frameworks */,
 				8E9251D71E350C9800003EA6 /* Resources */,
+				6C030CBD16D2725D9544C971 /* [CP] Embed Pods Frameworks */,
+				114DC9736086B14461F267C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,9 +231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E9251F31E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantUITests" */;
 			buildPhases = (
+				C5D643BC9D3E3DFCDDA97F4C /* [CP] Check Pods Manifest.lock */,
 				8E9251E01E350C9800003EA6 /* Sources */,
 				8E9251E11E350C9800003EA6 /* Frameworks */,
 				8E9251E21E350C9800003EA6 /* Resources */,
+				905A02939FF0824E5421E594 /* [CP] Embed Pods Frameworks */,
+				D14BDC656D45559AC717D52A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,6 +319,144 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		114DC9736086B14461F267C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight AssistantTests/Pods-Sight AssistantTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		482F3EB59A0FAFDC6647C5D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight Assistant/Pods-Sight Assistant-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58E3155CA7AE8CF586653845 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6C030CBD16D2725D9544C971 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight AssistantTests/Pods-Sight AssistantTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BA9A757B88406D0EAF6B9D5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight Assistant/Pods-Sight Assistant-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		905A02939FF0824E5421E594 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight AssistantUITests/Pods-Sight AssistantUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DF28364F6A7B59D5601762F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C5D643BC9D3E3DFCDDA97F4C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D14BDC656D45559AC717D52A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sight AssistantUITests/Pods-Sight AssistantUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8E9251B91E350C9700003EA6 /* Sources */ = {
@@ -426,6 +613,7 @@
 		};
 		8E9251EE1E350C9800003EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FA6BA5E8C170CBE7B306BB8 /* Pods-Sight Assistant.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Sight Assistant/Info.plist";
@@ -437,6 +625,7 @@
 		};
 		8E9251EF1E350C9800003EA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BC82370B4138B8836937886 /* Pods-Sight Assistant.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Sight Assistant/Info.plist";
@@ -448,6 +637,7 @@
 		};
 		8E9251F11E350C9800003EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6863CB21A5D027A82E449A16 /* Pods-Sight AssistantTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Sight AssistantTests/Info.plist";
@@ -460,6 +650,7 @@
 		};
 		8E9251F21E350C9800003EA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 300A5F19A2015469FB26C171 /* Pods-Sight AssistantTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Sight AssistantTests/Info.plist";
@@ -472,6 +663,7 @@
 		};
 		8E9251F41E350C9800003EA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FD27D0D07FCC6A7DCC25C6D /* Pods-Sight AssistantUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "Sight AssistantUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -483,6 +675,7 @@
 		};
 		8E9251F51E350C9800003EA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 131BA5DE301B145EFA8D4B7A /* Pods-Sight AssistantUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "Sight AssistantUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
