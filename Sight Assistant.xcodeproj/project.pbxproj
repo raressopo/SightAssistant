@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8E9251C21E350C9800003EA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C11E350C9800003EA6 /* main.m */; };
+		8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C41E350C9800003EA6 /* AppDelegate.m */; };
+		8E9251C81E350C9800003EA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C71E350C9800003EA6 /* ViewController.m */; };
+		8E9251CB1E350C9800003EA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9251C91E350C9800003EA6 /* Main.storyboard */; };
+		8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251CC1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld */; };
+		8E9251D01E350C9800003EA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E9251CF1E350C9800003EA6 /* Assets.xcassets */; };
+		8E9251D31E350C9800003EA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9251D11E350C9800003EA6 /* LaunchScreen.storyboard */; };
+		8E9251DE1E350C9800003EA6 /* Sight_AssistantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251DD1E350C9800003EA6 /* Sight_AssistantTests.m */; };
+		8E9251E91E350C9800003EA6 /* Sight_AssistantUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8E9251DA1E350C9800003EA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E9251B51E350C9700003EA6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E9251BC1E350C9700003EA6;
+			remoteInfo = "Sight Assistant";
+		};
+		8E9251E51E350C9800003EA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E9251B51E350C9700003EA6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E9251BC1E350C9700003EA6;
+			remoteInfo = "Sight Assistant";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8E9251BD1E350C9800003EA6 /* Sight Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sight Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9251C11E350C9800003EA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8E9251C31E350C9800003EA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8E9251C41E350C9800003EA6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8E9251C61E350C9800003EA6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8E9251C71E350C9800003EA6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8E9251CA1E350C9800003EA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8E9251CD1E350C9800003EA6 /* Sight_Assistant.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sight_Assistant.xcdatamodel; sourceTree = "<group>"; };
+		8E9251CF1E350C9800003EA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8E9251D21E350C9800003EA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8E9251D41E350C9800003EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E9251D91E350C9800003EA6 /* Sight AssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sight AssistantTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9251DD1E350C9800003EA6 /* Sight_AssistantTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sight_AssistantTests.m; sourceTree = "<group>"; };
+		8E9251DF1E350C9800003EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E9251E41E350C9800003EA6 /* Sight AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sight AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sight_AssistantUITests.m; sourceTree = "<group>"; };
+		8E9251EA1E350C9800003EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8E9251BA1E350C9700003EA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251D61E350C9800003EA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251E11E350C9800003EA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8E9251B41E350C9700003EA6 = {
+			isa = PBXGroup;
+			children = (
+				8E9251BF1E350C9800003EA6 /* Sight Assistant */,
+				8E9251DC1E350C9800003EA6 /* Sight AssistantTests */,
+				8E9251E71E350C9800003EA6 /* Sight AssistantUITests */,
+				8E9251BE1E350C9800003EA6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8E9251BE1E350C9800003EA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E9251BD1E350C9800003EA6 /* Sight Assistant.app */,
+				8E9251D91E350C9800003EA6 /* Sight AssistantTests.xctest */,
+				8E9251E41E350C9800003EA6 /* Sight AssistantUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8E9251BF1E350C9800003EA6 /* Sight Assistant */ = {
+			isa = PBXGroup;
+			children = (
+				8E9251C31E350C9800003EA6 /* AppDelegate.h */,
+				8E9251C41E350C9800003EA6 /* AppDelegate.m */,
+				8E9251C61E350C9800003EA6 /* ViewController.h */,
+				8E9251C71E350C9800003EA6 /* ViewController.m */,
+				8E9251C91E350C9800003EA6 /* Main.storyboard */,
+				8E9251CF1E350C9800003EA6 /* Assets.xcassets */,
+				8E9251D11E350C9800003EA6 /* LaunchScreen.storyboard */,
+				8E9251D41E350C9800003EA6 /* Info.plist */,
+				8E9251CC1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld */,
+				8E9251C01E350C9800003EA6 /* Supporting Files */,
+			);
+			path = "Sight Assistant";
+			sourceTree = "<group>";
+		};
+		8E9251C01E350C9800003EA6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E9251C11E350C9800003EA6 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8E9251DC1E350C9800003EA6 /* Sight AssistantTests */ = {
+			isa = PBXGroup;
+			children = (
+				8E9251DD1E350C9800003EA6 /* Sight_AssistantTests.m */,
+				8E9251DF1E350C9800003EA6 /* Info.plist */,
+			);
+			path = "Sight AssistantTests";
+			sourceTree = "<group>";
+		};
+		8E9251E71E350C9800003EA6 /* Sight AssistantUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */,
+				8E9251EA1E350C9800003EA6 /* Info.plist */,
+			);
+			path = "Sight AssistantUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8E9251BC1E350C9700003EA6 /* Sight Assistant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E9251ED1E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight Assistant" */;
+			buildPhases = (
+				8E9251B91E350C9700003EA6 /* Sources */,
+				8E9251BA1E350C9700003EA6 /* Frameworks */,
+				8E9251BB1E350C9700003EA6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sight Assistant";
+			productName = "Sight Assistant";
+			productReference = 8E9251BD1E350C9800003EA6 /* Sight Assistant.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8E9251D81E350C9800003EA6 /* Sight AssistantTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E9251F01E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantTests" */;
+			buildPhases = (
+				8E9251D51E350C9800003EA6 /* Sources */,
+				8E9251D61E350C9800003EA6 /* Frameworks */,
+				8E9251D71E350C9800003EA6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E9251DB1E350C9800003EA6 /* PBXTargetDependency */,
+			);
+			name = "Sight AssistantTests";
+			productName = "Sight AssistantTests";
+			productReference = 8E9251D91E350C9800003EA6 /* Sight AssistantTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8E9251E31E350C9800003EA6 /* Sight AssistantUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E9251F31E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantUITests" */;
+			buildPhases = (
+				8E9251E01E350C9800003EA6 /* Sources */,
+				8E9251E11E350C9800003EA6 /* Frameworks */,
+				8E9251E21E350C9800003EA6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E9251E61E350C9800003EA6 /* PBXTargetDependency */,
+			);
+			name = "Sight AssistantUITests";
+			productName = "Sight AssistantUITests";
+			productReference = 8E9251E41E350C9800003EA6 /* Sight AssistantUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8E9251B51E350C9700003EA6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Rares Soponar";
+				TargetAttributes = {
+					8E9251BC1E350C9700003EA6 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					8E9251D81E350C9800003EA6 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8E9251BC1E350C9700003EA6;
+					};
+					8E9251E31E350C9800003EA6 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8E9251BC1E350C9700003EA6;
+					};
+				};
+			};
+			buildConfigurationList = 8E9251B81E350C9700003EA6 /* Build configuration list for PBXProject "Sight Assistant" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8E9251B41E350C9700003EA6;
+			productRefGroup = 8E9251BE1E350C9800003EA6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8E9251BC1E350C9700003EA6 /* Sight Assistant */,
+				8E9251D81E350C9800003EA6 /* Sight AssistantTests */,
+				8E9251E31E350C9800003EA6 /* Sight AssistantUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8E9251BB1E350C9700003EA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9251D31E350C9800003EA6 /* LaunchScreen.storyboard in Resources */,
+				8E9251D01E350C9800003EA6 /* Assets.xcassets in Resources */,
+				8E9251CB1E350C9800003EA6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251D71E350C9800003EA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251E21E350C9800003EA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8E9251B91E350C9700003EA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
+				8E9251C81E350C9800003EA6 /* ViewController.m in Sources */,
+				8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */,
+				8E9251C21E350C9800003EA6 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251D51E350C9800003EA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9251DE1E350C9800003EA6 /* Sight_AssistantTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9251E01E350C9800003EA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9251E91E350C9800003EA6 /* Sight_AssistantUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E9251DB1E350C9800003EA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E9251BC1E350C9700003EA6 /* Sight Assistant */;
+			targetProxy = 8E9251DA1E350C9800003EA6 /* PBXContainerItemProxy */;
+		};
+		8E9251E61E350C9800003EA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E9251BC1E350C9700003EA6 /* Sight Assistant */;
+			targetProxy = 8E9251E51E350C9800003EA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8E9251C91E350C9800003EA6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E9251CA1E350C9800003EA6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8E9251D11E350C9800003EA6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E9251D21E350C9800003EA6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8E9251EB1E350C9800003EA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E9251EC1E350C9800003EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8E9251EE1E350C9800003EA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sight Assistant/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-Assistant";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8E9251EF1E350C9800003EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sight Assistant/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-Assistant";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8E9251F11E350C9800003EA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Sight AssistantTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-AssistantTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sight Assistant.app/Sight Assistant";
+			};
+			name = Debug;
+		};
+		8E9251F21E350C9800003EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Sight AssistantTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-AssistantTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sight Assistant.app/Sight Assistant";
+			};
+			name = Release;
+		};
+		8E9251F41E350C9800003EA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Sight AssistantUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-AssistantUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Sight Assistant";
+			};
+			name = Debug;
+		};
+		8E9251F51E350C9800003EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Sight AssistantUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Home.Sight-AssistantUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Sight Assistant";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8E9251B81E350C9700003EA6 /* Build configuration list for PBXProject "Sight Assistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9251EB1E350C9800003EA6 /* Debug */,
+				8E9251EC1E350C9800003EA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E9251ED1E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight Assistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9251EE1E350C9800003EA6 /* Debug */,
+				8E9251EF1E350C9800003EA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8E9251F01E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9251F11E350C9800003EA6 /* Debug */,
+				8E9251F21E350C9800003EA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8E9251F31E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9251F41E350C9800003EA6 /* Debug */,
+				8E9251F51E350C9800003EA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8E9251CC1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8E9251CD1E350C9800003EA6 /* Sight_Assistant.xcdatamodel */,
+			);
+			currentVersion = 8E9251CD1E350C9800003EA6 /* Sight_Assistant.xcdatamodel */;
+			path = Sight_Assistant.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8E9251B51E350C9700003EA6 /* Project object */;
+}
