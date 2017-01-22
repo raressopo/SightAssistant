@@ -7,6 +7,7 @@ target 'Sight Assistant' do
 
   # Pods for Sight Assistant
   pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
   target 'Sight AssistantTests' do
     inherit! :search_paths

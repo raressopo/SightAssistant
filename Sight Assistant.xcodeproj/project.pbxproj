@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07B88BB0C7230678806E39B2 /* libPods-Sight Assistant.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */; };
+		8E4C68351E353AF1003DC687 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */; };
 		8E9251C21E350C9800003EA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C11E350C9800003EA6 /* main.m */; };
 		8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C41E350C9800003EA6 /* AppDelegate.m */; };
 		8E9251C81E350C9800003EA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C71E350C9800003EA6 /* ViewController.m */; };
@@ -47,6 +48,7 @@
 		3FD27D0D07FCC6A7DCC25C6D /* Pods-Sight AssistantUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantUITests/Pods-Sight AssistantUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC82370B4138B8836937886 /* Pods-Sight Assistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight Assistant.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sight Assistant/Pods-Sight Assistant.release.xcconfig"; sourceTree = "<group>"; };
 		6863CB21A5D027A82E449A16 /* Pods-Sight AssistantTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sight AssistantTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sight AssistantTests/Pods-Sight AssistantTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E9251BD1E350C9800003EA6 /* Sight Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sight Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251C11E350C9800003EA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E9251C31E350C9800003EA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		8E9251BF1E350C9800003EA6 /* Sight Assistant */ = {
 			isa = PBXGroup;
 			children = (
+				8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */,
 				8E9251C31E350C9800003EA6 /* AppDelegate.h */,
 				8E9251C41E350C9800003EA6 /* AppDelegate.m */,
 				8E9251C61E350C9800003EA6 /* ViewController.h */,
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E9251D31E350C9800003EA6 /* LaunchScreen.storyboard in Resources */,
+				8E4C68351E353AF1003DC687 /* GoogleService-Info.plist in Resources */,
 				8E9251D01E350C9800003EA6 /* Assets.xcassets in Resources */,
 				8E9251CB1E350C9800003EA6 /* Main.storyboard in Resources */,
 			);
@@ -704,6 +708,7 @@
 				8E9251EF1E350C9800003EA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E9251F01E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantTests" */ = {
 			isa = XCConfigurationList;
@@ -712,6 +717,7 @@
 				8E9251F21E350C9800003EA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E9251F31E350C9800003EA6 /* Build configuration list for PBXNativeTarget "Sight AssistantUITests" */ = {
 			isa = XCConfigurationList;
@@ -720,6 +726,7 @@
 				8E9251F51E350C9800003EA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

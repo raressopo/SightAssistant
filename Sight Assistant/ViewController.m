@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) FIRDatabaseReference *ref;
 @end
 
 @implementation ViewController
@@ -17,6 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.ref = [[FIRDatabase database] referenceWithPath:@"users"];
+    [[_ref child:@"user1"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        // Get user value
+        NSLog(@"%@",snapshot.value[@"pass"]);
+        
+        // ...
+    }];
+    
+    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:@"user2"];
+    NSDictionary *post = @{@"name": @"raalu"};
+    [newref setValue:post];
 }
 
 
