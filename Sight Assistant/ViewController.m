@@ -9,25 +9,40 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *username;
+@property (weak, nonatomic) IBOutlet UITextField *pass;
+@property (weak, nonatomic) IBOutlet UILabel *label;
 @property (nonatomic, strong) FIRDatabaseReference *ref;
+@property (nonatomic, strong) NSDictionary *users;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.ref = [[FIRDatabase database] referenceWithPath:@"users"];
-    [[_ref child:@"user1"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        // Get user value
-        NSLog(@"%@",snapshot.value[@"pass"]);
-        
-        // ...
+    
+    // Read from database
+    self.ref = [[FIRDatabase database] reference];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        self.users = snapshot.value[@"users"];
     }];
     
+    // Write in database
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:@"user2"];
-    NSDictionary *post = @{@"name": @"raalu"};
+    NSDictionary *post = @{@"name": @"raalu", @"pass": @"lolo"};
     [newref setValue:post];
+}
+
+- (IBAction)login:(id)sender {
+    for (NSString *user in self.users.allKeys) {
+        NSDictionary *userDict = [self.users objectForKey:user];
+        if ([self.username.text isEqualToString:[userDict objectForKey:@"name"]] && [self.pass.text isEqualToString:[userDict objectForKey:@"pass"]]) {
+            self.label.text = @"All good";
+            return;
+        } else {
+            self.label.text = @"Nope";
+        }
+    }
 }
 
 
