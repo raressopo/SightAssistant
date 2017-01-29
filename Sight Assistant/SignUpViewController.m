@@ -43,14 +43,14 @@
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.nameField.text];
     NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @([self switchResult])};
     [newref setValue:post];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)switchResult {
     if (self.selectUserTypeSwitch.on) {
-        return YES;
-    } else {
         return NO;
+    } else {
+        return YES;
     }
 }
 
