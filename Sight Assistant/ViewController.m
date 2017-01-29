@@ -18,6 +18,17 @@
 
 @implementation ViewController
 
+- (instancetype)sharedInstance
+{
+    static ViewController *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[ViewController alloc] init];
+        // Do any other initialisation stuff here
+    });
+    return sharedInstance;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -38,6 +49,7 @@
         NSDictionary *userDict = [self.users objectForKey:user];
         if ([self.username.text isEqualToString:[userDict objectForKey:@"name"]] && [self.pass.text isEqualToString:[userDict objectForKey:@"pass"]]) {
             self.label.text = @"All good";
+            [self.label sizeToFit];
             return;
         } else {
             self.label.text = @"Nope";
