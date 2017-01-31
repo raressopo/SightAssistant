@@ -38,21 +38,27 @@
         if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && user.blind) {
             [User sharedInstance].currentUserName = user.name;
             [self performSegueWithIdentifier:@"blind" sender:sender];
+            return;
         } else if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && !user.blind) {
             [User sharedInstance].currentUserName = user.name;
             [self performSegueWithIdentifier:@"helper" sender:sender];
+            return;
         }
 //        else {
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username/Password Incorrect!"
-//                                                                           message:@"Please check if your username or password is enetered corectly."
-//                                                                    preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-//            }];
-//            [alert addAction:okAction];
-//            [self presentViewController:alert animated:YES completion:nil];
+//            [self wrongUsernameOrPass];
 //        }
     }
 }
+
+//- (void)wrongUsernameOrPass {
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username/Password Incorrect!"
+//                                                                   message:@"Please check if your username or password is enetered corectly."
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+//    }];
+//    [alert addAction:okAction];
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
