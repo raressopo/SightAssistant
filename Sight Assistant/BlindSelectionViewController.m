@@ -1,0 +1,39 @@
+//
+//  BlindSelectionViewController.m
+//  Sight Assistant
+//
+//  Created by Rares Soponar on 31/01/2017.
+//  Copyright © 2017 Rares Soponar. All rights reserved.
+//
+
+#import "BlindSelectionViewController.h"
+#import "User.h"
+
+@interface BlindSelectionViewController ()
+
+@end
+
+@implementation BlindSelectionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSLog(@"%@", [User sharedInstance].currentUserName);
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -13,50 +13,46 @@
 @property (weak, nonatomic) IBOutlet UITextField *pass;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (nonatomic, strong) FIRDatabaseReference *ref;
-@property (nonatomic, strong) NSDictionary *users;
+@property (nonatomic, strong) NSDictionary *usersFromDB;
 @end
 
 @implementation ViewController
 
-- (instancetype)sharedInstance
-{
-    static ViewController *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[ViewController alloc] init];
-        // Do any other initialisation stuff here
-    });
-    return sharedInstance;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Read from database
+    self.users = [[NSMutableArray alloc] init];
     self.ref = [[FIRDatabase database] reference];
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        self.users = snapshot.value[@"users"];
+        self.usersFromDB = snapshot.value[@"users"];
+        for (NSString *userr in self.usersFromDB.allKeys) {
+            NSDictionary *user = [self.usersFromDB objectForKey:userr];
+            User *userFromDict = [[User alloc] initWithName:userr withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue]];
+            [self.users addObject:userFromDict];
+        }
     }];
-    
-    // Write in database
-    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:@"user2"];
-    NSDictionary *post = @{@"name": @"raalu", @"pass": @"lolo"};
-    [newref setValue:post];
 }
 
 - (IBAction)login:(id)sender {
-    for (NSString *user in self.users.allKeys) {
-        NSDictionary *userDict = [self.users objectForKey:user];
-        if ([self.username.text isEqualToString:[userDict objectForKey:@"name"]] && [self.pass.text isEqualToString:[userDict objectForKey:@"pass"]]) {
-            self.label.text = @"All good";
-            [self.label sizeToFit];
-            return;
-        } else {
-            self.label.text = @"Nope";
+    for (User *user in self.users) {
+        if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && user.blind) {
+            [User sharedInstance].currentUserName = user.name;
+            [self performSegueWithIdentifier:@"blind" sender:sender];
+        } else if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && !user.blind) {
+            [User sharedInstance].currentUserName = user.name;
+            [self performSegueWithIdentifier:@"helper" sender:sender];
         }
+//        else {
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username/Password Incorrect!"
+//                                                                           message:@"Please check if your username or password is enetered corectly."
+//                                                                    preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+//            }];
+//            [alert addAction:okAction];
+//            [self presentViewController:alert animated:YES completion:nil];
+//        }
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

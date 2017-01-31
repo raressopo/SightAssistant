@@ -10,6 +10,9 @@
 		07B88BB0C7230678806E39B2 /* libPods-Sight Assistant.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */; };
 		8E1743331E3E028300828067 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1743321E3E028300828067 /* SignUpViewController.m */; };
 		8E4C68351E353AF1003DC687 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */; };
+		8E548E1D1E411D9A00E9EE43 /* BlindSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */; };
+		8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */; };
+		8E548E241E412E0800E9EE43 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E231E412E0800E9EE43 /* User.m */; };
 		8E9251C21E350C9800003EA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C11E350C9800003EA6 /* main.m */; };
 		8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C41E350C9800003EA6 /* AppDelegate.m */; };
 		8E9251C81E350C9800003EA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C71E350C9800003EA6 /* ViewController.m */; };
@@ -52,6 +55,12 @@
 		8E1743311E3E028300828067 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		8E1743321E3E028300828067 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E548E1B1E411D9A00E9EE43 /* BlindSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlindSelectionViewController.h; sourceTree = "<group>"; };
+		8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlindSelectionViewController.m; sourceTree = "<group>"; };
+		8E548E1E1E41238200E9EE43 /* HelperSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperSelectionViewController.h; sourceTree = "<group>"; };
+		8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelperSelectionViewController.m; sourceTree = "<group>"; };
+		8E548E221E412E0800E9EE43 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8E548E231E412E0800E9EE43 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8E9251BD1E350C9800003EA6 /* Sight Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sight Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251C11E350C9800003EA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E9251C31E350C9800003EA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,10 +127,23 @@
 			children = (
 				8E9251C61E350C9800003EA6 /* ViewController.h */,
 				8E9251C71E350C9800003EA6 /* ViewController.m */,
+				8E548E1E1E41238200E9EE43 /* HelperSelectionViewController.h */,
+				8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */,
 				8E1743311E3E028300828067 /* SignUpViewController.h */,
 				8E1743321E3E028300828067 /* SignUpViewController.m */,
+				8E548E1B1E411D9A00E9EE43 /* BlindSelectionViewController.h */,
+				8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		8E548E211E412DF300E9EE43 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8E548E221E412E0800E9EE43 /* User.h */,
+				8E548E231E412E0800E9EE43 /* User.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		8E9251B41E350C9700003EA6 = {
@@ -149,6 +171,7 @@
 		8E9251BF1E350C9800003EA6 /* Sight Assistant */ = {
 			isa = PBXGroup;
 			children = (
+				8E548E211E412DF300E9EE43 /* Models */,
 				8E1743341E3E039900828067 /* Views */,
 				8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */,
 				8E9251C31E350C9800003EA6 /* AppDelegate.h */,
@@ -480,11 +503,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E548E241E412E0800E9EE43 /* User.m in Sources */,
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
+				8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */,
 				8E1743331E3E028300828067 /* SignUpViewController.m in Sources */,
 				8E9251C81E350C9800003EA6 /* ViewController.m in Sources */,
 				8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */,
 				8E9251C21E350C9800003EA6 /* main.m in Sources */,
+				8E548E1D1E411D9A00E9EE43 /* BlindSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

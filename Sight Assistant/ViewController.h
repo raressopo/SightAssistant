@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <FirebaseDatabase/FirebaseDatabase.h>
+#import "User.h"
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) NSMutableArray *users;
 
 @end
 
