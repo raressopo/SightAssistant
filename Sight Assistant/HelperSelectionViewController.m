@@ -24,6 +24,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)signOut:(id)sender {
+    [User sharedInstance].currentUserName = @"";
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 /*
 #pragma mark - Navigation
 

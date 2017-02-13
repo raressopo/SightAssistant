@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <FirebaseDatabase/FirebaseDatabase.h>
 
-@interface BlindSelectionViewController : ViewController
+@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate>
 
 @end

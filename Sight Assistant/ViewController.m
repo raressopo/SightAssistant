@@ -11,7 +11,6 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UITextField *pass;
-@property (weak, nonatomic) IBOutlet UILabel *label;
 @property (nonatomic, strong) FIRDatabaseReference *ref;
 @property (nonatomic, strong) NSDictionary *usersFromDB;
 @end
