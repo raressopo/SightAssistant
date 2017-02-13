@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FirebaseDatabase/FirebaseDatabase.h>
+#import "Position.h"
+#import "ViewController.h"
 
 @interface SeeAllBlindsTableViewController : UITableViewController
 

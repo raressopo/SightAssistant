@@ -12,6 +12,7 @@
 		8E20FE2B1E4278E800A70870 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2A1E4278E800A70870 /* CoreLocation.framework */; };
 		8E20FE2D1E42947000A70870 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2C1E42947000A70870 /* MapKit.framework */; };
 		8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */; };
+		8E238D8C1E523E8200E60F1A /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E238D8B1E523E8200E60F1A /* Position.m */; };
 		8E4C68351E353AF1003DC687 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */; };
 		8E548E1D1E411D9A00E9EE43 /* BlindSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */; };
 		8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */; };
@@ -61,6 +62,8 @@
 		8E20FE2C1E42947000A70870 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8E238D871E522BAE00E60F1A /* SeeAllBlindsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeAllBlindsTableViewController.h; sourceTree = "<group>"; };
 		8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeeAllBlindsTableViewController.m; sourceTree = "<group>"; };
+		8E238D8A1E523E8200E60F1A /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
+		8E238D8B1E523E8200E60F1A /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		8E4C68341E353AF1003DC687 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E548E1B1E411D9A00E9EE43 /* BlindSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlindSelectionViewController.h; sourceTree = "<group>"; };
 		8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlindSelectionViewController.m; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 			children = (
 				8E548E221E412E0800E9EE43 /* User.h */,
 				8E548E231E412E0800E9EE43 /* User.m */,
+				8E238D8A1E523E8200E60F1A /* Position.h */,
+				8E238D8B1E523E8200E60F1A /* Position.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -525,6 +530,7 @@
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
 				8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */,
 				8E1743331E3E028300828067 /* SignUpViewController.m in Sources */,
+				8E238D8C1E523E8200E60F1A /* Position.m in Sources */,
 				8E9251C81E350C9800003EA6 /* ViewController.m in Sources */,
 				8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */,
 				8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */,

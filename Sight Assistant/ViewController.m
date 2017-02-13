@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *pass;
 @property (nonatomic, strong) FIRDatabaseReference *ref;
 @property (nonatomic, strong) NSDictionary *usersFromDB;
+@property (nonatomic, strong) NSDictionary *positionFromDB;
 @end
 
 @implementation ViewController
@@ -28,6 +29,17 @@
             NSDictionary *user = [self.usersFromDB objectForKey:userr];
             User *userFromDict = [[User alloc] initWithName:userr withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue]];
             [self.users addObject:userFromDict];
+        }
+    }];
+    
+    [Position sharedInstance].positions = [[NSMutableArray alloc] init];
+    self.ref = [[FIRDatabase database] reference];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        self.positionFromDB = snapshot.value[@"positions"];
+        for (NSString *pos in self.positionFromDB.allKeys) {
+            NSDictionary *position = [self.positionFromDB objectForKey:pos];
+            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"]];
+            [[Position sharedInstance].positions addObject:posFromDB];
         }
     }];
 }

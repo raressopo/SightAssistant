@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FirebaseDatabase/FirebaseDatabase.h>
 #import "User.h"
+#import "Position.h"
 
 @interface ViewController : UIViewController
 
