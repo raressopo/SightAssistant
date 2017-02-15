@@ -26,6 +26,7 @@
 		8E9251D31E350C9800003EA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9251D11E350C9800003EA6 /* LaunchScreen.storyboard */; };
 		8E9251DE1E350C9800003EA6 /* Sight_AssistantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251DD1E350C9800003EA6 /* Sight_AssistantTests.m */; };
 		8E9251E91E350C9800003EA6 /* Sight_AssistantUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */; };
+		8EEFDDCC1E54E0D400B54307 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEFDDCB1E54E0D400B54307 /* MapViewController.m */; };
 		AB685021AEE3ACDDED568055 /* libPods-Sight AssistantUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C891B0ABC8E03202C6BA6841 /* libPods-Sight AssistantUITests.a */; };
 		D8D301BCDD4D14F3D984E98D /* libPods-Sight AssistantTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 046BC6397C6722C7B7848AF5 /* libPods-Sight AssistantTests.a */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,8 @@
 		8E9251E41E350C9800003EA6 /* Sight AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sight AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251E81E350C9800003EA6 /* Sight_AssistantUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sight_AssistantUITests.m; sourceTree = "<group>"; };
 		8E9251EA1E350C9800003EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EEFDDCA1E54E0D400B54307 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		8EEFDDCB1E54E0D400B54307 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		C891B0ABC8E03202C6BA6841 /* libPods-Sight AssistantUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sight AssistantUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,6 +150,8 @@
 				8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */,
 				8E238D871E522BAE00E60F1A /* SeeAllBlindsTableViewController.h */,
 				8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */,
+				8EEFDDCA1E54E0D400B54307 /* MapViewController.h */,
+				8EEFDDCB1E54E0D400B54307 /* MapViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -536,6 +541,7 @@
 				8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */,
 				8E9251C21E350C9800003EA6 /* main.m in Sources */,
 				8E548E1D1E411D9A00E9EE43 /* BlindSelectionViewController.m in Sources */,
+				8EEFDDCC1E54E0D400B54307 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

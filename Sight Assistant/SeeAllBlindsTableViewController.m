@@ -7,6 +7,7 @@
 //
 
 #import "SeeAllBlindsTableViewController.h"
+#import "MapViewController.h"
 
 @interface SeeAllBlindsTableViewController ()
 
@@ -51,6 +52,9 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"mapViewSegue" sender:self];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,14 +89,17 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"mapViewSegue"]) {
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    MapViewController *destinationVC = segue.destinationViewController;
+    destinationVC.position = [Position sharedInstance].positions[path.row];
+    }
 }
-*/
+
 
 @end
