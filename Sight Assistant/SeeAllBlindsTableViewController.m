@@ -95,9 +95,13 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"mapViewSegue"]) {
-    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    MapViewController *destinationVC = segue.destinationViewController;
-    destinationVC.position = [Position sharedInstance].positions[path.row];
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        MapViewController *destinationVC = segue.destinationViewController;
+        destinationVC.position = [Position sharedInstance].positions[path.row];
+    } else if ([segue.identifier isEqualToString:@"showAllBlindUsers"]) {
+        MapViewController *destinationVC = segue.destinationViewController;
+        destinationVC.showAllBlindUsers = YES;
+        destinationVC.positions = [Position sharedInstance].positions;
     }
 }
 

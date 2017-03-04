@@ -198,6 +198,15 @@
                             <outlet property="delegate" destination="9zZ-8v-ELF" id="PN1-D9-cE8"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ykX-pV-fnv"/>
+                        <barButtonItem title="Show all on map" id="wxy-D8-2rJ">
+                            <connections>
+                                <segue destination="QAr-i6-3fY" kind="show" identifier="showAllBlindUsers" id="oaA-ld-CER"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="iRq-j0-2lj"/>
+                    </toolbarItems>
                     <connections>
                         <segue destination="QAr-i6-3fY" kind="show" identifier="mapViewSegue" id="3wX-dD-suT"/>
                     </connections>
@@ -222,23 +231,43 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W40-x5-qGN">
-                                <rect key="frame" x="166" y="537" width="42" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKi-rQ-1Cy">
+                                <rect key="frame" x="16" y="597" width="100" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Accept"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="acceptPressed:" destination="QAr-i6-3fY" eventType="touchUpInside" id="4g7-Fv-le5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1N-KD-lU7">
+                                <rect key="frame" x="259" y="597" width="100" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Decline"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="label" destination="W40-x5-qGN" id="A9e-3V-KM5"/>
+                        <outlet property="acceptButton" destination="EKi-rQ-1Cy" id="CAh-q6-TRg"/>
+                        <outlet property="declineButton" destination="c1N-KD-lU7" id="OD3-FY-bNH"/>
+                        <outlet property="mapView" destination="nSP-3b-UKt" id="TYS-hE-5Dx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCw-TR-cy8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4312.8000000000002" y="77.811094452773617"/>
+            <point key="canvasLocation" x="4312.5" y="77.5"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="zlF-OS-p4h">
@@ -313,13 +342,17 @@
         <!--Navigation Controller-->
         <scene sceneID="OZi-zb-pgG">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="363-qb-XXt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="363-qb-XXt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="H6j-uC-bdT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PP2-JN-hBI">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Lhu-hM-d8R" kind="relationship" relationship="rootViewController" id="ZXj-yi-sG4"/>
                     </connections>
@@ -329,4 +362,7 @@
             <point key="canvasLocation" x="1644" y="77.811094452773617"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="oaA-ld-CER"/>
+    </inferredMetricsTieBreakers>
 </document>

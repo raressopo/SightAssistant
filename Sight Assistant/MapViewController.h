@@ -8,9 +8,15 @@
 
 #import "ViewController.h"
 #import "Position.h"
+#import <MapKit/MapKit.h>
+#import <FirebaseDatabase/FirebaseDatabase.h>
 
-@interface MapViewController : ViewController
+@interface MapViewController : ViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
+    CLLocationManager *locationManager;
+}
 
 @property (nonatomic, strong) Position *position;
+@property (nonatomic, strong) NSArray *positions;
+@property (nonatomic, assign) BOOL showAllBlindUsers;
 
 @end

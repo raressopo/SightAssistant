@@ -27,7 +27,7 @@
         self.usersFromDB = snapshot.value[@"users"];
         for (NSString *userr in self.usersFromDB.allKeys) {
             NSDictionary *user = [self.usersFromDB objectForKey:userr];
-            User *userFromDict = [[User alloc] initWithName:userr withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue]];
+            User *userFromDict = [[User alloc] initWithName:userr withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] isHelped:[[user objectForKey:@"isHelped"] boolValue]];
             [self.users addObject:userFromDict];
         }
     }];
@@ -38,7 +38,7 @@
         self.positionFromDB = snapshot.value[@"positions"];
         for (NSString *pos in self.positionFromDB.allKeys) {
             NSDictionary *position = [self.positionFromDB objectForKey:pos];
-            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"]];
+            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"] helped:[position objectForKey:@"isHelped"]];
             [[Position sharedInstance].positions addObject:posFromDB];
         }
     }];

@@ -38,7 +38,7 @@
     self.lat.text = [NSString stringWithFormat:@"%.8f", locationManager.location.coordinate.latitude];
     self.longit.text = [NSString stringWithFormat:@"%.8f", locationManager.location.coordinate.longitude];
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
-    NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text};
+    NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text, @"isHelped": @(NO)};
     [newref setValue:post];
 
 }
