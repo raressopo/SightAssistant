@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.ref = [[FIRDatabase database] reference];
+    [self checkSwitchState];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,37 +32,25 @@
 }
 
 - (IBAction)userType:(id)sender {
+    [self checkSwitchState];
+}
+
+- (void)checkSwitchState {
     if (self.selectUserTypeSwitch.on) {
         self.userTypeLabel.text = @"Helper";
     } else {
-        self.userTypeLabel.text = @"Helped";
+        self.userTypeLabel.text = @"Blind";
     }
     [self.userTypeLabel sizeToFit];
 }
 
 - (IBAction)signUp:(id)sender {
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.nameField.text];
-    NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @([self switchResult])};
+    NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @(self.selectUserTypeSwitch.on ? NO : YES)};
+    
     [newref setValue:post];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (BOOL)switchResult {
-    if (self.selectUserTypeSwitch.on) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *lon;
 @property (nonatomic) BOOL helped;
 
+// All positions from DB of all blind users that need help
 @property (nonatomic, strong) NSMutableArray *positions;
 
 - (instancetype)initWithUser:(NSString *)user latitude:(NSString *)lat andLongitude:(NSString *)lon helped:(BOOL)helped;

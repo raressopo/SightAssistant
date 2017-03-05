@@ -16,7 +16,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[Position alloc] init];
-        // Do any other initialisation stuff here
     });
     return sharedInstance;
 }

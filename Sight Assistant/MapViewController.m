@@ -8,7 +8,7 @@
 
 #import "MapViewController.h"
 
-NSInteger const radius = 100000;
+NSInteger const radius = 10000;
 
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -26,6 +26,8 @@ NSInteger const radius = 100000;
 @end
 
 @implementation MapViewController
+
+#pragma mark - View methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,28 +63,28 @@ NSInteger const radius = 100000;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setToolbarHidden:NO];
+    
+    if (self.addPins) {
+        self.addPins = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Helper methods
+
 - (void)centerMapOnLocation:(CLLocation *)location withName:(NSString *)userName {
     MKPointAnnotation *placemark = [[MKPointAnnotation alloc] init];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2.0, radius * 2.0);
+    
     placemark.coordinate = location.coordinate;
     placemark.title = userName;
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2.0, radius * 2.0);
+    
     [self.mapView setRegion:region];
     [self.mapView addAnnotation:placemark];
     [self.mapView selectAnnotation:placemark animated:YES];
-}
-
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-    MKPolylineRenderer *polyLineView = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
-    polyLineView.strokeColor = [UIColor redColor];
-    polyLineView.lineWidth = 4.0;
-    
-    return polyLineView;
 }
 
 -(void)initView {
@@ -93,11 +95,13 @@ NSInteger const radius = 100000;
     
     CLLocation *centerCoord = [[CLLocation alloc] initWithLatitude:self.regionCenterLat/self.positions.count longitude:self.regionCenterLon/self.positions.count];
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(centerCoord.coordinate, radius, radius);
+    
     [self.mapView setRegion:region animated:NO];
 }
 
 -(void)addAllPins {
     self.addPins = YES;
+    
     for (Position *position in self.positions) {
         MKPointAnnotation *mapPin = [[MKPointAnnotation alloc] init];
         
@@ -113,6 +117,9 @@ NSInteger const radius = 100000;
         [self.mapView addAnnotation:mapPin];
     }
 }
+
+#pragma mark - User interaction methods
+
 - (IBAction)acceptPressed:(id)sender {
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:self.position.user];
     NSDictionary *post = @{@"isHelped": @(YES)};
@@ -152,18 +159,23 @@ NSInteger const radius = 100000;
 
 }
 
+#pragma mark - Location Manager delegate
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     self.currentLocation = [locations lastObject];
     MKPointAnnotation *plmrk = [[MKPointAnnotation alloc] init];
+    
     plmrk.coordinate = CLLocationCoordinate2DMake(46.765000, 23.558300);//self.currentLocation.coordinate;
     plmrk.title = @"Me";
+    
     [self.mapView addAnnotation:plmrk];
     [self.mapView selectAnnotation:plmrk animated:YES];
 }
 
+#pragma mark - MapKit delegate
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
-    //MKPinAnnotationView *helperPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"helperPin"];
 
     if (self.addPins) {
         if ([((MKPointAnnotation *)annotation).subtitle isEqualToString:@"0"]) {
@@ -191,6 +203,14 @@ NSInteger const radius = 100000;
     }
     
     return nil;
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    MKPolylineRenderer *polyLineView = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    polyLineView.strokeColor = [UIColor redColor];
+    polyLineView.lineWidth = 4.0;
+    
+    return polyLineView;
 }
 
 @end

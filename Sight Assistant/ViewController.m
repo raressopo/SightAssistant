@@ -20,32 +20,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Read from database
+    
     self.users = [[NSMutableArray alloc] init];
     self.ref = [[FIRDatabase database] reference];
+    
+    // Get all the users from DB
+    [User sharedInstance].users = [[NSMutableArray alloc] init];
+    
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         self.usersFromDB = snapshot.value[@"users"];
-        for (NSString *userr in self.usersFromDB.allKeys) {
-            NSDictionary *user = [self.usersFromDB objectForKey:userr];
-            User *userFromDict = [[User alloc] initWithName:userr withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] isHelped:[[user objectForKey:@"isHelped"] boolValue]];
-            [self.users addObject:userFromDict];
+        
+        for (NSString *userFromDB in self.usersFromDB.allKeys) {
+            NSDictionary *user = [self.usersFromDB objectForKey:userFromDB];
+            User *userFromDict = [[User alloc] initWithName:userFromDB withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] isHelped:[[user objectForKey:@"isHelped"] boolValue]];
+            
+            [[User sharedInstance].users addObject:userFromDict];
         }
     }];
     
+    // Get all the positions that need help from DB
     [Position sharedInstance].positions = [[NSMutableArray alloc] init];
-    self.ref = [[FIRDatabase database] reference];
+    
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         self.positionFromDB = snapshot.value[@"positions"];
+        
         for (NSString *pos in self.positionFromDB.allKeys) {
             NSDictionary *position = [self.positionFromDB objectForKey:pos];
-            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"] helped:[position objectForKey:@"isHelped"]];
+            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"] helped:[[position objectForKey:@"isHelped"] boolValue]];
+            
             [[Position sharedInstance].positions addObject:posFromDB];
         }
     }];
 }
 
+#pragma mark - Button actions
+
 - (IBAction)login:(id)sender {
-    for (User *user in self.users) {
+    for (User *user in [User sharedInstance].users) {
         if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && user.blind) {
             [User sharedInstance].currentUserName = user.name;
             [self performSegueWithIdentifier:@"blind" sender:sender];
@@ -55,26 +66,13 @@
             [self performSegueWithIdentifier:@"helper" sender:sender];
             return;
         }
-//        else {
-//            [self wrongUsernameOrPass];
-//        }
     }
 }
 
-//- (void)wrongUsernameOrPass {
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username/Password Incorrect!"
-//                                                                   message:@"Please check if your username or password is enetered corectly."
-//                                                            preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-//    }];
-//    [alert addAction:okAction];
-//    [self presentViewController:alert animated:YES completion:nil];
-//}
+#pragma mark - Memory management
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 @end
