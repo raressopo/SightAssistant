@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
-@interface HelperSelectionViewController : ViewController
+@interface HelperSelectionViewController : ViewController <UNUserNotificationCenterDelegate>
 
 @end

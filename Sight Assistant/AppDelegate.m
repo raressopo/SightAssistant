@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Position.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [FIRApp configure];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Something went wrong: %@", error);
+        }
+    }];
+    
+    // Get all the positions that need help from DB
+    [Position sharedInstance].positions = [[NSMutableArray alloc] init];
+    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
+    [positionsRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        Position *position = [[Position alloc] init];
+        position.user = snapshot.key;
+        position.lat = snapshot.value[@"latitude"];
+        position.lon = snapshot.value[@"longitude"];
+        position.helped = [snapshot.value[@"isHelped"] boolValue];
+        
+        [[Position sharedInstance].positions addObject:position];
+    }];
+    
     return YES;
 }
 

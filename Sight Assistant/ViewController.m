@@ -14,6 +14,8 @@
 @property (nonatomic, strong) FIRDatabaseReference *ref;
 @property (nonatomic, strong) NSDictionary *usersFromDB;
 @property (nonatomic, strong) NSDictionary *positionFromDB;
+
+@property (nonatomic) BOOL observeSingleEvent;
 @end
 
 @implementation ViewController
@@ -35,20 +37,6 @@
             User *userFromDict = [[User alloc] initWithName:userFromDB withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] isHelped:[[user objectForKey:@"isHelped"] boolValue]];
             
             [[User sharedInstance].users addObject:userFromDict];
-        }
-    }];
-    
-    // Get all the positions that need help from DB
-    [Position sharedInstance].positions = [[NSMutableArray alloc] init];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        self.positionFromDB = snapshot.value[@"positions"];
-        
-        for (NSString *pos in self.positionFromDB.allKeys) {
-            NSDictionary *position = [self.positionFromDB objectForKey:pos];
-            Position *posFromDB = [[Position alloc] initWithUser:pos latitude:[position objectForKey:@"latitude"] andLongitude:[position objectForKey:@"longitude"] helped:[[position objectForKey:@"isHelped"] boolValue]];
-            
-            [[Position sharedInstance].positions addObject:posFromDB];
         }
     }];
 }

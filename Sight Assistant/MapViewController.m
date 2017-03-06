@@ -123,7 +123,9 @@ NSInteger const radius = 10000;
 - (IBAction)acceptPressed:(id)sender {
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:self.position.user];
     NSDictionary *post = @{@"isHelped": @(YES)};
+    
     [newref updateChildValues:post];
+    
     self.acceptButton.enabled = NO;
     
     // TODO: remove this on real device
@@ -156,7 +158,15 @@ NSInteger const radius = 10000;
         MKRoute *route = response.routes[0];
         [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
     }];
+}
 
+- (IBAction)declinePressed:(id)sender {
+    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:self.position.user];
+    NSDictionary *post = @{@"isHelped": @(NO)};
+    
+    [newref updateChildValues:post];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Location Manager delegate

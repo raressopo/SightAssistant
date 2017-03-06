@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <FirebaseDatabase/FirebaseDatabase.h>
+#import <UserNotifications/UserNotifications.h>
 
-@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate>
+@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
 
 @end

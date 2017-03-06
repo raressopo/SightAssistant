@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import <FirebaseCore/FirebaseCore.h>
 #import <FirebaseDatabase/FirebaseDatabase.h>
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
