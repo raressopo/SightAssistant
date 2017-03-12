@@ -52,5 +52,8 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)cancelPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
