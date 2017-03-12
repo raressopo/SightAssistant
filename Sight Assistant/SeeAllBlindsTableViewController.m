@@ -11,6 +11,8 @@
 
 @interface SeeAllBlindsTableViewController ()
 
+@property (nonatomic) NSInteger currentRowSelected;
+
 @end
 
 @implementation SeeAllBlindsTableViewController
@@ -18,6 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.currentRowSelected = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +54,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.currentRowSelected = indexPath.row;
     [self performSegueWithIdentifier:@"mapViewSegue" sender:self];
 }
 
@@ -54,10 +62,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"mapViewSegue"]) {
-        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        //NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         MapViewController *destinationVC = segue.destinationViewController;
         
-        destinationVC.position = [Position sharedInstance].positions[path.row];
+        destinationVC.position = [Position sharedInstance].positions[self.currentRowSelected];
     } else if ([segue.identifier isEqualToString:@"showAllBlindUsers"]) {
         MapViewController *destinationVC = segue.destinationViewController;
         

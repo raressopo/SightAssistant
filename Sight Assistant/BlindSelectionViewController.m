@@ -13,16 +13,32 @@
 @property (weak, nonatomic) IBOutlet UITextField *lat;
 @property (weak, nonatomic) IBOutlet UITextField *longit;
 
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+
 @property (nonatomic) BOOL viewWillAppearCheck;
 
 @end
 
-@implementation BlindSelectionViewController {
-    CLLocationManager *locationManager;
-}
+@implementation BlindSelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.currentLocation = [[CLLocation alloc] init];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+        [self.locationManager startUpdatingLocation];
+    } else {
+        NSLog(@"Location services are not enabled");
+    }
     
     self.viewWillAppearCheck = NO;
     FIRDatabaseReference *isHelpedRef = [[[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName] child:@"isHelped"];
@@ -36,7 +52,13 @@
         }
     }];
     
-    locationManager = [[CLLocationManager alloc] init];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              if (!error) {
+                                  NSLog(@"request authorization succeeded!");
+                              }
+                          }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -124,12 +146,8 @@
 #pragma mark - User Interaction methods
 
 - (IBAction)getLocation:(id)sender {
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [locationManager startUpdatingLocation];
-    self.lat.text = [NSString stringWithFormat:@"%.8f", locationManager.location.coordinate.latitude];
-    self.longit.text = [NSString stringWithFormat:@"%.8f", locationManager.location.coordinate.longitude];
+    self.lat.text = [NSString stringWithFormat:@"%.8f", self.currentLocation.coordinate.latitude];
+    self.longit.text = [NSString stringWithFormat:@"%.8f", self.currentLocation.coordinate.longitude];
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
     NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text, @"isHelped": @(NO)};
     [newref setValue:post];
@@ -139,6 +157,13 @@
 - (IBAction)signOut:(id)sender {
     [User sharedInstance].currentUserName = @"";
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - MapKit Delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.currentLocation = [locations lastObject];
+    NSLog(@"---> Location: %@", self.currentLocation);
 }
 
 #pragma mark - User Notifications Delegate

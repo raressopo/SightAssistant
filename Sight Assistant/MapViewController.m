@@ -137,8 +137,10 @@ NSInteger const radius = 10000;
     [self.mapView selectAnnotation:plmrk2 animated:YES];
     
     // Create 2 placemarks, one for the blind user and one for helper
-    MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
-    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(46.735000, 23.518300)];
+    MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue]) addressDictionary:nil];
+    //[p1 setCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
+                       //initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
+    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
     
     // Create 2 mapitems from that 2 placemarks
     MKMapItem *mi1 = [[MKMapItem alloc] initWithPlacemark:p1];
@@ -175,7 +177,7 @@ NSInteger const radius = 10000;
     self.currentLocation = [locations lastObject];
     MKPointAnnotation *plmrk = [[MKPointAnnotation alloc] init];
     
-    plmrk.coordinate = CLLocationCoordinate2DMake(46.765000, 23.558300);//self.currentLocation.coordinate;
+    plmrk.coordinate = self.currentLocation.coordinate;
     plmrk.title = @"Me";
     
     [self.mapView addAnnotation:plmrk];

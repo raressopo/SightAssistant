@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "Position.h"
+#import "Route.h"
+#import "UserRoutes.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [FIRApp configure];
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (error) {
@@ -36,6 +41,26 @@
         position.helped = [snapshot.value[@"isHelped"] boolValue];
         
         [[Position sharedInstance].positions addObject:position];
+    }];
+    
+    // Get all the routes from DB
+    [UserRoutes sharedInstance].routesOfAllUsers = [[NSMutableArray alloc] init];
+    FIRDatabaseReference *routesRef = [[FIRDatabase database] referenceWithPath:@"routes"];
+    [routesRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *routes = snapshot.value;
+        UserRoutes *userRoutes = [[UserRoutes alloc] init];
+        userRoutes.user = snapshot.key;
+        for (NSString *routeKey in routes.allKeys) {
+            Route *route = [[Route alloc] init];
+            route.destinationName = routeKey;
+            NSDictionary *location = [routes objectForKey:routeKey];
+            route.lat = [location objectForKey:@"latitude"];
+            route.lon = [location objectForKey:@"longitude"];
+            [userRoutes.allRoutes addObject:route];
+        }
+        [[UserRoutes sharedInstance].routesOfAllUsers addObject:userRoutes];
+        NSLog(@"---> %@",[UserRoutes sharedInstance].routesOfAllUsers);
+        
     }];
     
     return YES;
