@@ -12,6 +12,7 @@
 		8E0521CD1E70A253004BE271 /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */; };
 		8E1743331E3E028300828067 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1743321E3E028300828067 /* SignUpViewController.m */; };
 		8E1B42EC1E755DEB00733B3A /* UserRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EB1E755DEB00733B3A /* UserRoutes.m */; };
+		8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */; };
 		8E20FE2B1E4278E800A70870 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2A1E4278E800A70870 /* CoreLocation.framework */; };
 		8E20FE2D1E42947000A70870 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2C1E42947000A70870 /* MapKit.framework */; };
 		8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */; };
@@ -68,6 +69,8 @@
 		8E1743321E3E028300828067 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		8E1B42EA1E755DEB00733B3A /* UserRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRoutes.h; sourceTree = "<group>"; };
 		8E1B42EB1E755DEB00733B3A /* UserRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRoutes.m; sourceTree = "<group>"; };
+		8E1B42ED1E757C8C00733B3A /* CreateRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRouteViewController.h; sourceTree = "<group>"; };
+		8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateRouteViewController.m; sourceTree = "<group>"; };
 		8E20FE2A1E4278E800A70870 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8E20FE2C1E42947000A70870 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8E238D871E522BAE00E60F1A /* SeeAllBlindsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeAllBlindsTableViewController.h; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				8EEFDDCB1E54E0D400B54307 /* MapViewController.m */,
 				8E0521CB1E70A253004BE271 /* RoutesTableViewController.h */,
 				8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */,
+				8E1B42ED1E757C8C00733B3A /* CreateRouteViewController.h */,
+				8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
 				8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */,
 				8E1743331E3E028300828067 /* SignUpViewController.m in Sources */,
+				8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */,
 				8E1B42EC1E755DEB00733B3A /* UserRoutes.m in Sources */,
 				8E238D8C1E523E8200E60F1A /* Position.m in Sources */,
 				8E0521CD1E70A253004BE271 /* RoutesTableViewController.m in Sources */,

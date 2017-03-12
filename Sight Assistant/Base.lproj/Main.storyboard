@@ -176,6 +176,9 @@
                                     <constraint firstAttribute="width" constant="90" id="MmG-cF-EQo"/>
                                 </constraints>
                                 <state key="normal" title="Create Route"/>
+                                <connections>
+                                    <segue destination="ftA-bb-VbZ" kind="show" id="oKk-Bq-Mkc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,6 +212,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEv-XI-KXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1840.8" y="-615.74212893553226"/>
+        </scene>
+        <!--Create Route View Controller-->
+        <scene sceneID="Utk-wC-tEP">
+            <objects>
+                <viewController id="ftA-bb-VbZ" customClass="CreateRouteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="diK-39-8pM"/>
+                        <viewControllerLayoutGuide type="bottom" id="dC0-vK-0n9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aer-jn-jLi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Route name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bak-V1-Lsq">
+                                <rect key="frame" x="16" y="119" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Latitude" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeq-MH-Vub">
+                                <rect key="frame" x="16" y="157" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Longitude" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pSb-oY-lvr">
+                                <rect key="frame" x="16" y="195" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YXZ-j2-gZD">
+                                <rect key="frame" x="164" y="233" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="ZdO-E3-SlD"/>
+                                </constraints>
+                                <state key="normal" title="Create"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="Bak-V1-Lsq" secondAttribute="leading" id="35t-sE-KnC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zeq-MH-Vub" secondAttribute="trailing" id="5u1-tB-bWc"/>
+                            <constraint firstItem="pSb-oY-lvr" firstAttribute="top" secondItem="zeq-MH-Vub" secondAttribute="bottom" constant="8" id="8VN-jF-780"/>
+                            <constraint firstItem="zeq-MH-Vub" firstAttribute="top" secondItem="Bak-V1-Lsq" secondAttribute="bottom" constant="8" id="BCX-oT-ETb"/>
+                            <constraint firstItem="YXZ-j2-gZD" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="LSx-f8-9HA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Bak-V1-Lsq" secondAttribute="trailing" id="Nep-q0-oeP"/>
+                            <constraint firstItem="pSb-oY-lvr" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="RCc-k5-0IB"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="zeq-MH-Vub" secondAttribute="leading" id="W9m-G6-Soe"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="pSb-oY-lvr" secondAttribute="leading" id="ZMB-RC-Ei4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pSb-oY-lvr" secondAttribute="trailing" id="hfW-gN-mE9"/>
+                            <constraint firstItem="Bak-V1-Lsq" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="k5a-ZG-vel"/>
+                            <constraint firstItem="YXZ-j2-gZD" firstAttribute="top" secondItem="pSb-oY-lvr" secondAttribute="bottom" constant="8" id="m1N-GH-jN6"/>
+                            <constraint firstItem="zeq-MH-Vub" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="pFt-3C-VCU"/>
+                            <constraint firstItem="Bak-V1-Lsq" firstAttribute="top" secondItem="diK-39-8pM" secondAttribute="bottom" constant="55" id="y8m-Pg-qm1"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aMT-yw-ZTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2640.8000000000002" y="-1275.1124437781111"/>
         </scene>
         <!--Routes Table View Controller-->
         <scene sceneID="d9t-ov-Ne4">
