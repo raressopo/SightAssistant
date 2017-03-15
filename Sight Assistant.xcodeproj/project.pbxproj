@@ -21,6 +21,7 @@
 		8E548E1D1E411D9A00E9EE43 /* BlindSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */; };
 		8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */; };
 		8E548E241E412E0800E9EE43 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E548E231E412E0800E9EE43 /* User.m */; };
+		8E554BBF1E79C56F000571CE /* GetDestMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E554BBE1E79C56F000571CE /* GetDestMapViewController.m */; };
 		8E9251C21E350C9800003EA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C11E350C9800003EA6 /* main.m */; };
 		8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C41E350C9800003EA6 /* AppDelegate.m */; };
 		8E9251C81E350C9800003EA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9251C71E350C9800003EA6 /* ViewController.m */; };
@@ -84,6 +85,8 @@
 		8E548E1F1E41238200E9EE43 /* HelperSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelperSelectionViewController.m; sourceTree = "<group>"; };
 		8E548E221E412E0800E9EE43 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8E548E231E412E0800E9EE43 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8E554BBD1E79C56F000571CE /* GetDestMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDestMapViewController.h; sourceTree = "<group>"; };
+		8E554BBE1E79C56F000571CE /* GetDestMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDestMapViewController.m; sourceTree = "<group>"; };
 		8E9251BD1E350C9800003EA6 /* Sight Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sight Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9251C11E350C9800003EA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E9251C31E350C9800003EA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */,
 				8E1B42ED1E757C8C00733B3A /* CreateRouteViewController.h */,
 				8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */,
+				8E554BBD1E79C56F000571CE /* GetDestMapViewController.h */,
+				8E554BBE1E79C56F000571CE /* GetDestMapViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 			files = (
 				8E548E241E412E0800E9EE43 /* User.m in Sources */,
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
+				8E554BBF1E79C56F000571CE /* GetDestMapViewController.m in Sources */,
 				8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */,
 				8E1743331E3E028300828067 /* SignUpViewController.m in Sources */,
 				8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */,

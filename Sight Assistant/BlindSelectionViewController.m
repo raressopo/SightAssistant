@@ -41,9 +41,9 @@
     }
     
     self.viewWillAppearCheck = NO;
-    FIRDatabaseReference *isHelpedRef = [[[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName] child:@"isHelped"];
-    [isHelpedRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        if (self.viewWillAppearCheck) {
+    FIRDatabaseReference *isHelpedRef = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
+    [isHelpedRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if (self.viewWillAppearCheck && [snapshot.key isEqualToString:@"isHelped"]) {
             if ([snapshot.value isEqual:@(YES)]) {
                 [self helperAcceptNotification];
             } else {

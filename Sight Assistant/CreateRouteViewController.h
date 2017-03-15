@@ -7,7 +7,11 @@
 //
 
 #import "ViewController.h"
+#import <MapKit/MapKit.h>
+#import "GetDestMapViewController.h"
 
-@interface CreateRouteViewController : ViewController
+@interface CreateRouteViewController : ViewController <CreateRouteDelegate>
+
+@property (nonatomic, strong) CLLocation *location;
 
 @end
