@@ -14,8 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UISwitch *selectUserTypeSwitch;
-@property (weak, nonatomic) IBOutlet UILabel *userTypeLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *selectUserTypeSegment;
 
 @end
 
@@ -24,29 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.ref = [[FIRDatabase database] reference];
-    [self checkSwitchState];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)userType:(id)sender {
-    [self checkSwitchState];
-}
-
-- (void)checkSwitchState {
-    if (self.selectUserTypeSwitch.on) {
-        self.userTypeLabel.text = @"Helper";
-    } else {
-        self.userTypeLabel.text = @"Blind";
-    }
-    [self.userTypeLabel sizeToFit];
-}
-
 - (IBAction)signUp:(id)sender {
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.nameField.text];
-    NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @(self.selectUserTypeSwitch.on ? NO : YES)};
+    NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @(self.selectUserTypeSegment.selectedSegmentIndex == 0 ? NO : YES)};
     
     [newref setValue:post];
     

@@ -9,10 +9,12 @@
 #import "RoutesTableViewController.h"
 #import "UserRoutes.h"
 #import "User.h"
+#import "RouteMapViewController.h"
 
 @interface RoutesTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *userRoutes;
+@property (nonatomic) NSInteger currentRowSelected;
 
 @end
 
@@ -21,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.currentRowSelected = 0;
     self.userRoutes = [[NSMutableArray alloc] init];
     
     for (UserRoutes *user in [UserRoutes sharedInstance].routesOfAllUsers) {
@@ -50,6 +53,18 @@
     cell.textLabel.text = ((Route *)self.userRoutes[indexPath.row]).destinationName;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.currentRowSelected = indexPath.row;
+    [self performSegueWithIdentifier:@"route" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"route"]) {
+        RouteMapViewController *destinationVC = segue.destinationViewController;
+        destinationVC.route = self.userRoutes[self.currentRowSelected];
+    }
 }
 
 @end

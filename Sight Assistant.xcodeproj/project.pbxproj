@@ -10,6 +10,11 @@
 		07B88BB0C7230678806E39B2 /* libPods-Sight Assistant.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395BC7C38E81AA5E45E0522E /* libPods-Sight Assistant.a */; };
 		8E0521CA1E70A210004BE271 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0521C91E70A210004BE271 /* Route.m */; };
 		8E0521CD1E70A253004BE271 /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */; };
+		8E11C6BB1E7DEE6900F3308A /* AllObstaclesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E11C6BA1E7DEE6900F3308A /* AllObstaclesTableViewController.m */; };
+		8E11C6BE1E7DEE9600F3308A /* AddObstacleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E11C6BD1E7DEE9600F3308A /* AddObstacleMapViewController.m */; };
+		8E11C6C11E7DEEAE00F3308A /* SeeObstacleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E11C6C01E7DEEAE00F3308A /* SeeObstacleMapViewController.m */; };
+		8E11C6C41E7DEEC800F3308A /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E11C6C31E7DEEC800F3308A /* Obstacle.m */; };
+		8E171F121E7B1EE000D3E721 /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E171F111E7B1EE000D3E721 /* RouteMapViewController.m */; };
 		8E1743331E3E028300828067 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1743321E3E028300828067 /* SignUpViewController.m */; };
 		8E1B42EC1E755DEB00733B3A /* UserRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EB1E755DEB00733B3A /* UserRoutes.m */; };
 		8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */; };
@@ -66,6 +71,16 @@
 		8E0521C91E70A210004BE271 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		8E0521CB1E70A253004BE271 /* RoutesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesTableViewController.h; sourceTree = "<group>"; };
 		8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesTableViewController.m; sourceTree = "<group>"; };
+		8E11C6B91E7DEE6900F3308A /* AllObstaclesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllObstaclesTableViewController.h; sourceTree = "<group>"; };
+		8E11C6BA1E7DEE6900F3308A /* AllObstaclesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllObstaclesTableViewController.m; sourceTree = "<group>"; };
+		8E11C6BC1E7DEE9600F3308A /* AddObstacleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddObstacleMapViewController.h; sourceTree = "<group>"; };
+		8E11C6BD1E7DEE9600F3308A /* AddObstacleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddObstacleMapViewController.m; sourceTree = "<group>"; };
+		8E11C6BF1E7DEEAE00F3308A /* SeeObstacleMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeObstacleMapViewController.h; sourceTree = "<group>"; };
+		8E11C6C01E7DEEAE00F3308A /* SeeObstacleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeeObstacleMapViewController.m; sourceTree = "<group>"; };
+		8E11C6C21E7DEEC800F3308A /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
+		8E11C6C31E7DEEC800F3308A /* Obstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obstacle.m; sourceTree = "<group>"; };
+		8E171F101E7B1EE000D3E721 /* RouteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMapViewController.h; sourceTree = "<group>"; };
+		8E171F111E7B1EE000D3E721 /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
 		8E1743311E3E028300828067 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		8E1743321E3E028300828067 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		8E1B42EA1E755DEB00733B3A /* UserRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRoutes.h; sourceTree = "<group>"; };
@@ -152,9 +167,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8E171F131E7B1F1B00D3E721 /* MapViews */ = {
+			isa = PBXGroup;
+			children = (
+				8EEFDDCA1E54E0D400B54307 /* MapViewController.h */,
+				8EEFDDCB1E54E0D400B54307 /* MapViewController.m */,
+				8E554BBD1E79C56F000571CE /* GetDestMapViewController.h */,
+				8E554BBE1E79C56F000571CE /* GetDestMapViewController.m */,
+				8E171F101E7B1EE000D3E721 /* RouteMapViewController.h */,
+				8E171F111E7B1EE000D3E721 /* RouteMapViewController.m */,
+				8E11C6BC1E7DEE9600F3308A /* AddObstacleMapViewController.h */,
+				8E11C6BD1E7DEE9600F3308A /* AddObstacleMapViewController.m */,
+				8E11C6BF1E7DEEAE00F3308A /* SeeObstacleMapViewController.h */,
+				8E11C6C01E7DEEAE00F3308A /* SeeObstacleMapViewController.m */,
+			);
+			name = MapViews;
+			sourceTree = "<group>";
+		};
 		8E1743341E3E039900828067 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E171F131E7B1F1B00D3E721 /* MapViews */,
 				8E9251C61E350C9800003EA6 /* ViewController.h */,
 				8E9251C71E350C9800003EA6 /* ViewController.m */,
 				8E548E1E1E41238200E9EE43 /* HelperSelectionViewController.h */,
@@ -165,14 +198,12 @@
 				8E548E1C1E411D9A00E9EE43 /* BlindSelectionViewController.m */,
 				8E238D871E522BAE00E60F1A /* SeeAllBlindsTableViewController.h */,
 				8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */,
-				8EEFDDCA1E54E0D400B54307 /* MapViewController.h */,
-				8EEFDDCB1E54E0D400B54307 /* MapViewController.m */,
 				8E0521CB1E70A253004BE271 /* RoutesTableViewController.h */,
 				8E0521CC1E70A253004BE271 /* RoutesTableViewController.m */,
 				8E1B42ED1E757C8C00733B3A /* CreateRouteViewController.h */,
 				8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */,
-				8E554BBD1E79C56F000571CE /* GetDestMapViewController.h */,
-				8E554BBE1E79C56F000571CE /* GetDestMapViewController.m */,
+				8E11C6B91E7DEE6900F3308A /* AllObstaclesTableViewController.h */,
+				8E11C6BA1E7DEE6900F3308A /* AllObstaclesTableViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -188,6 +219,8 @@
 				8E0521C91E70A210004BE271 /* Route.m */,
 				8E1B42EA1E755DEB00733B3A /* UserRoutes.h */,
 				8E1B42EB1E755DEB00733B3A /* UserRoutes.m */,
+				8E11C6C21E7DEEC800F3308A /* Obstacle.h */,
+				8E11C6C31E7DEEC800F3308A /* Obstacle.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -560,12 +593,17 @@
 				8E548E241E412E0800E9EE43 /* User.m in Sources */,
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
 				8E554BBF1E79C56F000571CE /* GetDestMapViewController.m in Sources */,
+				8E11C6BE1E7DEE9600F3308A /* AddObstacleMapViewController.m in Sources */,
+				8E11C6C41E7DEEC800F3308A /* Obstacle.m in Sources */,
 				8E548E201E41238200E9EE43 /* HelperSelectionViewController.m in Sources */,
 				8E1743331E3E028300828067 /* SignUpViewController.m in Sources */,
 				8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */,
+				8E11C6BB1E7DEE6900F3308A /* AllObstaclesTableViewController.m in Sources */,
 				8E1B42EC1E755DEB00733B3A /* UserRoutes.m in Sources */,
+				8E171F121E7B1EE000D3E721 /* RouteMapViewController.m in Sources */,
 				8E238D8C1E523E8200E60F1A /* Position.m in Sources */,
 				8E0521CD1E70A253004BE271 /* RoutesTableViewController.m in Sources */,
+				8E11C6C11E7DEEAE00F3308A /* SeeObstacleMapViewController.m in Sources */,
 				8E9251C81E350C9800003EA6 /* ViewController.m in Sources */,
 				8E9251C51E350C9800003EA6 /* AppDelegate.m in Sources */,
 				8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */,
