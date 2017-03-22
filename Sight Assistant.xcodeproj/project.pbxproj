@@ -18,6 +18,7 @@
 		8E1743331E3E028300828067 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1743321E3E028300828067 /* SignUpViewController.m */; };
 		8E1B42EC1E755DEB00733B3A /* UserRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EB1E755DEB00733B3A /* UserRoutes.m */; };
 		8E1B42EF1E757C8C00733B3A /* CreateRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */; };
+		8E1FA7021E83148F00215C5C /* CreateObstacleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1FA7011E83148F00215C5C /* CreateObstacleViewController.m */; };
 		8E20FE2B1E4278E800A70870 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2A1E4278E800A70870 /* CoreLocation.framework */; };
 		8E20FE2D1E42947000A70870 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E20FE2C1E42947000A70870 /* MapKit.framework */; };
 		8E238D891E522BAE00E60F1A /* SeeAllBlindsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E238D881E522BAE00E60F1A /* SeeAllBlindsTableViewController.m */; };
@@ -87,6 +88,8 @@
 		8E1B42EB1E755DEB00733B3A /* UserRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRoutes.m; sourceTree = "<group>"; };
 		8E1B42ED1E757C8C00733B3A /* CreateRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRouteViewController.h; sourceTree = "<group>"; };
 		8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateRouteViewController.m; sourceTree = "<group>"; };
+		8E1FA7001E83148F00215C5C /* CreateObstacleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateObstacleViewController.h; sourceTree = "<group>"; };
+		8E1FA7011E83148F00215C5C /* CreateObstacleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateObstacleViewController.m; sourceTree = "<group>"; };
 		8E20FE2A1E4278E800A70870 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8E20FE2C1E42947000A70870 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8E238D871E522BAE00E60F1A /* SeeAllBlindsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeAllBlindsTableViewController.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				8E1B42EE1E757C8C00733B3A /* CreateRouteViewController.m */,
 				8E11C6B91E7DEE6900F3308A /* AllObstaclesTableViewController.h */,
 				8E11C6BA1E7DEE6900F3308A /* AllObstaclesTableViewController.m */,
+				8E1FA7001E83148F00215C5C /* CreateObstacleViewController.h */,
+				8E1FA7011E83148F00215C5C /* CreateObstacleViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E548E241E412E0800E9EE43 /* User.m in Sources */,
+				8E1FA7021E83148F00215C5C /* CreateObstacleViewController.m in Sources */,
 				8E9251CE1E350C9800003EA6 /* Sight_Assistant.xcdatamodeld in Sources */,
 				8E554BBF1E79C56F000571CE /* GetDestMapViewController.m in Sources */,
 				8E11C6BE1E7DEE9600F3308A /* AddObstacleMapViewController.m in Sources */,

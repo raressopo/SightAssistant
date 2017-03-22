@@ -10,6 +10,7 @@
 #import "Position.h"
 #import "Route.h"
 #import "UserRoutes.h"
+#import "Obstacle.h"
 
 @interface AppDelegate ()
 
@@ -59,8 +60,42 @@
             [userRoutes.allRoutes addObject:route];
         }
         [[UserRoutes sharedInstance].routesOfAllUsers addObject:userRoutes];
-        NSLog(@"---> %@",[UserRoutes sharedInstance].routesOfAllUsers);
+    }];
+    
+    // Get all the obstacles from DB
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"]];
+    
+    [Obstacle sharedInstance].allObstacles = [[NSMutableArray alloc] init];
+    FIRDatabaseReference *obstaclesRef = [[FIRDatabase database] referenceWithPath:@"obstacles"];
+    [obstaclesRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *obstacleDict = snapshot.value;
+        Obstacle *obstacle = [[Obstacle alloc] init];
+        obstacle.name = snapshot.key;
+        obstacle.date = [dateFormatter dateFromString:[obstacleDict objectForKey:@"date"]];
+        obstacle.shortDescription = [obstacleDict objectForKey:@"description"];
+        [obstacle setStartLatitude:[[obstacleDict objectForKey:@"start"] objectForKey:@"lat"] andLongitude:[[obstacleDict objectForKey:@"start"] objectForKey:@"lon"]];
+        [obstacle setEndLatitude:[[obstacleDict objectForKey:@"end"] objectForKey:@"lat"] andLongitude:[[obstacleDict objectForKey:@"end"] objectForKey:@"lon"]];
         
+        if ([[obstacleDict objectForKey:@"size"] isEqualToString:@"big"]) {
+            obstacle.size = BigObstacle;
+        } else if ([[obstacleDict objectForKey:@"size"] isEqualToString:@"long"]) {
+            obstacle.size = LongObstacle;
+        } else if ([[obstacleDict objectForKey:@"size"] isEqualToString:@"small"]) {
+            obstacle.size = SmallObstacle;
+        } else if ([[obstacleDict objectForKey:@"size"] isEqualToString:@"short"]) {
+            obstacle.size = ShortObstacle;
+        }
+        
+        if ([[obstacleDict objectForKey:@"type"] isEqualToString:@"crowded sidewalk"]) {
+            obstacle.type = CrowdedSidewalk;
+        } else if ([[obstacleDict objectForKey:@"type"] isEqualToString:@"heavy to pass"]) {
+            obstacle.type = HeavyToPass;
+        } else if ([[obstacleDict objectForKey:@"type"] isEqualToString:@"easy to pass"]) {
+            obstacle.type = EasyToPass;
+        }
+        [[Obstacle sharedInstance].allObstacles addObject:obstacle];
     }];
     
     return YES;

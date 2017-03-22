@@ -7,7 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "Obstacle.h"
 
-@interface SeeObstacleMapViewController : ViewController
+@interface SeeObstacleMapViewController : ViewController <MKMapViewDelegate>
+
+@property (nonatomic, assign) BOOL showAllObstacles;
+@property (nonatomic, strong) Obstacle *obstacle;
+@property (nonatomic, strong) NSMutableArray *obstacles;
 
 @end

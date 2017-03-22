@@ -7,6 +7,8 @@
 //
 
 #import "AllObstaclesTableViewController.h"
+#import "Obstacle.h"
+#import "SeeObstacleMapViewController.h"
 
 @interface AllObstaclesTableViewController ()
 
@@ -32,24 +34,21 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [Obstacle sharedInstance].allObstacles.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"obstacleCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    cell.textLabel.text = ((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).name;
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -85,14 +84,16 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showAllObstacles"]) {
+        SeeObstacleMapViewController *destinationVC = segue.destinationViewController;
+        
+        destinationVC.showAllObstacles = YES;
+        destinationVC.obstacles = [Obstacle sharedInstance].allObstacles;
+    }
 }
-*/
 
 @end
