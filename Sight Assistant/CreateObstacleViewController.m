@@ -9,13 +9,14 @@
 #import "CreateObstacleViewController.h"
 
 @interface CreateObstacleViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *obstacleNameField;
 @property (weak, nonatomic) IBOutlet UITextField *obstacleShortDescriptionField;
 @property (weak, nonatomic) IBOutlet UITextField *obstacleTypeField;
 @property (weak, nonatomic) IBOutlet UITextField *obstacleSizeField;
 @property (weak, nonatomic) IBOutlet UIPickerView *sizeOrTypePicker;
-@property (nonatomic, assign) BOOL sizeWasPresserd;
-@property (nonatomic, assign) BOOL typeWasPresserd;
+@property (nonatomic, assign) BOOL sizeWasPressed;
+@property (nonatomic, assign) BOOL typeWasPressed;
 @property (nonatomic, strong) NSArray *obstacleType;
 @property (nonatomic, strong) NSArray *obstacleSize;
 @property (weak, nonatomic) IBOutlet UITextField *longCoordField;
@@ -28,6 +29,15 @@
 @property (weak, nonatomic) IBOutlet UITextField *endLongitudeField;
 @property (weak, nonatomic) IBOutlet UIButton *getEndLocation;
 @property (nonatomic, assign) BOOL isBigOrLongObstacle;
+@property (weak, nonatomic) IBOutlet UIView *pickerView;
+
+@property (nonatomic, assign) BOOL isSmallObstacle;
+@property (nonatomic, assign) BOOL isStartOfTheObstacle;
+@property (nonatomic, assign) BOOL isEndOfTheObstacle;
+
+@property (nonatomic, strong) CLLocation *smallObstacle;
+@property (nonatomic, strong) CLLocation *startOfTheObstacle;
+@property (nonatomic, strong) CLLocation *endOfTheObstacle;
 
 @end
 
@@ -41,37 +51,50 @@
      self.obstacleType = @[@"crowded sidewalk", @"heavy to pass", @"easy to pass"];
      self.obstacleSize = @[@"big", @"long", @"small", @"short"];
     
-    self.sizeWasPresserd = NO;
-    self.typeWasPresserd = NO;
+    self.sizeWasPressed = NO;
+    self.typeWasPressed = NO;
     
-    self.sizeOrTypePicker.hidden = YES;
+    self.pickerView.hidden = YES;
     
     if (!self.isBigOrLongObstacle) {
-        self.startLatitudeField.hidden = YES;
-        self.startLongitudeField.hidden = YES;
-        self.getStartLocation.hidden = YES;
-        self.endLatitudeField.hidden = YES;
-        self.endLongitudeField.hidden = YES;
-        self.getEndLocation.hidden = YES;
+        [self hideStartEndCoordFields:YES];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.isSmallObstacle) {
+        self.latCoordField.text = [NSString stringWithFormat:@"%.8f", self.smallObstacle.coordinate.latitude];
+        self.longCoordField.text = [NSString stringWithFormat:@"%.8f", self.smallObstacle.coordinate.longitude];
+    } else if (self.isStartOfTheObstacle) {
+        self.startLatitudeField.text = [NSString stringWithFormat:@"%.8f", self.startOfTheObstacle.coordinate.latitude];
+        self.startLongitudeField.text = [NSString stringWithFormat:@"%.8f", self.startOfTheObstacle.coordinate.longitude];
+    } else if (self.isEndOfTheObstacle) {
+        self.endLatitudeField.text = [NSString stringWithFormat:@"%.8f", self.endOfTheObstacle.coordinate.latitude];
+        self.endLongitudeField.text = [NSString stringWithFormat:@"%.8f", self.endOfTheObstacle.coordinate.longitude];
+    }
+    
+    self.isSmallObstacle = NO;
+    self.isStartOfTheObstacle = NO;
+    self.isEndOfTheObstacle = NO;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)selectObstacleType:(id)sender {
-    self.typeWasPresserd = YES;
-    self.sizeOrTypePicker.hidden = NO;
+    self.typeWasPressed = YES;
+    self.pickerView.hidden = NO;
     self.sizeOrTypePicker.delegate = self;
     self.sizeOrTypePicker.dataSource = self;
 }
 
 - (IBAction)selectObstaceSize:(id)sender {
-    self.view.alpha = 0.5;
-    self.sizeWasPresserd = YES;
-    self.sizeOrTypePicker.hidden = NO;
+//    self.view.alpha = 0.5;
+    self.sizeWasPressed = YES;
+    self.pickerView.hidden = NO;
     self.sizeOrTypePicker.delegate = self;
     self.sizeOrTypePicker.dataSource = self;
 }
@@ -83,9 +106,9 @@
 
 // The number of rows of data
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (self.sizeWasPresserd) {
+    if (self.sizeWasPressed) {
         return self.obstacleSize.count;
-    } else if (self.typeWasPresserd) {
+    } else if (self.typeWasPressed) {
         return self.obstacleType.count;
     }
     
@@ -94,9 +117,9 @@
 
 // The data to return for the row and component (column) that's being passed in
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (self.sizeWasPresserd) {
+    if (self.sizeWasPressed) {
         return self.obstacleSize[row];
-    } else if (self.typeWasPresserd) {
+    } else if (self.typeWasPressed) {
         return self.obstacleType[row];
     }
     
@@ -104,63 +127,92 @@
 }
 
 // Catpure the picker view selection
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    // This method is triggered whenever the user makes a change to the picker selection.
-    // The parameter named row and component represents what was selected.
-    if (self.sizeWasPresserd) {
-        self.sizeWasPresserd = NO;
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (self.sizeWasPressed) {
+        self.sizeWasPressed = NO;
         self.obstacleSizeField.text = self.obstacleSize[row];
-        self.sizeOrTypePicker.hidden = YES;
+        self.pickerView.hidden = YES;
         
         if ([self.obstacleSize[row] isEqualToString:@"big"] || [self.obstacleSize[row] isEqualToString:@"long"]) {
-            self.startLatitudeField.hidden = NO;
-            self.startLongitudeField.hidden = NO;
-            self.getStartLocation.hidden = NO;
-            self.endLatitudeField.hidden = NO;
-            self.endLongitudeField.hidden = NO;
-            self.getEndLocation.hidden = NO;
-            
-            self.latCoordField.hidden = YES;
-            self.longCoordField.hidden = YES;
-            self.getLocationButton.hidden = YES;
-            
-            self.isBigOrLongObstacle = YES;
+            [self hideCoordFields:NO];
         } else {
-            self.startLatitudeField.hidden = YES;
-            self.startLongitudeField.hidden = YES;
-            self.getStartLocation.hidden = YES;
-            self.endLatitudeField.hidden = YES;
-            self.endLongitudeField.hidden = YES;
-            self.getEndLocation.hidden = YES;
-            
-            self.latCoordField.hidden = NO;
-            self.longCoordField.hidden = NO;
-            self.getLocationButton.hidden = NO;
-            
-            self.isBigOrLongObstacle = NO;
+            [self hideCoordFields:YES];
         }
         
         self.sizeOrTypePicker.delegate = nil;
         self.sizeOrTypePicker.dataSource = nil;
-    } else if (self.typeWasPresserd) {
-        self.typeWasPresserd = NO;
+    } else if (self.typeWasPressed) {
+        self.typeWasPressed = NO;
         self.obstacleTypeField.text = self.obstacleType[row];
-        self.sizeOrTypePicker.hidden = YES;
+        self.pickerView.hidden = YES;
         
         self.sizeOrTypePicker.delegate = nil;
         self.sizeOrTypePicker.dataSource = nil;
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)hideStartEndCoordFields:(BOOL)hidden {
+    self.startLatitudeField.hidden = hidden;
+    self.startLongitudeField.hidden = hidden;
+    self.getStartLocation.hidden = hidden;
+    
+    self.endLatitudeField.hidden = hidden;
+    self.endLongitudeField.hidden = hidden;
+    self.getEndLocation.hidden = hidden;
 }
-*/
+
+- (void)hideCoordFields:(BOOL)hidden {
+    [self hideStartEndCoordFields:hidden];
+    
+    self.latCoordField.hidden = !hidden;
+    self.longCoordField.hidden = !hidden;
+    self.getLocationButton.hidden = !hidden;
+    
+    self.isBigOrLongObstacle = !hidden;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    AddObstacleMapViewController *controller = segue.destinationViewController;
+    controller.delegate = self;
+    
+    if ([segue.identifier isEqualToString:@"smallObst"]) {
+        controller.isSmallObstacle = YES;
+        self.isSmallObstacle = YES;
+    } else if ([segue.identifier isEqualToString:@"startObst"]) {
+        controller.isStartOfTheObstacle = YES;
+        self.isStartOfTheObstacle = YES;
+    } else if ([segue.identifier isEqualToString:@"endObst"]) {
+        controller.isEndOfTheObstacle = YES;
+        self.isEndOfTheObstacle = YES;
+    }
+}
+
+- (void)setCreatedLocationWIthLatitude:(CLLocation *)location withType:(NSString *)type {
+    if ([type isEqualToString:@"small"]) {
+        self.smallObstacle = location;
+    } else if ([type isEqualToString:@"start"]) {
+        self.startOfTheObstacle = location;
+    } else if ([type isEqualToString:@"end"]) {
+        self.endOfTheObstacle = location;
+    }
+}
+
+- (IBAction)addObstacle:(id)sender {
+    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"obstacles"] child:self.obstacleNameField.text];
+    NSDictionary *post = @{@"name": self.obstacleNameField.text,
+                           @"description": self.obstacleShortDescriptionField.text,
+                           @"type": self.obstacleTypeField.text,
+                           @"size": self.obstacleSizeField.text,
+                           @"date": [NSString stringWithFormat:@"%@", [NSDate date]],
+                           @"start": @{@"lat": self.startOfTheObstacle ? self.startLatitudeField.text : self.latCoordField.text,
+                                       @"lon": self.startOfTheObstacle ? self.startLongitudeField.text : self.longCoordField.text},
+                           @"end": @{@"lat": self.endOfTheObstacle ? self.endLatitudeField.text : self.latCoordField.text,
+                                     @"lon": self.endOfTheObstacle ? self.endLongitudeField.text : self.longCoordField.text}};
+    
+    [newref setValue:post];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
 
 @end

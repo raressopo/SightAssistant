@@ -10,6 +10,8 @@
 
 @interface AddObstacleMapViewController ()
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
 @end
 
 @implementation AddObstacleMapViewController
@@ -19,11 +21,39 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.isSmallObstacle = NO;
+    self.isStartOfTheObstacle = NO;
+    self.isEndOfTheObstacle = NO;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    CGPoint point = [[touches anyObject] locationInView:self.mapView];
+    CLLocationCoordinate2D selectedLocation = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:selectedLocation.latitude longitude:selectedLocation.longitude];
+    
+    if (self.isSmallObstacle) {
+        [[self delegate] setCreatedLocationWIthLatitude:loc withType:@"small"];
+    } else if (self.isStartOfTheObstacle) {
+        [[self delegate] setCreatedLocationWIthLatitude:loc withType:@"start"];
+    } else if (self.isEndOfTheObstacle) {
+        [[self delegate] setCreatedLocationWIthLatitude:loc withType:@"end"];
+    }
+    
+    MKPointAnnotation *placemark = [[MKPointAnnotation alloc] init];
+    
+    placemark.coordinate = loc.coordinate;
+    
+    [self.mapView addAnnotation:placemark];
+    [self.mapView selectAnnotation:placemark animated:YES];
+}
 /*
 #pragma mark - Navigation
 

@@ -7,7 +7,20 @@
 //
 
 #import "ViewController.h"
+#import <MapKit/MapKit.h>
+
+@protocol CreateObstacleDelegate <NSObject>
+
+- (void)setCreatedLocationWIthLatitude:(CLLocation *)location withType:(NSString *)type;
+
+@end
 
 @interface AddObstacleMapViewController : ViewController
+
+@property (nonatomic, assign) BOOL isSmallObstacle;
+@property (nonatomic, assign) BOOL isStartOfTheObstacle;
+@property (nonatomic, assign) BOOL isEndOfTheObstacle;
+
+@property (nonatomic, strong) id<CreateObstacleDelegate> delegate;
 
 @end

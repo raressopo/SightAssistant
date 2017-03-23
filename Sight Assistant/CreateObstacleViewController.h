@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "AddObstacleMapViewController.h"
+#import <FirebaseDatabase/FirebaseDatabase.h>
 
-@interface CreateObstacleViewController : ViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface CreateObstacleViewController : ViewController <UIPickerViewDelegate, UIPickerViewDataSource, CreateObstacleDelegate>
 
 @end
