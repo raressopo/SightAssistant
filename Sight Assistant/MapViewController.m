@@ -11,7 +11,8 @@
 NSInteger const radius = 10000;
 
 @interface MapViewController ()
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocation *userPosition;
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic) double regionCenterLat;

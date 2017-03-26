@@ -12,6 +12,10 @@
 
 @interface AllObstaclesTableViewController ()
 
+@property (nonatomic, strong) CLLocation *startOfObstacle;
+@property (nonatomic, strong) CLLocation *endOfObstacle;
+@property (nonatomic, strong) CLLocation *smallObstacle;
+
 @end
 
 @implementation AllObstaclesTableViewController
@@ -49,6 +53,16 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == SmallObstacle || ((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == ShortObstacle) {
+        self.smallObstacle = [[CLLocation alloc] initWithLatitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.latitude longitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.longitude];
+        [self performSegueWithIdentifier:@"seeOneObstacle" sender:self];
+    } else if (((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == BigObstacle || ((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == LongObstacle) {
+        self.startOfObstacle = [[CLLocation alloc] initWithLatitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.latitude longitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.longitude];
+        self.endOfObstacle = [[CLLocation alloc] initWithLatitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).end.coordinate.latitude longitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).end.coordinate.longitude];
+        [self performSegueWithIdentifier:@"seeOneObstacle" sender:self];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -88,11 +102,18 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showAllObstacles"]) {
-        SeeObstacleMapViewController *destinationVC = segue.destinationViewController;
-        
+    SeeObstacleMapViewController *destinationVC = segue.destinationViewController;
+    
+    if ([segue.identifier isEqualToString:@"seeAllObst"]) {
         destinationVC.showAllObstacles = YES;
         destinationVC.obstacles = [Obstacle sharedInstance].allObstacles;
+    } else if ([segue.identifier isEqualToString:@"seeOneObstacle"]) {
+        if (self.smallObstacle) {
+            destinationVC.smallObstacle = self.smallObstacle;
+        } else if (self.startOfObstacle && self.endOfObstacle) {
+            destinationVC.startOfObstacle = self.startOfObstacle;
+            destinationVC.endOfObstacle = self.endOfObstacle;
+        }
     }
 }
 

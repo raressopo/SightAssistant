@@ -15,11 +15,15 @@
 
 @end
 
-@interface AddObstacleMapViewController : ViewController
+@interface AddObstacleMapViewController : ViewController <MKMapViewDelegate>
 
 @property (nonatomic, assign) BOOL isSmallObstacle;
 @property (nonatomic, assign) BOOL isStartOfTheObstacle;
 @property (nonatomic, assign) BOOL isEndOfTheObstacle;
+
+@property (nonatomic, strong) CLLocation *startOfObstacle;
+@property (nonatomic, strong) CLLocation *endOfObstacle;
+@property (nonatomic, strong) CLLocation *obstacle;
 
 @property (nonatomic, strong) id<CreateObstacleDelegate> delegate;
 
