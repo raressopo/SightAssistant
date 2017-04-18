@@ -54,6 +54,7 @@
 
 
 # pragma mark - View methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -112,20 +113,32 @@
 }
 
 - (IBAction)addObstacle:(id)sender {
-    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"obstacles"] child:self.obstacleNameField.text];
-    NSDictionary *post = @{@"name": self.obstacleNameField.text,
-                           @"description": self.obstacleShortDescriptionField.text,
-                           @"type": self.obstacleTypeField.text,
-                           @"size": self.obstacleSizeField.text,
-                           @"date": [NSString stringWithFormat:@"%@", [NSDate date]],
-                           @"start": @{@"lat": self.startOfTheObstacle ? self.startLatitudeField.text : self.latCoordField.text,
-                                       @"lon": self.startOfTheObstacle ? self.startLongitudeField.text : self.longCoordField.text},
-                           @"end": @{@"lat": self.endOfTheObstacle ? self.endLatitudeField.text : self.latCoordField.text,
-                                     @"lon": self.endOfTheObstacle ? self.endLongitudeField.text : self.longCoordField.text}};
-    
-    [newref setValue:post];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([self checkIfAllFieldsArePopulated]) {
+        FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"obstacles"] child:self.obstacleNameField.text];
+        NSDictionary *post = @{@"name": self.obstacleNameField.text,
+                               @"description": self.obstacleShortDescriptionField.text,
+                               @"type": self.obstacleTypeField.text,
+                               @"size": self.obstacleSizeField.text,
+                               @"date": [NSString stringWithFormat:@"%@", [NSDate date]],
+                               @"start": @{@"lat": self.startOfTheObstacle ? self.startLatitudeField.text : self.latCoordField.text,
+                                           @"lon": self.startOfTheObstacle ? self.startLongitudeField.text : self.longCoordField.text},
+                               @"end": @{@"lat": self.endOfTheObstacle ? self.endLatitudeField.text : self.latCoordField.text,
+                                         @"lon": self.endOfTheObstacle ? self.endLongitudeField.text : self.longCoordField.text}};
+        
+        [newref setValue:post];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Uncomplete information"
+                                                                       message:@"Please don't let blank fields without information!"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
     
 }
 
@@ -179,6 +192,8 @@
     }
 }
 
+#pragma mark - Helper methods
+
 - (void)hideStartEndCoordFields:(BOOL)hidden {
     self.startLatitudeField.hidden = hidden;
     self.startLongitudeField.hidden = hidden;
@@ -221,7 +236,6 @@
                 controller.endOfObstacle = self.endOfTheObstacle;
             }
         } else {
-            // TODO: add alert if the fields are not populated
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Uncomplete information"
                                                                            message:@"Please don't let blank fields without information!"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -247,7 +261,7 @@
 
 - (BOOL)checkIfAllFieldsArePopulated {
     if (!self.getLocationButton.hidden) {
-        return self.obstacleNameField.text && self.obstacleShortDescriptionField.text && self.obstacleTypeField.text && self.obstacleSizeField.text && self.latCoordField.text && self.longCoordField.text;
+        return self.obstacleNameField.text.length && self.obstacleShortDescriptionField.text.length && self.obstacleTypeField.text.length && self.obstacleSizeField.text.length && self.latCoordField.text.length && self.longCoordField.text.length;
     } else {
         return self.obstacleNameField.text && self.obstacleShortDescriptionField.text && self.obstacleTypeField.text && self.obstacleSizeField.text && self.startLatitudeField.text &&self.startLongitudeField.text && self.endLatitudeField.text && self.endLongitudeField.text;
     }

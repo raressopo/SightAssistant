@@ -800,11 +800,11 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKi-rQ-1Cy">
-                                <rect key="frame" x="16" y="597" width="104" height="50"/>
+                                <rect key="frame" x="16" y="597" width="103" height="51"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="cln-cf-lod"/>
-                                    <constraint firstAttribute="width" constant="104" id="mBz-t7-alE"/>
+                                    <constraint firstAttribute="height" constant="51" id="cln-cf-lod"/>
+                                    <constraint firstAttribute="width" constant="103" id="mBz-t7-alE"/>
                                 </constraints>
                                 <state key="normal" title="Accept"/>
                                 <userDefinedRuntimeAttributes>
@@ -834,10 +834,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tl5-OJ-Uo3">
-                                <rect key="frame" x="128" y="597" width="120" height="49"/>
+                                <rect key="frame" x="136" y="597" width="103" height="51"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="TvD-LL-YtQ"/>
+                                    <constraint firstAttribute="height" constant="51" id="TvD-LL-YtQ"/>
+                                    <constraint firstAttribute="width" constant="103" id="t15-7G-3es"/>
                                 </constraints>
                                 <state key="normal" title="Job Done"/>
                                 <userDefinedRuntimeAttributes>
@@ -853,9 +854,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="centerX" secondItem="aL6-9O-y7a" secondAttribute="centerX" id="5zN-NL-Vo9"/>
-                            <constraint firstItem="c1N-KD-lU7" firstAttribute="leading" secondItem="Tl5-OJ-Uo3" secondAttribute="trailing" constant="8" id="B4x-G2-M2A"/>
-                            <constraint firstItem="nSP-3b-UKt" firstAttribute="leading" secondItem="EKi-rQ-1Cy" secondAttribute="trailing" constant="-120" id="Bwh-9A-R9a"/>
-                            <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="leading" secondItem="EKi-rQ-1Cy" secondAttribute="trailing" constant="8" id="JHz-LC-7ej"/>
+                            <constraint firstItem="nSP-3b-UKt" firstAttribute="leading" secondItem="EKi-rQ-1Cy" secondAttribute="trailing" constant="-119" id="Bwh-9A-R9a"/>
                             <constraint firstItem="c1N-KD-lU7" firstAttribute="top" secondItem="nSP-3b-UKt" secondAttribute="bottom" constant="-70" id="M5v-2a-cPC"/>
                             <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="top" secondItem="nSP-3b-UKt" secondAttribute="bottom" constant="-70" id="OtO-B7-E1T"/>
                             <constraint firstItem="nSP-3b-UKt" firstAttribute="leading" secondItem="aL6-9O-y7a" secondAttribute="leading" id="TXT-eM-Baq"/>
