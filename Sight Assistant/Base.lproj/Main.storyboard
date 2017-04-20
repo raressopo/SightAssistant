@@ -60,7 +60,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -909,7 +909,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSJ-69-86F">
                                 <rect key="frame" x="158" y="387" width="59" height="30"/>
@@ -928,8 +928,14 @@
                                     <action selector="cancelPressed:" destination="oCf-VY-FY3" eventType="touchUpInside" id="J7F-St-sNe"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TyG-Of-h56">
+                                <rect key="frame" x="58" y="279" width="259" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aIJ-EJ-NFY">
-                                <rect key="frame" x="110" y="279" width="155" height="29"/>
+                                <rect key="frame" x="110" y="317" width="155" height="29"/>
                                 <segments>
                                     <segment title="Helper"/>
                                     <segment title="Blind"/>
@@ -940,12 +946,12 @@
                         <constraints>
                             <constraint firstItem="Kw2-gJ-d5V" firstAttribute="top" secondItem="xfa-FT-C6f" secondAttribute="bottom" constant="145" id="0Q0-th-XpB"/>
                             <constraint firstItem="ONB-NC-PfS" firstAttribute="centerX" secondItem="gBP-Zt-oyY" secondAttribute="centerX" id="7UJ-FC-YjR"/>
-                            <constraint firstItem="aIJ-EJ-NFY" firstAttribute="top" secondItem="ONB-NC-PfS" secondAttribute="bottom" constant="8" id="A7E-cF-PrQ"/>
                             <constraint firstItem="wSJ-69-86F" firstAttribute="centerX" secondItem="gBP-Zt-oyY" secondAttribute="centerX" id="FRp-OF-S20"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rHi-fy-1hj" secondAttribute="trailing" constant="42" id="HNA-nz-l6r"/>
                             <constraint firstItem="rHi-fy-1hj" firstAttribute="top" secondItem="Kw2-gJ-d5V" secondAttribute="bottom" constant="8" id="Jc6-5L-DGy"/>
                             <constraint firstItem="rHi-fy-1hj" firstAttribute="centerX" secondItem="gBP-Zt-oyY" secondAttribute="centerX" id="RFT-i8-efd"/>
                             <constraint firstItem="Kw2-gJ-d5V" firstAttribute="centerX" secondItem="gBP-Zt-oyY" secondAttribute="centerX" id="UCu-Mh-Y5w"/>
+                            <constraint firstItem="TyG-Of-h56" firstAttribute="top" secondItem="ONB-NC-PfS" secondAttribute="bottom" constant="8" id="UkB-DV-T52"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kw2-gJ-d5V" secondAttribute="trailing" constant="42" id="VEc-Ku-wwS"/>
                             <constraint firstItem="Kw2-gJ-d5V" firstAttribute="leading" secondItem="gBP-Zt-oyY" secondAttribute="leadingMargin" constant="42" id="c5W-4U-c2d"/>
                             <constraint firstItem="rqW-h0-3i0" firstAttribute="centerX" secondItem="gBP-Zt-oyY" secondAttribute="centerX" id="cby-qz-hDX"/>
@@ -954,13 +960,17 @@
                             <constraint firstItem="ONB-NC-PfS" firstAttribute="top" secondItem="rHi-fy-1hj" secondAttribute="bottom" constant="8" id="gwM-rX-EXC"/>
                             <constraint firstItem="rHi-fy-1hj" firstAttribute="leading" secondItem="gBP-Zt-oyY" secondAttribute="leadingMargin" constant="42" id="oRc-39-wKp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aIJ-EJ-NFY" secondAttribute="trailing" constant="94" id="rpX-o0-4aj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TyG-Of-h56" secondAttribute="trailing" constant="42" id="suQ-N0-qM8"/>
+                            <constraint firstItem="aIJ-EJ-NFY" firstAttribute="top" secondItem="TyG-Of-h56" secondAttribute="bottom" constant="8" id="szu-wj-4Lr"/>
                             <constraint firstItem="rqW-h0-3i0" firstAttribute="top" secondItem="wSJ-69-86F" secondAttribute="bottom" constant="8" id="tYa-tq-PAz"/>
                             <constraint firstItem="aIJ-EJ-NFY" firstAttribute="leading" secondItem="gBP-Zt-oyY" secondAttribute="leadingMargin" constant="94" id="taU-hs-PDt"/>
+                            <constraint firstItem="TyG-Of-h56" firstAttribute="leading" secondItem="gBP-Zt-oyY" secondAttribute="leadingMargin" constant="42" id="xpk-ac-WLK"/>
                             <constraint firstItem="ONB-NC-PfS" firstAttribute="leading" secondItem="gBP-Zt-oyY" secondAttribute="leadingMargin" constant="42" id="yDg-k0-QyV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ONB-NC-PfS" secondAttribute="trailing" constant="42" id="zxf-Xy-E5m"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="confirmPasswordField" destination="TyG-Of-h56" id="IgG-GR-OWz"/>
                         <outlet property="nameField" destination="Kw2-gJ-d5V" id="Cga-Xm-Hsd"/>
                         <outlet property="passwordField" destination="ONB-NC-PfS" id="5eA-0W-pb3"/>
                         <outlet property="selectUserTypeSegment" destination="aIJ-EJ-NFY" id="ThB-yu-asA"/>
@@ -1013,8 +1023,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="APt-Sr-dbf"/>
-        <segue reference="kuU-PQ-PQk"/>
+        <segue reference="tzP-wZ-p1w"/>
         <segue reference="3wX-dD-suT"/>
+        <segue reference="APt-Sr-dbf"/>
     </inferredMetricsTieBreakers>
 </document>

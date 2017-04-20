@@ -44,16 +44,32 @@
 #pragma mark - Button actions
 
 - (IBAction)login:(id)sender {
+    __block BOOL isUserInDB = NO;
+    
     for (User *user in [User sharedInstance].users) {
         if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && user.blind) {
+            isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
             [self performSegueWithIdentifier:@"blind" sender:sender];
             return;
         } else if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && !user.blind) {
+            isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
             [self performSegueWithIdentifier:@"helper" sender:sender];
             return;
         }
+    }
+    
+    if (!isUserInDB) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                       message:@"Your username or password is incorrect!"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
