@@ -26,6 +26,9 @@
         self.user = [[NSString alloc] init];
         self.lat = [[NSString alloc] init];
         self.lon = [[NSString alloc] init];
+        self.helpedBy = [[NSString alloc] init];
+        self.rating = 0;
+        self.rated = NO;
         self.helped = NO;
     }
     return self;

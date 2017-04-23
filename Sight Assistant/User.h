@@ -14,12 +14,13 @@
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, assign) BOOL blind;
-@property (nonatomic, assign) BOOL helped;
+@property (nonatomic, assign) NSUInteger rating;
 
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) NSString *currentUserName;
+@property (nonatomic, assign) NSUInteger currentUserRate;
 
-- (instancetype)initWithName:(NSString *)name withUserName:(NSString *)userName withPass:(NSString *)password isBlind:(BOOL)blind isHelped:(BOOL)helped;
+- (instancetype)initWithName:(NSString *)name withUserName:(NSString *)userName withPass:(NSString *)password isBlind:(BOOL)blind withRating:(NSUInteger)rating;
 + (instancetype)sharedInstance;
 
 @end

@@ -149,13 +149,14 @@
     self.lat.text = [NSString stringWithFormat:@"%.8f", self.currentLocation.coordinate.latitude];
     self.longit.text = [NSString stringWithFormat:@"%.8f", self.currentLocation.coordinate.longitude];
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
-    NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text, @"isHelped": @(NO)};
+    NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text, @"helpedBy": @"nobody", @"rated": @(NO), @"isHelped": @(NO), @"rating": @(0)};
     [newref setValue:post];
 
 }
 
 - (IBAction)signOut:(id)sender {
     [User sharedInstance].currentUserName = @"";
+    [User sharedInstance].currentUserRate = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -29,19 +29,19 @@
         self.password = [[NSString alloc] init];
         self.currentUserName = [[NSString alloc] init];
         self.blind = NO;
-        self.helped = NO;
+        self.rating = 0;
     }
     return self;
 }
 
-- (instancetype)initWithName:(NSString *)name withUserName:(NSString *)userName withPass:(NSString *)password isBlind:(BOOL)blind isHelped:(BOOL)isHelped {
+- (instancetype)initWithName:(NSString *)name withUserName:(NSString *)userName withPass:(NSString *)password isBlind:(BOOL)blind withRating:(NSUInteger)rating {
     self = [super init];
     if (self) {
         self.name = name;
         self.userName = userName;
         self.password = password;
         self.blind = blind;
-        self.helped = isHelped;
+        self.rating = rating;
     }
     return self;
 }

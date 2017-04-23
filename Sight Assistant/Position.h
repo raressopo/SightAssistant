@@ -13,7 +13,10 @@
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) NSString *lat;
 @property (nonatomic, strong) NSString *lon;
-@property (nonatomic) BOOL helped;
+@property (nonatomic, strong) NSString *helpedBy;
+@property (nonatomic, assign) NSUInteger rating;
+@property (nonatomic, assign) BOOL rated;
+@property (nonatomic, assign) BOOL helped;
 
 // All positions from DB of all blind users that need help
 @property (nonatomic, strong) NSMutableArray *positions;

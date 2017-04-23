@@ -833,6 +833,10 @@
                                     <action selector="declinePressed:" destination="QAr-i6-3fY" eventType="touchUpInside" id="tj6-BK-0KY"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJ9-lf-SRk">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tl5-OJ-Uo3">
                                 <rect key="frame" x="136" y="597" width="103" height="51"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -847,28 +851,91 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="acceptPressed:" destination="QAr-i6-3fY" eventType="touchUpInside" id="j5F-xZ-o4I"/>
+                                    <action selector="jobDonePressed:" destination="QAr-i6-3fY" eventType="touchUpInside" id="ooS-la-OfX"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYt-JM-8qZ">
+                                <rect key="frame" x="16" y="445" width="343" height="144"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please rate how the user interacted with you:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytm-2d-2Uk">
+                                        <rect key="frame" x="51" y="8" width="252" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="1tv-DL-Doy"/>
+                                            <constraint firstAttribute="width" constant="252" id="cRX-5g-i84"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0lb-yC-bSj">
+                                        <rect key="frame" x="8" y="70" width="327" height="29"/>
+                                        <segments>
+                                            <segment title="1"/>
+                                            <segment title="2"/>
+                                            <segment title="3"/>
+                                            <segment title="4"/>
+                                            <segment title="5"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGH-uT-gCF">
+                                        <rect key="frame" x="148" y="106" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="OjL-mA-joH"/>
+                                        </constraints>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendRatingPressed:" destination="QAr-i6-3fY" eventType="touchUpInside" id="9Gy-IB-LgD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="0lb-yC-bSj" secondAttribute="trailing" constant="8" id="8ce-DN-wUY"/>
+                                    <constraint firstItem="Ytm-2d-2Uk" firstAttribute="top" secondItem="iYt-JM-8qZ" secondAttribute="top" constant="8" id="XZP-im-VNm"/>
+                                    <constraint firstItem="qGH-uT-gCF" firstAttribute="centerX" secondItem="iYt-JM-8qZ" secondAttribute="centerX" id="fMi-4W-7FH"/>
+                                    <constraint firstItem="Ytm-2d-2Uk" firstAttribute="centerX" secondItem="iYt-JM-8qZ" secondAttribute="centerX" constant="5.5" id="lIY-H4-ne7"/>
+                                    <constraint firstItem="0lb-yC-bSj" firstAttribute="leading" secondItem="iYt-JM-8qZ" secondAttribute="leading" constant="8" id="liD-fQ-cgp"/>
+                                    <constraint firstAttribute="height" constant="144" id="v5D-k1-CCO"/>
+                                    <constraint firstItem="0lb-yC-bSj" firstAttribute="top" secondItem="Ytm-2d-2Uk" secondAttribute="bottom" constant="8" id="vBv-eh-Ec6"/>
+                                    <constraint firstItem="qGH-uT-gCF" firstAttribute="top" secondItem="0lb-yC-bSj" secondAttribute="bottom" constant="8" id="w2I-aa-a9j"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="centerX" secondItem="aL6-9O-y7a" secondAttribute="centerX" id="5zN-NL-Vo9"/>
                             <constraint firstItem="nSP-3b-UKt" firstAttribute="leading" secondItem="EKi-rQ-1Cy" secondAttribute="trailing" constant="-119" id="Bwh-9A-R9a"/>
+                            <constraint firstItem="iYt-JM-8qZ" firstAttribute="centerX" secondItem="aL6-9O-y7a" secondAttribute="centerX" id="G0s-T5-jqp"/>
                             <constraint firstItem="c1N-KD-lU7" firstAttribute="top" secondItem="nSP-3b-UKt" secondAttribute="bottom" constant="-70" id="M5v-2a-cPC"/>
                             <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="top" secondItem="nSP-3b-UKt" secondAttribute="bottom" constant="-70" id="OtO-B7-E1T"/>
                             <constraint firstItem="nSP-3b-UKt" firstAttribute="leading" secondItem="aL6-9O-y7a" secondAttribute="leading" id="TXT-eM-Baq"/>
                             <constraint firstAttribute="trailing" secondItem="nSP-3b-UKt" secondAttribute="trailing" id="UZG-tO-mEm"/>
+                            <constraint firstItem="iYt-JM-8qZ" firstAttribute="trailing" secondItem="aL6-9O-y7a" secondAttribute="trailingMargin" id="cMV-0u-Mhx"/>
+                            <constraint firstItem="GJ9-lf-SRk" firstAttribute="top" secondItem="6jM-PT-uV5" secondAttribute="bottom" id="gV9-oC-rwe"/>
+                            <constraint firstItem="Tl5-OJ-Uo3" firstAttribute="top" secondItem="iYt-JM-8qZ" secondAttribute="bottom" constant="8" id="gxf-79-Aeu"/>
+                            <constraint firstAttribute="bottom" secondItem="GJ9-lf-SRk" secondAttribute="bottom" id="jNZ-Nw-pMK"/>
                             <constraint firstItem="EKi-rQ-1Cy" firstAttribute="top" secondItem="nSP-3b-UKt" secondAttribute="bottom" constant="-70" id="phf-WD-Kxp"/>
+                            <constraint firstItem="iYt-JM-8qZ" firstAttribute="leading" secondItem="aL6-9O-y7a" secondAttribute="leadingMargin" id="tMA-S2-iVO"/>
+                            <constraint firstItem="GJ9-lf-SRk" firstAttribute="leading" secondItem="aL6-9O-y7a" secondAttribute="leading" id="uUG-nd-GuS"/>
                             <constraint firstItem="nSP-3b-UKt" firstAttribute="top" secondItem="6jM-PT-uV5" secondAttribute="bottom" id="vXO-lX-TKY"/>
                             <constraint firstItem="c1N-KD-lU7" firstAttribute="leading" secondItem="nSP-3b-UKt" secondAttribute="trailing" constant="-119" id="wh0-BS-RBt"/>
                             <constraint firstAttribute="bottom" secondItem="nSP-3b-UKt" secondAttribute="bottom" id="xSI-ef-g2Y"/>
+                            <constraint firstAttribute="trailing" secondItem="GJ9-lf-SRk" secondAttribute="trailing" id="zua-oK-dq3"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="acceptButton" destination="EKi-rQ-1Cy" id="CAh-q6-TRg"/>
+                        <outlet property="alphaView" destination="GJ9-lf-SRk" id="gOS-Is-CLb"/>
                         <outlet property="declineButton" destination="c1N-KD-lU7" id="OD3-FY-bNH"/>
+                        <outlet property="jobDoneButton" destination="Tl5-OJ-Uo3" id="hCa-gQ-dPN"/>
                         <outlet property="mapView" destination="nSP-3b-UKt" id="TYS-hE-5Dx"/>
+                        <outlet property="rateSegmentedControl" destination="0lb-yC-bSj" id="XC6-9P-Hbg"/>
+                        <outlet property="ratingView" destination="iYt-JM-8qZ" id="Pfp-cj-MtM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCw-TR-cy8" userLabel="First Responder" sceneMemberID="firstResponder"/>

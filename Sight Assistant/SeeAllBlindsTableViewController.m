@@ -11,7 +11,8 @@
 
 @interface SeeAllBlindsTableViewController ()
 
-@property (nonatomic) NSInteger currentRowSelected;
+@property (nonatomic) NSInteger positionInArray;
+@property (nonatomic, strong) NSMutableArray *array;
 
 @end
 
@@ -19,12 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.array = [[NSMutableArray alloc] init];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.currentRowSelected = 0;
+    self.positionInArray = 0;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,23 +46,36 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [Position sharedInstance].positions.count;
+    NSInteger k = 0;
+    for (Position *pos in [Position sharedInstance].positions) {
+        if (!pos.rated) {
+            k = k + 1;
+        }
+    }
+    return k;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"pos" forIndexPath:indexPath];
-    NSMutableArray *namesArray = [[NSMutableArray alloc] init];
     
     for (Position *pos in [Position sharedInstance].positions) {
-        [namesArray addObject:pos.user];
+        if (!pos.rated) {
+            [self.array addObject:pos];
+        }
     }
-    cell.textLabel.text = namesArray[indexPath.row];
+    Position *auxPos = ((Position *)self.array[indexPath.row]);
+    cell.textLabel.text = auxPos.user;
+    
+    if (auxPos.helped && ![auxPos.helpedBy isEqualToString:[User sharedInstance].currentUserName]) {
+        cell.userInteractionEnabled = NO;
+        cell.textLabel.enabled = NO;
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.currentRowSelected = indexPath.row;
+    self.positionInArray = indexPath.row;
     [self performSegueWithIdentifier:@"mapViewSegue" sender:self];
 }
 
@@ -65,7 +86,7 @@
         //NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         MapViewController *destinationVC = segue.destinationViewController;
         
-        destinationVC.position = [Position sharedInstance].positions[self.currentRowSelected];
+        destinationVC.position = self.array[self.positionInArray];
     } else if ([segue.identifier isEqualToString:@"showAllBlindUsers"]) {
         MapViewController *destinationVC = segue.destinationViewController;
         

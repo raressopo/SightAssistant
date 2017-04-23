@@ -40,6 +40,9 @@
         position.lat = snapshot.value[@"latitude"];
         position.lon = snapshot.value[@"longitude"];
         position.helped = [snapshot.value[@"isHelped"] boolValue];
+        position.helpedBy = snapshot.value[@"helpedBy"];
+        position.rated = [snapshot.value[@"rated"] boolValue];
+        position.rating = [snapshot.value[@"rating"] doubleValue];
         
         [[Position sharedInstance].positions addObject:position];
     }];

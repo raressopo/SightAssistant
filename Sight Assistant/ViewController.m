@@ -34,7 +34,7 @@
         
         for (NSString *userFromDB in self.usersFromDB.allKeys) {
             NSDictionary *user = [self.usersFromDB objectForKey:userFromDB];
-            User *userFromDict = [[User alloc] initWithName:userFromDB withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] isHelped:[[user objectForKey:@"isHelped"] boolValue]];
+            User *userFromDict = [[User alloc] initWithName:userFromDB withUserName:[user objectForKey:@"name"] withPass:[user objectForKey:@"pass"] isBlind:[[user objectForKey:@"blind"] boolValue] withRating:[[user objectForKey:@"rating"] doubleValue]];
             
             [[User sharedInstance].users addObject:userFromDict];
         }
@@ -50,11 +50,13 @@
         if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && user.blind) {
             isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
+            [User sharedInstance].currentUserRate = user.rating;
             [self performSegueWithIdentifier:@"blind" sender:sender];
             return;
         } else if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && !user.blind) {
             isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
+            [User sharedInstance].currentUserRate = user.rating;
             [self performSegueWithIdentifier:@"helper" sender:sender];
             return;
         }

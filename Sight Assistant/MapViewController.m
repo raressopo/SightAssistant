@@ -20,9 +20,14 @@ NSInteger const radius = 10000;
 @property (nonatomic, strong) User *user;
 @property (nonatomic) BOOL addPins;
 @property (nonatomic) BOOL helped;
+@property (nonatomic, strong) Position *pos2;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *rateSegmentedControl;
+@property (weak, nonatomic) IBOutlet UIView *alphaView;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIButton *jobDoneButton;
+@property (weak, nonatomic) IBOutlet UIView *ratingView;
 
 @end
 
@@ -38,6 +43,8 @@ NSInteger const radius = 10000;
     self.regionCenterLon = 0.0;
     self.acceptButton.hidden = self.showAllBlindUsers;
     self.declineButton.hidden = self.showAllBlindUsers;
+    
+    self.pos2 = [[Position alloc] init];
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -58,6 +65,19 @@ NSInteger const radius = 10000;
         [self centerMapOnLocation:self.userPosition withName:self.position.user];
     }
     
+    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
+    [[positionsRef child:self.position.user] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if ([snapshot.key isEqualToString:@"isHelped"]) {
+            self.pos2.helped = [snapshot.value boolValue];
+        } else if ([snapshot.key isEqualToString:@"helpedBy"]) {
+            self.pos2.helpedBy = snapshot.value;
+        } else if ([snapshot.key isEqualToString:@"rated"]) {
+            self.pos2.rated = [snapshot.value boolValue];
+        } else if ([snapshot.key isEqualToString:@"rating"]) {
+            self.pos2.rating = [snapshot.value doubleValue];
+        }
+    }];
+    
     [self.navigationController setToolbarHidden:YES];
 }
 
@@ -67,6 +87,23 @@ NSInteger const radius = 10000;
     
     if (self.addPins) {
         self.addPins = NO;
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    for (Position *pos in [Position sharedInstance].positions) {
+        if ([pos.user isEqualToString:self.position.user]) {
+            Position *auxPos = [[Position alloc] init];
+            auxPos = pos;
+            [[Position sharedInstance].positions removeObject:pos];
+            auxPos.helpedBy = self.pos2.helpedBy;
+            auxPos.helped = self.pos2.helped;
+            auxPos.rating = self.pos2.rating;
+            auxPos.rated = self.pos2.rated;
+            [[Position sharedInstance].positions addObject:auxPos];
+        }
     }
 }
 
@@ -123,7 +160,7 @@ NSInteger const radius = 10000;
 
 - (IBAction)acceptPressed:(id)sender {
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:self.position.user];
-    NSDictionary *post = @{@"isHelped": @(YES)};
+    NSDictionary *post = @{@"helpedBy": [User sharedInstance].currentUserName, @"isHelped": @(YES)};
     
     [newref updateChildValues:post];
     
@@ -151,15 +188,17 @@ NSInteger const radius = 10000;
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
     directionRequest.source = mi2;
     directionRequest.destination = mi1;
-    directionRequest.transportType = MKDirectionsTransportTypeWalking;
-    directionRequest.requestsAlternateRoutes = NO;
+    directionRequest.transportType = MKDirectionsTransportTypeAny;
+    directionRequest.requestsAlternateRoutes = YES;
     
     // Get directions for the route and put it on the mapview
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
     
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error){
         MKRoute *route = response.routes[0];
-        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        if (route) {
+            [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        }
     }];
 }
 
@@ -170,6 +209,47 @@ NSInteger const radius = 10000;
     [newref updateChildValues:post];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)jobDonePressed:(id)sender {
+    [UIView transitionWithView:self.ratingView
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.ratingView.hidden = NO;
+                        self.alphaView.hidden = NO;
+                    }
+                    completion:NULL];
+    
+}
+
+- (IBAction)sendRatingPressed:(id)sender {
+    FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:self.position.user];
+    NSDictionary *post = @{@"rating": @(self.rateSegmentedControl.selectedSegmentIndex + 1), @"rated": @(YES)};
+    
+    FIRDatabaseReference *newref2 = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.position.user];
+    NSDictionary *post2 = @{@"rating": @((self.rateSegmentedControl.selectedSegmentIndex + 1 + [User sharedInstance].currentUserRate) / 2)};
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                    message:@"Please wait and please do not close the app!\n\n\n"
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.center = CGPointMake(130.5, 95.5);
+    spinner.color = [UIColor blackColor];
+    [spinner startAnimating];
+    [alert.view addSubview:spinner];
+    
+    [newref updateChildValues:post withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        [newref2 updateChildValues:post2 withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+            [self presentViewController:alert animated:YES completion:nil];
+            [NSTimer scheduledTimerWithTimeInterval:5 repeats:NO block:^(NSTimer * _Nonnull timer) {
+                [alert dismissViewControllerAnimated:YES completion:^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }];
+        }];
+    }];
 }
 
 #pragma mark - Location Manager delegate

@@ -47,7 +47,7 @@
     
     if ([self.passwordField.text isEqualToString:self.confirmPasswordField.text]) {
         FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.nameField.text];
-        NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @(self.selectUserTypeSegment.selectedSegmentIndex == 0 ? NO : YES)};
+        NSDictionary *post = @{@"name": self.usernameField.text, @"pass": self.passwordField.text, @"blind": @(self.selectUserTypeSegment.selectedSegmentIndex == 0 ? NO : YES), @"rating": @(0)};
         
         [newref setValue:post];
     } else {

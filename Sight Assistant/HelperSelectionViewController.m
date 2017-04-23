@@ -42,6 +42,7 @@
 
 - (IBAction)signOut:(id)sender {
     [User sharedInstance].currentUserName = @"";
+    [User sharedInstance].currentUserRate = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
