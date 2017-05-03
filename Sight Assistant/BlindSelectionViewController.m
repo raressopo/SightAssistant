@@ -12,9 +12,15 @@
 @interface BlindSelectionViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *lat;
 @property (weak, nonatomic) IBOutlet UITextField *longit;
+@property (weak, nonatomic) IBOutlet UIButton *sendVocalCommandButton;
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
+
+@property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+@property (nonatomic, strong) SFSpeechRecognitionTask *recognitionTask;
+@property (nonatomic, strong) AVAudioEngine *audioEngine;
 
 @property (nonatomic) BOOL viewWillAppearCheck;
 
@@ -24,6 +30,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.speechRecognizer = [[SFSpeechRecognizer alloc] init];
+    
+    self.speechRecognizer.delegate = self;
+    [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
+        switch (status) {
+            case SFSpeechRecognizerAuthorizationStatusAuthorized:
+                self.sendVocalCommandButton.enabled = YES;
+                break;
+            
+            case SFSpeechRecognizerAuthorizationStatusDenied:
+                self.sendVocalCommandButton.enabled = NO;
+                break;
+                
+            case SFSpeechRecognizerAuthorizationStatusRestricted:
+                self.sendVocalCommandButton.enabled = NO;
+                break;
+                
+            case SFSpeechRecognizerAuthorizationStatusNotDetermined:
+                self.sendVocalCommandButton.enabled = NO;
+                break;
+                
+            default:
+                break;
+        }
+    }];
 
     self.currentLocation = [[CLLocation alloc] init];
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
@@ -43,7 +75,7 @@
     self.viewWillAppearCheck = NO;
     FIRDatabaseReference *isHelpedRef = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
     [isHelpedRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        if (self.viewWillAppearCheck && [snapshot.key isEqualToString:@"isHelped"]) {
+        if (self.viewWillAppearCheck && [snapshot.key isEqualToString:@"isHelped"] && [[User sharedInstance].currentUserType isEqualToString:@"blind"]) {
             if ([snapshot.value isEqual:@(YES)]) {
                 [self helperAcceptNotification];
             } else {
@@ -157,7 +189,20 @@
 - (IBAction)signOut:(id)sender {
     [User sharedInstance].currentUserName = @"";
     [User sharedInstance].currentUserRate = 0;
+    [User sharedInstance].currentUserType = @"";
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)sendVocalCommand:(id)sender {
+    if (self.audioEngine.isRunning) {
+        [self.audioEngine stop];
+        [self.recognitionRequest endAudio];
+        self.sendVocalCommandButton.enabled = NO;
+        [self.sendVocalCommandButton setTitle:@"Start Recording" forState:UIControlStateNormal];
+    } else {
+        [self startRecording];
+        [self.sendVocalCommandButton setTitle:@"Stop Recording" forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - MapKit Delegate
@@ -175,6 +220,60 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     
+}
+
+- (void)startRecording {
+    if (self.recognitionTask != nil) {
+        [self.recognitionTask cancel];
+        self.recognitionTask = nil;
+    }
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+    [audioSession setMode:AVAudioSessionModeMeasurement error:nil];
+    [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+    SFSpeechAudioBufferRecognitionRequest *recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+    
+    recognitionRequest.shouldReportPartialResults = YES;
+    
+    self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:recognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+        __block BOOL isFinal = NO;
+        
+        if (result) {
+            // TODO: Aici trebuie interpretat rezultatul
+            NSLog(@"%@", result.bestTranscription.formattedString);
+            isFinal = result.isFinal;
+        }
+        
+        if (error || isFinal) {
+            [self.audioEngine stop];
+            [self.audioEngine.inputNode removeTapOnBus:0];
+            
+            self.recognitionRequest = nil;
+            self.recognitionTask = nil;
+            
+            self.sendVocalCommandButton.enabled = YES;
+        }
+        
+        AVAudioFormat *recordingFormat = [self.audioEngine.inputNode outputFormatForBus:0];
+        
+        [self.audioEngine.inputNode installTapOnBus:0 bufferSize:1024 format:recordingFormat block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+            [self.recognitionRequest appendAudioPCMBuffer:buffer];
+        }];
+        
+        [self.audioEngine prepare];
+        [self.audioEngine startAndReturnError:nil];
+    }];
+}
+
+- (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
+    if (available) {
+        self.sendVocalCommandButton.enabled = YES;
+    } else {
+        self.sendVocalCommandButton.enabled = NO;
+    }
 }
 
 @end

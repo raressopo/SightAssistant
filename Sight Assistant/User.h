@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) NSString *currentUserName;
 @property (nonatomic, assign) NSUInteger currentUserRate;
+@property (nonatomic, strong) NSString *currentUserType;
 
 - (instancetype)initWithName:(NSString *)name withUserName:(NSString *)userName withPass:(NSString *)password isBlind:(BOOL)blind withRating:(NSUInteger)rating;
 + (instancetype)sharedInstance;

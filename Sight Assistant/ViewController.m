@@ -51,12 +51,14 @@
             isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
             [User sharedInstance].currentUserRate = user.rating;
+            [User sharedInstance].currentUserType = @"blind";
             [self performSegueWithIdentifier:@"blind" sender:sender];
             return;
         } else if ([self.username.text isEqualToString:user.userName] && [self.pass.text isEqualToString:user.password] && !user.blind) {
             isUserInDB = YES;
             [User sharedInstance].currentUserName = user.name;
             [User sharedInstance].currentUserRate = user.rating;
+            [User sharedInstance].currentUserType = @"helper";
             [self performSegueWithIdentifier:@"helper" sender:sender];
             return;
         }

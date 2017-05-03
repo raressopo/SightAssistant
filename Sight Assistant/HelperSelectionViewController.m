@@ -21,13 +21,11 @@
     self.firstVCAppear = NO;
     FIRDatabaseReference *isHelpedRef = [[FIRDatabase database] referenceWithPath:@"positions"];
     [isHelpedRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        if (self.firstVCAppear) {
+        if (self.firstVCAppear && [[User sharedInstance].currentUserType isEqualToString:@"helper"]) {
             [self notifyForHelpingUser:snapshot.key];
         }
     }];
-    
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -43,6 +41,7 @@
 - (IBAction)signOut:(id)sender {
     [User sharedInstance].currentUserName = @"";
     [User sharedInstance].currentUserRate = 0;
+    [User sharedInstance].currentUserType = @"";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

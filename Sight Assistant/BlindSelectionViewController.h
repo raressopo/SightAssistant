@@ -10,7 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <FirebaseDatabase/FirebaseDatabase.h>
 #import <UserNotifications/UserNotifications.h>
+#import <Speech/Speech.h>
 
-@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
+@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate, SFSpeechRecognizerDelegate>
 
 @end

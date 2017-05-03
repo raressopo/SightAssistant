@@ -115,7 +115,7 @@ NSInteger const radius = 10000;
 
 - (void)centerMapOnLocation:(CLLocation *)location withName:(NSString *)userName {
     MKPointAnnotation *placemark = [[MKPointAnnotation alloc] init];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2.0, radius * 2.0);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, radius, radius);
     
     placemark.coordinate = location.coordinate;
     placemark.title = userName;
