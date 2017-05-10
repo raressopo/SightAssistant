@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sight Assistant/BlindSelectionViewController.m"
-            timestampString = "515533148.278186"
+            timestampString = "515835962.544828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
             landmarkName = "-sendVocalCommand:"
             landmarkType = "7">
          </BreakpointContent>

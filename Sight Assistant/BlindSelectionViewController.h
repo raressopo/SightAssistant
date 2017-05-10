@@ -11,7 +11,8 @@
 #import <FirebaseDatabase/FirebaseDatabase.h>
 #import <UserNotifications/UserNotifications.h>
 #import <Speech/Speech.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate, SFSpeechRecognizerDelegate>
+@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate, SFSpeechRecognitionTaskDelegate, SFSpeechRecognizerDelegate>
 
 @end
