@@ -180,7 +180,7 @@
                                     <segue destination="ftA-bb-VbZ" kind="show" id="oKk-Bq-Mkc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3db-tm-VQD">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3db-tm-VQD">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -565,17 +565,69 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tNO-sP-ZDf">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
+                            <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bgw-FH-1tW">
+                                <rect key="frame" x="16" y="492" width="343" height="123"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEo-IP-lol">
+                                        <rect key="frame" x="125" y="8" width="92" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Edit Obstacle"/>
+                                        <connections>
+                                            <action selector="editObstaclePressed:" destination="Foq-cC-ewo" eventType="touchUpInside" id="6Yc-IJ-cjT"/>
+                                            <segue destination="8SM-CX-dBl" kind="show" identifier="editObstacle" id="wT2-kR-NOd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGq-dT-7bc">
+                                        <rect key="frame" x="111" y="46" width="120" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Remove Obstacle"/>
+                                        <connections>
+                                            <action selector="removeObstaclePressed:" destination="Foq-cC-ewo" eventType="touchUpInside" id="QVe-te-fPn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwK-Nk-3ze">
+                                        <rect key="frame" x="147" y="84" width="48" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelPressed:" destination="Foq-cC-ewo" eventType="touchUpInside" id="bli-Gl-bkF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="123" id="gG3-T5-0S9"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Bgw-FH-1tW" firstAttribute="centerX" secondItem="ZV6-4v-cfZ" secondAttribute="centerX" id="2xC-AI-wVO"/>
+                            <constraint firstItem="zp7-nK-Dap" firstAttribute="top" secondItem="Bgw-FH-1tW" secondAttribute="bottom" constant="8" id="4Kj-ZB-pvV"/>
                             <constraint firstItem="tNO-sP-ZDf" firstAttribute="top" secondItem="L9w-xz-ooV" secondAttribute="bottom" id="7a2-wh-tFq"/>
+                            <constraint firstItem="Bgw-FH-1tW" firstAttribute="trailing" secondItem="ZV6-4v-cfZ" secondAttribute="trailingMargin" id="mUx-Uc-YjE"/>
                             <constraint firstAttribute="bottom" secondItem="tNO-sP-ZDf" secondAttribute="bottom" id="nve-Gr-BFI"/>
                             <constraint firstAttribute="trailing" secondItem="tNO-sP-ZDf" secondAttribute="trailing" id="r46-LM-YBU"/>
                             <constraint firstItem="tNO-sP-ZDf" firstAttribute="leading" secondItem="ZV6-4v-cfZ" secondAttribute="leading" id="ssK-ow-cBD"/>
+                            <constraint firstItem="Bgw-FH-1tW" firstAttribute="leading" secondItem="ZV6-4v-cfZ" secondAttribute="leadingMargin" id="voH-Lx-34d"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Menu" id="JtB-UA-L6t">
+                            <connections>
+                                <action selector="menuPressed:" destination="Foq-cC-ewo" id="LSc-q8-RzU"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <connections>
                         <outlet property="mapView" destination="tNO-sP-ZDf" id="Jhe-de-KVF"/>
+                        <outlet property="menuButton" destination="JtB-UA-L6t" id="q2J-TC-ylQ"/>
+                        <outlet property="menuView" destination="Bgw-FH-1tW" id="iwI-vC-zwa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="48n-ks-xYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -736,10 +788,19 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIr-k5-iDd">
+                                <rect key="frame" x="129" y="500" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Update Obstacle"/>
+                                <connections>
+                                    <action selector="updateBtnPressed:" destination="8SM-CX-dBl" eventType="touchUpInside" id="tcI-zU-etd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addObstBtn" destination="trI-hn-dfu" id="mQv-mQ-aLW"/>
                         <outlet property="endLatitudeField" destination="GBf-P6-emu" id="IPK-ZY-qLc"/>
                         <outlet property="endLongitudeField" destination="x9h-r8-kI9" id="NoY-FI-kCs"/>
                         <outlet property="getEndLocation" destination="51I-uF-Oo8" id="p8x-3A-GA8"/>
@@ -755,6 +816,7 @@
                         <outlet property="sizeOrTypePicker" destination="miJ-Hb-Unk" id="m5f-KA-4wM"/>
                         <outlet property="startLatitudeField" destination="hNv-yT-YXt" id="CqP-Wm-JV1"/>
                         <outlet property="startLongitudeField" destination="VPG-yP-ocx" id="Gd6-8u-TkD"/>
+                        <outlet property="updateObstBtn" destination="IIr-k5-iDd" id="tOw-IX-MUz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZT1-wC-cMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1101,7 +1163,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tzP-wZ-p1w"/>
-        <segue reference="3wX-dD-suT"/>
+        <segue reference="wT2-kR-NOd"/>
         <segue reference="APt-Sr-dbf"/>
+        <segue reference="3wX-dD-suT"/>
     </inferredMetricsTieBreakers>
 </document>

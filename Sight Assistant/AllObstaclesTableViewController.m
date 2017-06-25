@@ -16,12 +16,19 @@
 @property (nonatomic, strong) CLLocation *endOfObstacle;
 @property (nonatomic, strong) CLLocation *smallObstacle;
 
+@property (nonatomic, strong) Obstacle *obstacle;
+
 @end
 
 @implementation AllObstaclesTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +54,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.obstacle = [Obstacle sharedInstance].allObstacles[indexPath.row];
     if (((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == SmallObstacle || ((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == ShortObstacle) {
         self.smallObstacle = [[CLLocation alloc] initWithLatitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.latitude longitude:((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).start.coordinate.longitude];
     } else if (((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == BigObstacle || ((Obstacle *)[Obstacle sharedInstance].allObstacles[indexPath.row]).size == LongObstacle) {
@@ -66,6 +74,7 @@
         destinationVC.showAllObstacles = YES;
         destinationVC.obstacles = [Obstacle sharedInstance].allObstacles;
     } else if ([segue.identifier isEqualToString:@"seeOneObstacle"]) {
+        destinationVC.obstacle = self.obstacle;
         if (self.smallObstacle) {
             destinationVC.smallObstacle = self.smallObstacle;
         } else if (self.startOfObstacle && self.endOfObstacle) {
