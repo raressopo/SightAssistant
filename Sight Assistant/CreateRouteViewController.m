@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *latitude;
 @property (weak, nonatomic) IBOutlet UITextField *longitude;
 
+@property (weak, nonatomic) IBOutlet UIButton *sendVocalCommandButton;
+@property (nonatomic,strong) UILongPressGestureRecognizer *changeUIModePress;
+
 @end
 
 @implementation CreateRouteViewController
@@ -21,7 +24,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
+    // Set speech recognizer delegate
+    speechRecognizer.delegate = self;
+    
     self.location = [[CLLocation alloc] init];
+    
+    self.changeUIModePress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+    self.changeUIModePress.minimumPressDuration = 3.0f;
+    self.changeUIModePress.allowableMovement = 100.0f;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,11 +42,33 @@
         self.latitude.text = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
         self.longitude.text = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
     }
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"blindMode"]) {
+        self.sendVocalCommandButton.hidden = YES;
+    } else {
+        self.sendVocalCommandButton.hidden = NO;
+    }
+    
+    if (audioEngine.isRunning) {
+        [audioEngine stop];
+        [recognitionTask cancel];
+        [recognitionRequest endAudio];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
+{
+    if ([sender isEqual:self.changeUIModePress]) {
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            self.sendVocalCommandButton.hidden = !self.sendVocalCommandButton.hidden;
+            [[NSUserDefaults standardUserDefaults] setBool:!self.sendVocalCommandButton.hidden forKey:@"blindMode"];
+        }
+    }
 }
 
 - (IBAction)createPressed:(id)sender {
@@ -45,6 +78,15 @@
     [newref setValue:post];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)sendCommand:(id)sender {
+    if (audioEngine.isRunning) {
+        [audioEngine stop];
+        [recognitionRequest endAudio];
+    } else {
+        [self startListening];
+    }
 }
 
 - (void)setCreatedLocationWIthLatitude:(CLLocation *)location {
@@ -60,5 +102,64 @@
         controller.delegate = self;
     }
 }
+
+- (void)startListening {
+    
+    // Initialize the AVAudioEngine
+    audioEngine = [[AVAudioEngine alloc] init];
+    
+    // Make sure there's not a recognition task already running
+    if (recognitionTask) {
+        [recognitionTask cancel];
+        recognitionTask = nil;
+    }
+    
+    // Starts an AVAudio Session
+    NSError *error;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
+    
+    // Starts a recognition process, in the block it logs the input or stops the audio
+    // process if there's an error.
+    recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+    AVAudioInputNode *inputNode = audioEngine.inputNode;
+    SFSpeechAudioBufferRecognitionRequest *recogReq = recognitionRequest;
+    recogReq.shouldReportPartialResults = YES;
+    recognitionTask = [speechRecognizer recognitionTaskWithRequest:recogReq resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+        BOOL isFinal = NO;
+        if (result) {
+            // Whatever you say in the mic after pressing the button should be being logged
+            // in the console.
+            if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"înapoi"]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            isFinal = result.isFinal;
+        }
+        if (error || isFinal) {
+            [audioEngine stop];
+            [inputNode removeTapOnBus:0];
+            recogReq.shouldReportPartialResults = NO;
+            recognitionRequest = nil;
+            recognitionTask = nil;
+        }
+    }];
+    
+    // Sets the recording format
+    AVAudioFormat *recordingFormat = [inputNode outputFormatForBus:0];
+    [inputNode installTapOnBus:0 bufferSize:1024 format:recordingFormat block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+        [recognitionRequest appendAudioPCMBuffer:buffer];
+    }];
+    
+    // Starts the audio engine, i.e. it starts listening.
+    [audioEngine prepare];
+    [audioEngine startAndReturnError:&error];
+    NSLog(@"Say Something, I'm listening");
+}
+
+- (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
+    NSLog(@"Availability:%d",available);
+}
+
 
 @end

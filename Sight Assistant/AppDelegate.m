@@ -101,6 +101,8 @@
         [[Obstacle sharedInstance].allObstacles addObject:obstacle];
     }];
     
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"blindMode"];
+    
     return YES;
 }
 

@@ -273,21 +273,34 @@
                                     <segue destination="n8w-Ki-JqI" kind="show" identifier="createRoute" id="R70-UF-acb"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ny-sZ-KLa">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="sendCommand:" destination="ftA-bb-VbZ" eventType="touchUpInside" id="mYl-FU-Hme"/>
+                                    <action selector="sendVocalCommand:" destination="kX7-lb-qFs" eventType="touchUpInside" id="3SI-58-Wc3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="Bak-V1-Lsq" secondAttribute="leading" id="35t-sE-KnC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zeq-MH-Vub" secondAttribute="trailing" id="5u1-tB-bWc"/>
+                            <constraint firstItem="6ny-sZ-KLa" firstAttribute="leading" secondItem="aer-jn-jLi" secondAttribute="leading" id="7V2-Ae-5D0"/>
                             <constraint firstItem="pSb-oY-lvr" firstAttribute="top" secondItem="zeq-MH-Vub" secondAttribute="bottom" constant="8" id="8VN-jF-780"/>
                             <constraint firstItem="zeq-MH-Vub" firstAttribute="top" secondItem="Bak-V1-Lsq" secondAttribute="bottom" constant="8" id="BCX-oT-ETb"/>
                             <constraint firstItem="MkJ-GY-Ol8" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="HPD-LO-aXj"/>
                             <constraint firstItem="YXZ-j2-gZD" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="LSx-f8-9HA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Bak-V1-Lsq" secondAttribute="trailing" id="Nep-q0-oeP"/>
                             <constraint firstItem="pSb-oY-lvr" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="RCc-k5-0IB"/>
+                            <constraint firstAttribute="trailing" secondItem="6ny-sZ-KLa" secondAttribute="trailing" id="VH2-za-jKw"/>
                             <constraint firstAttribute="leadingMargin" secondItem="zeq-MH-Vub" secondAttribute="leading" id="W9m-G6-Soe"/>
                             <constraint firstAttribute="leadingMargin" secondItem="pSb-oY-lvr" secondAttribute="leading" id="ZMB-RC-Ei4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pSb-oY-lvr" secondAttribute="trailing" id="hfW-gN-mE9"/>
+                            <constraint firstItem="6ny-sZ-KLa" firstAttribute="top" secondItem="diK-39-8pM" secondAttribute="bottom" id="htr-fz-5xW"/>
                             <constraint firstItem="Bak-V1-Lsq" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="k5a-ZG-vel"/>
+                            <constraint firstItem="dC0-vK-0n9" firstAttribute="top" secondItem="6ny-sZ-KLa" secondAttribute="bottom" id="kMq-e0-zCq"/>
                             <constraint firstItem="YXZ-j2-gZD" firstAttribute="top" secondItem="pSb-oY-lvr" secondAttribute="bottom" constant="8" id="m1N-GH-jN6"/>
                             <constraint firstItem="MkJ-GY-Ol8" firstAttribute="top" secondItem="YXZ-j2-gZD" secondAttribute="bottom" constant="8" id="oie-5W-jrQ"/>
                             <constraint firstItem="zeq-MH-Vub" firstAttribute="centerX" secondItem="aer-jn-jLi" secondAttribute="centerX" id="pFt-3C-VCU"/>
@@ -298,6 +311,7 @@
                         <outlet property="latitude" destination="zeq-MH-Vub" id="nWX-gd-vkg"/>
                         <outlet property="longitude" destination="pSb-oY-lvr" id="VvZ-el-XGH"/>
                         <outlet property="routeName" destination="Bak-V1-Lsq" id="yN1-Xa-4J3"/>
+                        <outlet property="sendVocalCommandButton" destination="6ny-sZ-KLa" id="NA8-N3-pBO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMT-yw-ZTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -319,17 +333,31 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-Oa-xe9">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHJ-jG-c1j">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="sendCommand:" destination="n8w-Ki-JqI" eventType="touchUpInside" id="B95-du-lh2"/>
+                                    <action selector="sendVocalCommand:" destination="kX7-lb-qFs" eventType="touchUpInside" id="RGE-qi-7b4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aHJ-jG-c1j" secondAttribute="trailing" id="0nR-Ls-Kfe"/>
+                            <constraint firstItem="Y8t-TQ-GVf" firstAttribute="top" secondItem="aHJ-jG-c1j" secondAttribute="bottom" id="BZq-zq-zm0"/>
+                            <constraint firstItem="aHJ-jG-c1j" firstAttribute="leading" secondItem="rWE-Eg-DOi" secondAttribute="leading" id="Hfv-b4-qLG"/>
                             <constraint firstItem="PpK-Oa-xe9" firstAttribute="top" secondItem="rWE-Eg-DOi" secondAttribute="top" constant="64" id="Hhd-R0-74P"/>
                             <constraint firstAttribute="trailing" secondItem="PpK-Oa-xe9" secondAttribute="trailing" id="Sne-8l-YOd"/>
+                            <constraint firstItem="aHJ-jG-c1j" firstAttribute="top" secondItem="Hw2-cR-kaC" secondAttribute="bottom" id="g1v-tx-ALG"/>
                             <constraint firstItem="PpK-Oa-xe9" firstAttribute="leading" secondItem="rWE-Eg-DOi" secondAttribute="leading" id="uo8-oQ-D72"/>
                             <constraint firstItem="Y8t-TQ-GVf" firstAttribute="top" secondItem="PpK-Oa-xe9" secondAttribute="bottom" id="vtO-Xw-mml"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="PpK-Oa-xe9" id="8F4-gP-0qX"/>
+                        <outlet property="sendVocalCommandButton" destination="aHJ-jG-c1j" id="ghF-29-teR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MJD-Pt-c78" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -344,6 +372,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="kv3-0S-kGP">
+                            <rect key="frame" x="0.0" y="72" width="375" height="535"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lw-Db-GbI">
+                                    <rect key="frame" x="0.0" y="-12" width="375" height="547"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="sendVocalCommand:" destination="iJf-0a-hnf" eventType="touchUpInside" id="bXm-0t-lJf"/>
+                                        <action selector="sendVocalCommand:" destination="kX7-lb-qFs" eventType="touchUpInside" id="k04-Qz-Wle"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="9lw-Db-GbI" secondAttribute="bottom" id="kJf-bp-2r2"/>
+                                <constraint firstAttribute="trailing" secondItem="9lw-Db-GbI" secondAttribute="trailing" id="m2S-Nq-YtU"/>
+                                <constraint firstItem="9lw-Db-GbI" firstAttribute="leading" secondItem="kv3-0S-kGP" secondAttribute="leading" id="r73-qT-pJL"/>
+                                <constraint firstItem="9lw-Db-GbI" firstAttribute="top" secondItem="kv3-0S-kGP" secondAttribute="top" constant="-12" id="xUp-3S-HGG"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="route" id="taD-Jd-sRv">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -360,6 +410,8 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="sendVocalCommandsButton" destination="9lw-Db-GbI" id="Haz-33-eaM"/>
+                        <outlet property="viewUnderButton" destination="kv3-0S-kGP" id="n0z-dn-UHg"/>
                         <segue destination="Fb5-Ko-C8m" kind="show" identifier="route" id="pMb-Qi-kjf"/>
                     </connections>
                 </tableViewController>
@@ -382,17 +434,31 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Tu9-b2-0mX">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqE-tG-LYx">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="sendCommands:" destination="Fb5-Ko-C8m" eventType="touchUpInside" id="Md9-uQ-RKd"/>
+                                    <action selector="sendVocalCommand:" destination="kX7-lb-qFs" eventType="touchUpInside" id="S33-he-lLJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="jqE-tG-LYx" firstAttribute="top" secondItem="sNC-2w-Zdf" secondAttribute="bottom" id="5wF-bE-EQf"/>
+                            <constraint firstItem="jqE-tG-LYx" firstAttribute="leading" secondItem="cvd-UD-MKj" secondAttribute="leading" id="La1-fz-Htu"/>
+                            <constraint firstItem="nHX-OY-iLr" firstAttribute="top" secondItem="jqE-tG-LYx" secondAttribute="bottom" id="PnP-cq-8Dk"/>
                             <constraint firstItem="nHX-OY-iLr" firstAttribute="top" secondItem="Tu9-b2-0mX" secondAttribute="bottom" id="Q1g-qD-gJR"/>
                             <constraint firstAttribute="trailing" secondItem="Tu9-b2-0mX" secondAttribute="trailing" id="ewm-so-u4G"/>
                             <constraint firstItem="Tu9-b2-0mX" firstAttribute="leading" secondItem="cvd-UD-MKj" secondAttribute="leading" id="jPx-Ak-hAn"/>
                             <constraint firstItem="Tu9-b2-0mX" firstAttribute="top" secondItem="sNC-2w-Zdf" secondAttribute="bottom" id="jth-uQ-PlI"/>
+                            <constraint firstAttribute="trailing" secondItem="jqE-tG-LYx" secondAttribute="trailing" id="s2m-LT-Tdb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Tu9-b2-0mX" id="FVo-7U-zML"/>
+                        <outlet property="sendVocalCommands" destination="jqE-tG-LYx" id="7UI-6R-tDx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sKy-xO-b04" userLabel="First Responder" sceneMemberID="firstResponder"/>

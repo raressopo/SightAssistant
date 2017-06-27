@@ -9,8 +9,14 @@
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
 #import "GetDestMapViewController.h"
+#import <Speech/Speech.h>
 
-@interface CreateRouteViewController : ViewController <CreateRouteDelegate>
+@interface CreateRouteViewController : ViewController <CreateRouteDelegate, SFSpeechRecognizerDelegate> {
+    SFSpeechRecognizer *speechRecognizer;
+    SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+    SFSpeechRecognitionTask *recognitionTask;
+    AVAudioEngine *audioEngine;
+}
 
 @property (nonatomic, strong) CLLocation *location;
 

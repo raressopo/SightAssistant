@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
+#import <Speech/Speech.h>
 
 @protocol CreateRouteDelegate <NSObject>
 
@@ -15,7 +16,12 @@
 
 @end
 
-@interface GetDestMapViewController : ViewController
+@interface GetDestMapViewController : ViewController <SFSpeechRecognizerDelegate> {
+    SFSpeechRecognizer *speechRecognizer;
+    SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+    SFSpeechRecognitionTask *recognitionTask;
+    AVAudioEngine *audioEngine;
+}
 
 @property (nonatomic, strong) id<CreateRouteDelegate> delegate;
 

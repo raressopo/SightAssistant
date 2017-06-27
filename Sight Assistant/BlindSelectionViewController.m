@@ -16,13 +16,10 @@
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
-
-@property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
-@property (nonatomic, strong) SFSpeechRecognitionTask *recognitionTask;
-@property (nonatomic, strong) AVAudioEngine *audioEngine;
 
 @property (nonatomic) BOOL viewWillAppearCheck;
+
+@property (nonatomic,strong) UILongPressGestureRecognizer *changeUIModePress;
 
 @end
 
@@ -31,27 +28,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.speechRecognizer = [[SFSpeechRecognizer alloc] init];
     
-    self.speechRecognizer.delegate = self;
+    speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
+    // Set speech recognizer delegate
+    speechRecognizer.delegate = self;
+    
+    // Request the authorization to make sure the user is asked for permission so you can
+    // get an authorized response, also remember to change the .plist file, check the repo's
+    // readme file or this projects info.plist
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         switch (status) {
             case SFSpeechRecognizerAuthorizationStatusAuthorized:
-                self.sendVocalCommandButton.enabled = YES;
+                NSLog(@"Authorized");
                 break;
-            
             case SFSpeechRecognizerAuthorizationStatusDenied:
-                self.sendVocalCommandButton.enabled = NO;
+                NSLog(@"Denied");
                 break;
-                
-            case SFSpeechRecognizerAuthorizationStatusRestricted:
-                self.sendVocalCommandButton.enabled = NO;
-                break;
-                
             case SFSpeechRecognizerAuthorizationStatusNotDetermined:
-                self.sendVocalCommandButton.enabled = NO;
+                NSLog(@"Not Determined");
                 break;
-                
+            case SFSpeechRecognizerAuthorizationStatusRestricted:
+                NSLog(@"Restricted");
+                break;
             default:
                 break;
         }
@@ -91,11 +89,29 @@
                                   NSLog(@"request authorization succeeded!");
                               }
                           }];
+    
+    self.changeUIModePress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+    self.changeUIModePress.minimumPressDuration = 3.0f;
+    self.changeUIModePress.allowableMovement = 100.0f;
+    
+    [self.view addGestureRecognizer:self.changeUIModePress];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.viewWillAppearCheck = YES;
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"blindMode"]) {
+        self.sendVocalCommandButton.hidden = YES;
+    } else {
+        self.sendVocalCommandButton.hidden = NO;
+    }
+    
+    if (audioEngine.isRunning) {
+        [audioEngine stop];
+        [recognitionTask cancel];
+        [recognitionRequest endAudio];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,6 +119,16 @@
 }
 
 #pragma mark - Helper methods
+
+- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
+{
+    if ([sender isEqual:self.changeUIModePress]) {
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            self.sendVocalCommandButton.hidden = !self.sendVocalCommandButton.hidden;
+            [[NSUserDefaults standardUserDefaults] setBool:!self.sendVocalCommandButton.hidden forKey:@"blindMode"];
+        }
+    }
+}
 
 - (void)helperDeclineNotification {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
@@ -194,14 +220,11 @@
 }
 
 - (IBAction)sendVocalCommand:(id)sender {
-    if (self.audioEngine.isRunning) {
-        [self.audioEngine stop];
-        [self.recognitionRequest endAudio];
-        self.sendVocalCommandButton.enabled = NO;
-        [self.sendVocalCommandButton setTitle:@"Start Recording" forState:UIControlStateNormal];
+    if (audioEngine.isRunning) {
+        [audioEngine stop];
+        [recognitionRequest endAudio];
     } else {
-        [self startRecording];
-        [self.sendVocalCommandButton setTitle:@"Stop Recording" forState:UIControlStateNormal];
+        [self startListening];
     }
 }
 
@@ -222,58 +245,66 @@
     
 }
 
-- (void)startRecording {
-    if (self.recognitionTask != nil) {
-        [self.recognitionTask cancel];
-        self.recognitionTask = nil;
+- (void)startListening {
+    
+    // Initialize the AVAudioEngine
+    audioEngine = [[AVAudioEngine alloc] init];
+    
+    // Make sure there's not a recognition task already running
+    if (recognitionTask) {
+        [recognitionTask cancel];
+        recognitionTask = nil;
     }
     
+    // Starts an AVAudio Session
+    NSError *error;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
     
-    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
-    [audioSession setMode:AVAudioSessionModeMeasurement error:nil];
-    [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-    
-    SFSpeechAudioBufferRecognitionRequest *recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
-    
-    recognitionRequest.shouldReportPartialResults = YES;
-    
-    self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:recognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
-        __block BOOL isFinal = NO;
-        
+    // Starts a recognition process, in the block it logs the input or stops the audio
+    // process if there's an error.
+    recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+    AVAudioInputNode *inputNode = audioEngine.inputNode;
+    SFSpeechAudioBufferRecognitionRequest *recogReq = recognitionRequest;
+    recogReq.shouldReportPartialResults = YES;
+    recognitionTask = [speechRecognizer recognitionTaskWithRequest:recogReq resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+        BOOL isFinal = NO;
         if (result) {
-            // TODO: Aici trebuie interpretat rezultatul
-            NSLog(@"%@", result.bestTranscription.formattedString);
+            // Whatever you say in the mic after pressing the button should be being logged
+            // in the console.
+            if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"drum"] || [[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"traseu"]) {
+                [self performSegueWithIdentifier:@"routes" sender:self];
+            } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"creează"]) {
+                [self performSegueWithIdentifier:@"createRoute" sender:self];
+            } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"ajutor"]) {
+                [self getLocation:nil];
+            }
             isFinal = result.isFinal;
         }
-        
         if (error || isFinal) {
-            [self.audioEngine stop];
-            [self.audioEngine.inputNode removeTapOnBus:0];
-            
-            self.recognitionRequest = nil;
-            self.recognitionTask = nil;
-            
-            self.sendVocalCommandButton.enabled = YES;
+            [audioEngine stop];
+            [inputNode removeTapOnBus:0];
+            recogReq.shouldReportPartialResults = NO;
+            recognitionRequest = nil;
+            recognitionTask = nil;
         }
-        
-        AVAudioFormat *recordingFormat = [self.audioEngine.inputNode outputFormatForBus:0];
-        
-        [self.audioEngine.inputNode installTapOnBus:0 bufferSize:1024 format:recordingFormat block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
-            [self.recognitionRequest appendAudioPCMBuffer:buffer];
-        }];
-        
-        [self.audioEngine prepare];
-        [self.audioEngine startAndReturnError:nil];
     }];
+    
+    // Sets the recording format
+    AVAudioFormat *recordingFormat = [inputNode outputFormatForBus:0];
+    [inputNode installTapOnBus:0 bufferSize:1024 format:recordingFormat block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+        [recognitionRequest appendAudioPCMBuffer:buffer];
+    }];
+    
+    // Starts the audio engine, i.e. it starts listening.
+    [audioEngine prepare];
+    [audioEngine startAndReturnError:&error];
+    NSLog(@"Say Something, I'm listening");
 }
 
 - (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
-    if (available) {
-        self.sendVocalCommandButton.enabled = YES;
-    } else {
-        self.sendVocalCommandButton.enabled = NO;
-    }
+    NSLog(@"Availability:%d",available);
 }
 
 @end
