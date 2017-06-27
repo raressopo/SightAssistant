@@ -7,15 +7,12 @@
 //
 
 #import "SeeObstacleMapViewController.h"
-#import "CreateObstacleViewController.h"
 
 @interface SeeObstacleMapViewController ()
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic) double regionCenterLat;
 @property (nonatomic) double regionCenterLon;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-@property (weak, nonatomic) IBOutlet UIView *menuView;
 
 @end
 
@@ -27,7 +24,6 @@
     [super viewDidLoad];
     
     self.mapView.delegate = self;
-    self.menuButton.enabled = !self.showAllObstacles;
     
     if (self.showAllObstacles) {
         [self initView];
@@ -106,7 +102,7 @@
     }
     
     CLLocation *centerCoord = [[CLLocation alloc] initWithLatitude:self.regionCenterLat/(self.obstacles.count * 2) longitude:self.regionCenterLon/(self.obstacles.count * 2)];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(centerCoord.coordinate, 100000, 100000);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(centerCoord.coordinate, 1000, 1000);
     
     [self.mapView setRegion:region animated:NO];
 }
@@ -155,53 +151,6 @@
             
             [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
         }];
-    }
-}
-
-- (IBAction)menuPressed:(id)sender {
-    [UIView transitionWithView:self.menuView
-                      duration:0.4
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:^{
-                        self.menuView.hidden = !self.menuView.hidden;
-                    }
-                    completion:NULL];
-}
-
-- (IBAction)editObstaclePressed:(id)sender {
-}
-
-- (IBAction)removeObstaclePressed:(id)sender {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"WARNING!"
-                                                                   message:@"Are you sure do you want to remove the obstacle?"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"obstacles"] child:self.obstacle.name];
-        [[Obstacle sharedInstance].allObstacles removeObject:self.obstacle];
-        [newref removeValue];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
-    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    
-    [alert addAction:yesAction];
-    [alert addAction:noAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (IBAction)cancelPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"editObstacle"]) {
-        CreateObstacleViewController *destVC = segue.destinationViewController;
-        destVC.editableObstacle = self.obstacle;
-        destVC.isEditObstacle = YES;
     }
 }
 

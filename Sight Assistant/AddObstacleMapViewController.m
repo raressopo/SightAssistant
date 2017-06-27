@@ -36,8 +36,6 @@
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if (self.isSmallObstacle || self.isStartOfTheObstacle || self.isEndOfTheObstacle) {
-        [self.mapView removeAnnotations:self.mapView.annotations];
-        
         CGPoint point = [[touches anyObject] locationInView:self.mapView];
         CLLocationCoordinate2D selectedLocation = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
         CLLocation *loc = [[CLLocation alloc] initWithLatitude:selectedLocation.latitude longitude:selectedLocation.longitude];
@@ -102,7 +100,7 @@
         directionRequest.source = mi2;
         directionRequest.destination = mi1;
         directionRequest.transportType = MKDirectionsTransportTypeWalking;
-        directionRequest.requestsAlternateRoutes = YES;
+        directionRequest.requestsAlternateRoutes = NO;
         
         // Get directions for the route and put it on the mapview
         MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];

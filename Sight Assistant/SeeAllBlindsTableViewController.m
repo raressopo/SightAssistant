@@ -8,13 +8,11 @@
 
 #import "SeeAllBlindsTableViewController.h"
 #import "MapViewController.h"
-#import <FirebaseDatabase/FirebaseDatabase.h>
 
 @interface SeeAllBlindsTableViewController ()
 
 @property (nonatomic) NSInteger positionInArray;
 @property (nonatomic, strong) NSMutableArray *array;
-@property (nonatomic, strong) FIRDatabaseReference *ref;
 
 @end
 
@@ -29,12 +27,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.positionInArray = 0;
-    
-    self.ref = [[FIRDatabase database] referenceWithPath:@"positions"];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        [self.tableView reloadData];
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
