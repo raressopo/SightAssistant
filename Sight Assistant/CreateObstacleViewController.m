@@ -47,6 +47,8 @@
 @property (nonatomic, strong) CLLocation *smallObstacle;
 @property (nonatomic, strong) CLLocation *startOfTheObstacle;
 @property (nonatomic, strong) CLLocation *endOfTheObstacle;
+@property (weak, nonatomic) IBOutlet UIButton *addObstBtn;
+@property (weak, nonatomic) IBOutlet UIButton *updateObstBtn;
 
 @end
 
@@ -67,8 +69,54 @@
     
     self.pickerView.hidden = YES;
     
+    self.addObstBtn.hidden = self.isEditObstacle;
+    self.updateObstBtn.hidden = !self.isEditObstacle;
+    self.obstacleNameField.enabled = !self.isEditObstacle;
+    
+    if (self.isEditObstacle) {
+        self.obstacleNameField.text = self.editableObstacle.name;
+        self.obstacleShortDescriptionField.text = self.editableObstacle.shortDescription;
+        if (self.editableObstacle.size == ShortObstacle) {
+            self.obstacleSizeField.text = @"short";
+            self.longCoordField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.longitude];
+            self.latCoordField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.latitude];
+        } else if (self.editableObstacle.size == SmallObstacle) {
+            self.obstacleSizeField.text = @"small";
+            self.longCoordField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.longitude];
+            self.latCoordField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.latitude];
+        } else if (self.editableObstacle.size == BigObstacle) {
+            self.obstacleSizeField.text = @"big";
+            self.startLongitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.longitude];
+            self.startLatitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.latitude];
+            self.endLongitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.end.coordinate.longitude];
+            self.endLatitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.end.coordinate.latitude];
+        }  else if (self.editableObstacle.size == LongObstacle) {
+            self.obstacleSizeField.text = @"long";
+            self.startLongitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.longitude];
+            self.startLatitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.start.coordinate.latitude];
+            self.endLongitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.end.coordinate.longitude];
+            self.endLatitudeField.text = [NSString stringWithFormat:@"%f", self.editableObstacle.end.coordinate.latitude];
+        }
+        if (self.editableObstacle.type == CrowdedSidewalk) {
+            self.obstacleTypeField.text = @"crowded sidewalk";
+        } else if (self.editableObstacle.type == HeavyToPass) {
+            self.obstacleTypeField.text = @"heavy to pass";
+        } else if (self.editableObstacle.type == EasyToPass) {
+            self.obstacleTypeField.text = @"easy to pass";
+        }
+    }
+    
     if (!self.isBigOrLongObstacle) {
         [self hideStartEndCoordFields:YES];
+    }
+    
+    if (self.editableObstacle.size == ShortObstacle || self.editableObstacle.size == SmallObstacle) {
+        [self hideStartEndCoordFields:YES];
+    } else if (self.editableObstacle.size == BigObstacle || self.editableObstacle.size == LongObstacle) {
+        [self hideStartEndCoordFields:NO];
+        self.longCoordField.hidden = YES;
+        self.latCoordField.hidden = YES;
+        self.getLocationButton.hidden = YES;
     }
 }
 
@@ -120,16 +168,16 @@
                                @"type": self.obstacleTypeField.text,
                                @"size": self.obstacleSizeField.text,
                                @"date": [NSString stringWithFormat:@"%@", [NSDate date]],
-                               @"start": @{@"lat": self.startOfTheObstacle ? self.startLatitudeField.text : self.latCoordField.text,
-                                           @"lon": self.startOfTheObstacle ? self.startLongitudeField.text : self.longCoordField.text},
-                               @"end": @{@"lat": self.endOfTheObstacle ? self.endLatitudeField.text : self.latCoordField.text,
-                                         @"lon": self.endOfTheObstacle ? self.endLongitudeField.text : self.longCoordField.text}};
+                               @"start": @{@"lat": (self.startOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.startLatitudeField.text : self.latCoordField.text,
+                                           @"lon": (self.startOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.startLongitudeField.text : self.longCoordField.text},
+                               @"end": @{@"lat": (self.endOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.endLatitudeField.text : self.latCoordField.text,
+                                         @"lon": (self.endOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.endLongitudeField.text : self.longCoordField.text}};
         
         [newref setValue:post];
         
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Uncomplete information"
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Incomplete information"
                                                                        message:@"Please don't let blank fields without information!"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
@@ -140,6 +188,24 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     
+}
+- (IBAction)updateBtnPressed:(id)sender {
+    if ([self checkIfAllFieldsArePopulated]) {
+        FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"obstacles"] child:self.obstacleNameField.text];
+        NSDictionary *post = @{@"name": self.obstacleNameField.text,
+                               @"description": self.obstacleShortDescriptionField.text,
+                               @"type": self.obstacleTypeField.text,
+                               @"size": self.obstacleSizeField.text,
+                               @"start": @{@"lat": (self.startOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.startLatitudeField.text : self.latCoordField.text,
+                                           @"lon": (self.startOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.startLongitudeField.text : self.longCoordField.text},
+                               @"end": @{@"lat": (self.endOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.endLatitudeField.text : self.latCoordField.text,
+                                         @"lon": (self.endOfTheObstacle || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) ? self.endLongitudeField.text : self.longCoordField.text},
+                               @"updatedAt": [NSString stringWithFormat:@"%@", [NSDate date]]};
+        
+        [newref updateChildValues:post];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - PickerView delegate
@@ -170,6 +236,10 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (self.sizeWasPressed) {
+        self.smallObstacle = nil;
+        self.startOfTheObstacle = nil;
+        self.endOfTheObstacle = nil;
+        
         self.sizeWasPressed = NO;
         self.obstacleSizeField.text = self.obstacleSize[row];
         self.pickerView.hidden = YES;
@@ -229,11 +299,11 @@
         self.isEndOfTheObstacle = YES;
     } else if ([segue.identifier isEqualToString:@"showObst"]) {
         if ([self checkIfAllFieldsArePopulated]) {
-            if (self.smallObstacle) {
-                controller.obstacle = self.smallObstacle;
-            } else if (self.startOfTheObstacle && self.endOfTheObstacle) {
-                controller.startOfObstacle = self.startOfTheObstacle;
-                controller.endOfObstacle = self.endOfTheObstacle;
+            if (self.smallObstacle || self.editableObstacle.size == SmallObstacle || self.editableObstacle.size == ShortObstacle) {
+                controller.obstacle = self.smallObstacle ? self.smallObstacle : self.editableObstacle.start;
+            } else if ((self.startOfTheObstacle && self.endOfTheObstacle) || self.editableObstacle.size == LongObstacle || self.editableObstacle.size == BigObstacle) {
+                controller.startOfObstacle = self.startOfTheObstacle ? self.startOfTheObstacle : self.editableObstacle.start;
+                controller.endOfObstacle = self.endOfTheObstacle ? self.endOfTheObstacle : self.editableObstacle.end;
             }
         } else {
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Uncomplete information"

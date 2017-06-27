@@ -43,6 +43,7 @@ NSInteger const radius = 10000;
     self.regionCenterLon = 0.0;
     self.acceptButton.hidden = self.showAllBlindUsers;
     self.declineButton.hidden = self.showAllBlindUsers;
+    self.jobDoneButton.hidden = self.showAllBlindUsers;
     
     self.pos2 = [[Position alloc] init];
     
@@ -65,18 +66,18 @@ NSInteger const radius = 10000;
         [self centerMapOnLocation:self.userPosition withName:self.position.user];
     }
     
-    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
-    [[positionsRef child:self.position.user] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        if ([snapshot.key isEqualToString:@"isHelped"]) {
-            self.pos2.helped = [snapshot.value boolValue];
-        } else if ([snapshot.key isEqualToString:@"helpedBy"]) {
-            self.pos2.helpedBy = snapshot.value;
-        } else if ([snapshot.key isEqualToString:@"rated"]) {
-            self.pos2.rated = [snapshot.value boolValue];
-        } else if ([snapshot.key isEqualToString:@"rating"]) {
-            self.pos2.rating = [snapshot.value doubleValue];
-        }
-    }];
+//    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
+//    [[positionsRef child:self.position.user] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        if ([snapshot.key isEqualToString:@"isHelped"]) {
+//            self.pos2.helped = [snapshot.value boolValue];
+//        } else if ([snapshot.key isEqualToString:@"helpedBy"]) {
+//            self.pos2.helpedBy = snapshot.value;
+//        } else if ([snapshot.key isEqualToString:@"rated"]) {
+//            self.pos2.rated = [snapshot.value boolValue];
+//        } else if ([snapshot.key isEqualToString:@"rating"]) {
+//            self.pos2.rating = [snapshot.value doubleValue];
+//        }
+//    }];
     
     [self.navigationController setToolbarHidden:YES];
 }
@@ -93,18 +94,18 @@ NSInteger const radius = 10000;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    for (Position *pos in [Position sharedInstance].positions) {
-        if ([pos.user isEqualToString:self.position.user]) {
-            Position *auxPos = [[Position alloc] init];
-            auxPos = pos;
-            [[Position sharedInstance].positions removeObject:pos];
-            auxPos.helpedBy = self.pos2.helpedBy;
-            auxPos.helped = self.pos2.helped;
-            auxPos.rating = self.pos2.rating;
-            auxPos.rated = self.pos2.rated;
-            [[Position sharedInstance].positions addObject:auxPos];
-        }
-    }
+//    for (Position *pos in [Position sharedInstance].positions) {
+//        if ([pos.user isEqualToString:self.position.user]) {
+//            Position *auxPos = [[Position alloc] init];
+//            auxPos = pos;
+//            [[Position sharedInstance].positions removeObject:pos];
+//            auxPos.helpedBy = self.pos2.helpedBy;
+//            auxPos.helped = self.pos2.helped;
+//            auxPos.rating = self.pos2.rating;
+//            auxPos.rated = self.pos2.rated;
+//            [[Position sharedInstance].positions addObject:auxPos];
+//        }
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -169,7 +170,7 @@ NSInteger const radius = 10000;
     // TODO: remove this on real device
     // Position hardcoded to see that the route is created correctly
     MKPointAnnotation *plmrk2 = [[MKPointAnnotation alloc] init];
-    plmrk2.coordinate = CLLocationCoordinate2DMake(46.735000, 23.518300);
+    plmrk2.coordinate = CLLocationCoordinate2DMake(46.760471, 23.558025);
     plmrk2.title = @"Me";
     [self.mapView addAnnotation:plmrk2];
     [self.mapView selectAnnotation:plmrk2 animated:YES];
@@ -178,7 +179,10 @@ NSInteger const radius = 10000;
     MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue]) addressDictionary:nil];
     //[p1 setCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
                        //initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
-    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
+//    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
+    
+    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(46.760471, 23.558025) addressDictionary:nil];
+
     
     // Create 2 mapitems from that 2 placemarks
     MKMapItem *mi1 = [[MKMapItem alloc] initWithPlacemark:p1];
@@ -188,7 +192,7 @@ NSInteger const radius = 10000;
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
     directionRequest.source = mi2;
     directionRequest.destination = mi1;
-    directionRequest.transportType = MKDirectionsTransportTypeAny;
+    directionRequest.transportType = MKDirectionsTransportTypeWalking;
     directionRequest.requestsAlternateRoutes = YES;
     
     // Get directions for the route and put it on the mapview

@@ -8,8 +8,12 @@
 
 #import "ViewController.h"
 #import "AddObstacleMapViewController.h"
+#import "Obstacle.h"
 #import <FirebaseDatabase/FirebaseDatabase.h>
 
 @interface CreateObstacleViewController : ViewController <UIPickerViewDelegate, UIPickerViewDataSource, CreateObstacleDelegate>
+
+@property (nonatomic, strong) Obstacle *editableObstacle;
+@property (nonatomic, assign) BOOL isEditObstacle;
 
 @end
