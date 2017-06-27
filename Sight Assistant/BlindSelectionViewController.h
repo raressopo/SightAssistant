@@ -12,6 +12,11 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Speech/Speech.h>
 
-@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate, SFSpeechRecognizerDelegate>
+@interface BlindSelectionViewController : ViewController <CLLocationManagerDelegate, UNUserNotificationCenterDelegate, SFSpeechRecognizerDelegate> {
+    SFSpeechRecognizer *speechRecognizer;
+    SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+    SFSpeechRecognitionTask *recognitionTask;
+    AVAudioEngine *audioEngine;
+}
 
 @end

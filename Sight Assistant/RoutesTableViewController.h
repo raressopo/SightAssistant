@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Speech/Speech.h>
 
-@interface RoutesTableViewController : UITableViewController
+@interface RoutesTableViewController : UITableViewController <SFSpeechRecognizerDelegate> {
+    SFSpeechRecognizer *speechRecognizer;
+    SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+    SFSpeechRecognitionTask *recognitionTask;
+    AVAudioEngine *audioEngine;
+}
 
 @end
