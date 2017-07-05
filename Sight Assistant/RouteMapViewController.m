@@ -73,6 +73,11 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self textToSpeech:@"Hartă deschisă cu succes"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -269,7 +274,10 @@
             // in the console.
             if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"înapoi"]) {
                 [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self textToSpeech:@"Comandă necunoscută"];
             }
+            
             isFinal = result.isFinal;
         }
         if (error || isFinal) {
@@ -294,7 +302,20 @@
 }
 
 - (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
-    NSLog(@"Availability:%d",available);
+    if (available) {
+        self.sendVocalCommands.enabled = YES;
+    } else {
+        self.sendVocalCommands.enabled = NO;
+    }
+}
+
+- (void)textToSpeech:(NSString *)text {
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
+    utterance.voice = language;
+    [utterance setRate:0.5];
+    [synthesizer speakUtterance:utterance];
 }
 
 @end

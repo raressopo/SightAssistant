@@ -133,9 +133,12 @@
             // in the console.
             if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"înapoi"]) {
                 [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self textToSpeech:@"Comandă necunoscută"];
             }
             isFinal = result.isFinal;
         }
+        
         if (error || isFinal) {
             [audioEngine stop];
             [inputNode removeTapOnBus:0];
@@ -158,7 +161,20 @@
 }
 
 - (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
-    NSLog(@"Availability:%d",available);
+    if (available) {
+        self.sendVocalCommandButton.enabled = YES;
+    } else {
+        self.sendVocalCommandButton.enabled = NO;
+    }
+}
+
+- (void)textToSpeech:(NSString *)text {
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
+    utterance.voice = language;
+    [utterance setRate:0.5];
+    [synthesizer speakUtterance:utterance];
 }
 
 

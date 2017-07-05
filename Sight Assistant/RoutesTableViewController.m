@@ -56,9 +56,21 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self textToSpeech:@"Selectați ruta"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self textToSpeech:@"Rută selectată cu succes"];
+    sleep(2);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 - (IBAction)sendVocalCommand:(id)sender {
     if (audioEngine.isRunning) {
         [audioEngine stop];
@@ -69,7 +81,6 @@
 }
 
 - (void)startListening {
-    
     // Initialize the AVAudioEngine
     audioEngine = [[AVAudioEngine alloc] init];
     
@@ -105,6 +116,8 @@
                     [self performSegueWithIdentifier:@"route" sender:self];
                 } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"înapoi"]) {
                     [self.navigationController popViewControllerAnimated:YES];
+                }  else {
+                    [self textToSpeech:@"Comandă necunoscută"];
                 }
             }
             isFinal = result.isFinal;
@@ -131,7 +144,20 @@
 }
 
 - (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
-    NSLog(@"Availability:%d",available);
+    if (available) {
+        self.sendVocalCommandsButton.enabled = YES;
+    } else {
+        self.sendVocalCommandsButton.enabled = NO;
+    }
+}
+
+- (void)textToSpeech:(NSString *)text {
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
+    utterance.voice = language;
+    [utterance setRate:0.5];
+    [synthesizer speakUtterance:utterance];
 }
 
 #pragma mark - Table view data source

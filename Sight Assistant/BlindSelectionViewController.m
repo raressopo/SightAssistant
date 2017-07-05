@@ -114,6 +114,17 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self textToSpeech:@"Selectați opțiunea"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self textToSpeech:@"Comandă finalizată cu succes"];
+    sleep(2);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -133,20 +144,8 @@
 - (void)helperDeclineNotification {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.title = @"Help declined";
-    // TODO: Add the reason of the user that declined to offer help
-    content.body = @"The user that accepted to offer help declined it for unknown reason";
+    content.body = @"Utilizatorul care a acceptat să ofere ajutor, a anulat din motive necunoscute";
     content.sound = [UNNotificationSound defaultSound];
-    
-    //UNNotificationAction *snoozeAction = [UNNotificationAction actionWithIdentifier:@"Snooze"
-    //                                                                          title:@"Snooze" options:UNNotificationActionOptionNone];
-    //UNNotificationAction *deleteAction = [UNNotificationAction actionWithIdentifier:@"Delete"
-    //                                                                          title:@"Delete" options:UNNotificationActionOptionDestructive];
-    //
-    //UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"UYLReminderCategory"
-    //                                                                          actions:@[snoozeAction,deleteAction] intentIdentifiers:@[]
-    //                                                                          options:UNNotificationCategoryOptionNone];
-    //NSSet *categories = [NSSet setWithObject:category];
-    //content.categoryIdentifier = @"UYLReminderCategory";
     
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1
                                                                                                     repeats:NO];
@@ -156,32 +155,21 @@
                                                                           content:content trigger:trigger];
     
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    // [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
     
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Something went wrong: %@",error);
         }
     }];
+    
+    [self textToSpeech:content.body];
 }
 
 - (void)helperAcceptNotification {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.title = @"Help accepted";
-    // TODO: Add the name of the user that offered help
-    content.body = @"User accepted to offer help";
+    content.body = @"Utilizatorul a acceptat să ofere ajutor";
     content.sound = [UNNotificationSound defaultSound];
-    
-    //UNNotificationAction *snoozeAction = [UNNotificationAction actionWithIdentifier:@"Snooze"
-    //                                                                          title:@"Snooze" options:UNNotificationActionOptionNone];
-    //UNNotificationAction *deleteAction = [UNNotificationAction actionWithIdentifier:@"Delete"
-    //                                                                          title:@"Delete" options:UNNotificationActionOptionDestructive];
-    //
-    //UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"UYLReminderCategory"
-    //                                                                          actions:@[snoozeAction,deleteAction] intentIdentifiers:@[]
-    //                                                                          options:UNNotificationCategoryOptionNone];
-    //NSSet *categories = [NSSet setWithObject:category];
-    //content.categoryIdentifier = @"UYLReminderCategory";
     
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1
                                                                                                     repeats:NO];
@@ -191,13 +179,14 @@
                                                                           content:content trigger:trigger];
     
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    // [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
     
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Something went wrong: %@",error);
         }
     }];
+    
+    [self textToSpeech:content.body];
 }
 
 
@@ -209,7 +198,7 @@
     FIRDatabaseReference *newref = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
     NSDictionary *post = @{@"latitude": self.lat.text, @"longitude": self.longit.text, @"helpedBy": @"nobody", @"rated": @(NO), @"isHelped": @(NO), @"rating": @(0)};
     [newref setValue:post];
-
+    [self textToSpeech:@"Poziție adăgată în baza de date"];
 }
 
 - (IBAction)signOut:(id)sender {
@@ -270,6 +259,7 @@
     recogReq.shouldReportPartialResults = YES;
     recognitionTask = [speechRecognizer recognitionTaskWithRequest:recogReq resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
         BOOL isFinal = NO;
+        
         if (result) {
             // Whatever you say in the mic after pressing the button should be being logged
             // in the console.
@@ -279,9 +269,12 @@
                 [self performSegueWithIdentifier:@"createRoute" sender:self];
             } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"ajutor"]) {
                 [self getLocation:nil];
+            } else {
+                [self textToSpeech:@"Comandă necunoscută"];
             }
             isFinal = result.isFinal;
         }
+        
         if (error || isFinal) {
             [audioEngine stop];
             [inputNode removeTapOnBus:0];
@@ -300,11 +293,23 @@
     // Starts the audio engine, i.e. it starts listening.
     [audioEngine prepare];
     [audioEngine startAndReturnError:&error];
-    NSLog(@"Say Something, I'm listening");
 }
 
 - (void)speechRecognizer:(SFSpeechRecognizer *)speechRecognizer availabilityDidChange:(BOOL)available {
-    NSLog(@"Availability:%d",available);
+    if (available) {
+        self.sendVocalCommandButton.enabled = YES;
+    } else {
+        self.sendVocalCommandButton.enabled = NO;
+    }
+}
+
+- (void)textToSpeech:(NSString *)text {
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
+    utterance.voice = language;
+    [utterance setRate:0.5];
+    [synthesizer speakUtterance:utterance];
 }
 
 @end
