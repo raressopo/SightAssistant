@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger currentRowSelected;
 @property (weak, nonatomic) IBOutlet UIButton *sendVocalCommandsButton;
 @property (weak, nonatomic) IBOutlet UIView *viewUnderButton;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
 
 @end
 
@@ -25,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.synthesizer = [[AVSpeechSynthesizer alloc]init];
+
     speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
     // Set speech recognizer delegate
     speechRecognizer.delegate = self;
@@ -58,6 +61,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.synthesizer continueSpeaking];
     [self textToSpeech:@"Selectați ruta"];
 }
 
@@ -77,6 +81,7 @@
         [recognitionRequest endAudio];
     } else {
         [self startListening];
+        [self textToSpeech:@"Butonul a fost apăsat"];
     }
 }
 
@@ -93,7 +98,7 @@
     // Starts an AVAudio Session
     NSError *error;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
     [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
     
     // Starts a recognition process, in the block it logs the input or stops the audio
@@ -152,12 +157,11 @@
 }
 
 - (void)textToSpeech:(NSString *)text {
-    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
     AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
     utterance.voice = language;
     [utterance setRate:0.5];
-    [synthesizer speakUtterance:utterance];
+    [self.synthesizer speakUtterance:utterance];
 }
 
 #pragma mark - Table view data source
@@ -186,7 +190,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"route"]) {
         RouteMapViewController *destinationVC = segue.destinationViewController;
-        destinationVC.route = self.userRoutes[self.currentRowSelected];
+        destinationVC.currentRowSelected = self.currentRowSelected + 1;
     }
 }
 

@@ -18,5 +18,6 @@
     AVAudioEngine *audioEngine;
 }
 @property (nonatomic, strong) Route *route;
+@property (nonatomic, assign) NSInteger currentRowSelected;
 
 @end

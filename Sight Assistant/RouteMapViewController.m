@@ -8,6 +8,8 @@
 
 #import "RouteMapViewController.h"
 #import "Obstacle.h"
+#import "UserRoutes.h"
+#import "User.h"
 
 @interface RouteMapViewController ()
 
@@ -18,6 +20,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UIButton *sendVocalCommands;
 @property (nonatomic,strong) UILongPressGestureRecognizer *changeUIModePress;
+@property (nonatomic, strong) NSArray *userRoutes;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
 
 @end
 
@@ -26,6 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    for (UserRoutes *user in [UserRoutes sharedInstance].routesOfAllUsers) {
+        if ([user.user isEqualToString:[User sharedInstance].currentUserName]) {
+            self.userRoutes = user.allRoutes;
+        }
+    }
+    self.synthesizer = [[AVSpeechSynthesizer alloc] init];
     speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
     // Set speech recognizer delegate
     speechRecognizer.delegate = self;
@@ -47,6 +57,7 @@
         NSLog(@"Location services are not enabled");
     }
     
+    self.route = self.userRoutes[self.currentRowSelected];
     self.routeDestination = [[CLLocation alloc] initWithLatitude:[self.route.lat doubleValue] longitude:[self.route.lon doubleValue]];
     [self centerMapOnLocation:self.routeDestination];
     
@@ -60,6 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.synthesizer continueSpeaking];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"blindMode"]) {
         self.sendVocalCommands.hidden = YES;
     } else {
@@ -75,7 +87,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self textToSpeech:@"Hartă deschisă cu succes"];
+    //[self textToSpeech:@"Hartă deschisă cu succes"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,66 +114,6 @@
     [self.mapView setRegion:region];
     [self.mapView addAnnotation:placemark];
     [self.mapView selectAnnotation:placemark animated:YES];
-    
-    self.currentLocation = [[CLLocation alloc] initWithLatitude:47.197573 longitude:23.047726];
-    MKPointAnnotation *plmrk = [[MKPointAnnotation alloc] init];
-    
-    plmrk.coordinate = self.currentLocation.coordinate;
-    
-    [self.mapView addAnnotation:plmrk];
-    [self.mapView selectAnnotation:plmrk animated:YES];
-    
-    MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.routeDestination.coordinate.latitude, self.routeDestination.coordinate.longitude) addressDictionary:nil];
-    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
-    
-    // Create 2 mapitems from that 2 placemarks
-    MKMapItem *mi1 = [[MKMapItem alloc] initWithPlacemark:p1];
-    MKMapItem *mi2 = [[MKMapItem alloc] initWithPlacemark:p2];
-    
-    // Create directionRequest to set the destination and the source
-    MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
-    directionRequest.source = mi1;
-    directionRequest.destination = mi2;
-    directionRequest.transportType = MKDirectionsTransportTypeAny;
-    directionRequest.requestsAlternateRoutes = YES;
-    
-    // Get directions for the route and put it on the mapview
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
-    
-    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error){
-        MKRoute *route = response.routes[0];
-        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-        
-        NSUInteger pointCount = route.polyline.pointCount;
-        
-        //allocate a C array to hold this many points/coordinates...
-        CLLocationCoordinate2D *routeCoordinates
-        = malloc(pointCount * sizeof(CLLocationCoordinate2D));
-        
-        //get the coordinates (all of them)...
-        [route.polyline getCoordinates:routeCoordinates
-                                 range:NSMakeRange(0, pointCount)];
-        
-        //this part just shows how to use the results...
-        NSLog(@"route pointCount = %lu", (unsigned long)pointCount);
-        for (int c=0; c < pointCount; c++)
-        {
-            NSLog(@"routeCoordinates[%d] = %.10f, %.10f",
-                  c, routeCoordinates[c].latitude, routeCoordinates[c].longitude);
-            for (Obstacle *obstacle in [Obstacle sharedInstance].allObstacles) {
-                if (obstacle.size == LongObstacle || obstacle.size == BigObstacle) {
-                    
-                }
-                double latDif = fabs(routeCoordinates[c].latitude - obstacle.start.coordinate.latitude);
-                double lonDif = fabs(routeCoordinates[c].longitude - obstacle.start.coordinate.longitude);
-                
-                NSLog(@"%.10f, %.10f", latDif, lonDif);
-            }
-        }
-        
-        //free the memory used by the C array when done with it...
-        free(routeCoordinates);
-    }];
 }
 
 #pragma mark - Location Manager delegate
@@ -184,10 +136,10 @@
     
     // Create directionRequest to set the destination and the source
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
-    directionRequest.source = mi1;
-    directionRequest.destination = mi2;
+    directionRequest.source = mi2;
+    directionRequest.destination = mi1;
     directionRequest.transportType = MKDirectionsTransportTypeWalking;
-    directionRequest.requestsAlternateRoutes = NO;
+    directionRequest.requestsAlternateRoutes = YES;
     
     // Get directions for the route and put it on the mapview
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
@@ -196,33 +148,34 @@
         MKRoute *route = response.routes[0];
         if (route) {
             [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-            
-            NSUInteger pointCount = route.polyline.pointCount;
-            
-            //allocate a C array to hold this many points/coordinates...
-            CLLocationCoordinate2D *routeCoordinates = malloc(pointCount * sizeof(CLLocationCoordinate2D));
-            
-            //get the coordinates (all of them)...
-            [route.polyline getCoordinates:routeCoordinates
-                                     range:NSMakeRange(0, pointCount)];
-            
-            //this part just shows how to use the results...
-            NSLog(@"route pointCount = %lu", (unsigned long)pointCount);
-            for (int c=0; c < pointCount; c++) {
-                NSLog(@"routeCoordinates[%d] = %.10f, %.10f", c, routeCoordinates[c].latitude, routeCoordinates[c].longitude);
-                for (Obstacle *obstacle in [Obstacle sharedInstance].allObstacles) {
-                    if (obstacle.size == LongObstacle || obstacle.size == BigObstacle) {
-                        
-                    }
-                    NSUInteger latDif = routeCoordinates[c].latitude - obstacle.start.coordinate.latitude;
-                    NSUInteger lonDif = routeCoordinates[c].longitude - obstacle.start.coordinate.longitude;
-                    
-                    NSLog(@"%lu, %lu", (unsigned long)latDif, (unsigned long)lonDif);
-                }
-            }
-            
-            //free the memory used by the C array when done with it...
-            free(routeCoordinates);
+            [self textToSpeech:[NSString stringWithFormat:@"În %.0f de metrii %@", route.steps[0].distance, route.steps[0].instructions]];
+
+//            NSUInteger pointCount = route.polyline.pointCount;
+//            
+//            //allocate a C array to hold this many points/coordinates...
+//            CLLocationCoordinate2D *routeCoordinates = malloc(pointCount * sizeof(CLLocationCoordinate2D));
+//            
+//            //get the coordinates (all of them)...
+//            [route.polyline getCoordinates:routeCoordinates
+//                                     range:NSMakeRange(0, pointCount)];
+//            
+//            //this part just shows how to use the results...
+//            NSLog(@"route pointCount = %lu", (unsigned long)pointCount);
+//            for (int c=0; c < pointCount; c++) {
+//                NSLog(@"routeCoordinates[%d] = %.10f, %.10f", c, routeCoordinates[c].latitude, routeCoordinates[c].longitude);
+//                for (Obstacle *obstacle in [Obstacle sharedInstance].allObstacles) {
+//                    if (obstacle.size == LongObstacle || obstacle.size == BigObstacle) {
+//                        
+//                    }
+//                    NSUInteger latDif = routeCoordinates[c].latitude - obstacle.start.coordinate.latitude;
+//                    NSUInteger lonDif = routeCoordinates[c].longitude - obstacle.start.coordinate.longitude;
+//                    
+//                    NSLog(@"%lu, %lu", (unsigned long)latDif, (unsigned long)lonDif);
+//                }
+//            }
+//            
+//            //free the memory used by the C array when done with it...
+//            free(routeCoordinates);
         }
     }];
     
@@ -241,6 +194,7 @@
         [recognitionRequest endAudio];
     } else {
         [self startListening];
+        [self textToSpeech:@"Butonul a fost apăsat"];
     }
 }
 
@@ -258,7 +212,7 @@
     // Starts an AVAudio Session
     NSError *error;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
     [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
     
     // Starts a recognition process, in the block it logs the input or stops the audio
@@ -310,12 +264,12 @@
 }
 
 - (void)textToSpeech:(NSString *)text {
-    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
+    
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
     AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
     utterance.voice = language;
-    [utterance setRate:0.5];
-    [synthesizer speakUtterance:utterance];
+    [utterance setRate:0.45];
+    [self.synthesizer speakUtterance:utterance];
 }
 
 @end

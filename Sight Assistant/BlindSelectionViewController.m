@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *lat;
 @property (weak, nonatomic) IBOutlet UITextField *longit;
 @property (weak, nonatomic) IBOutlet UIButton *sendVocalCommandButton;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -28,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.synthesizer = [[AVSpeechSynthesizer alloc] init];
     speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
     // Set speech recognizer delegate
     speechRecognizer.delegate = self;
@@ -116,6 +117,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.synthesizer continueSpeaking];
     [self textToSpeech:@"Selectați opțiunea"];
 }
 
@@ -214,6 +216,7 @@
         [recognitionRequest endAudio];
     } else {
         [self startListening];
+        [self textToSpeech:@"Butonul a fost apăsat"];
     }
 }
 
@@ -248,22 +251,21 @@
     // Starts an AVAudio Session
     NSError *error;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
     [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
     
     // Starts a recognition process, in the block it logs the input or stops the audio
     // process if there's an error.
     recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     AVAudioInputNode *inputNode = audioEngine.inputNode;
-    SFSpeechAudioBufferRecognitionRequest *recogReq = recognitionRequest;
-    recogReq.shouldReportPartialResults = YES;
-    recognitionTask = [speechRecognizer recognitionTaskWithRequest:recogReq resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+    recognitionRequest.shouldReportPartialResults = YES;
+    recognitionTask = [speechRecognizer recognitionTaskWithRequest:recognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
         BOOL isFinal = NO;
         
         if (result) {
             // Whatever you say in the mic after pressing the button should be being logged
             // in the console.
-            if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"drum"] || [[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"traseu"]) {
+            if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"destinații"] || [[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"traseu"]) {
                 [self performSegueWithIdentifier:@"routes" sender:self];
             } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"creează"]) {
                 [self performSegueWithIdentifier:@"createRoute" sender:self];
@@ -278,7 +280,7 @@
         if (error || isFinal) {
             [audioEngine stop];
             [inputNode removeTapOnBus:0];
-            recogReq.shouldReportPartialResults = NO;
+            recognitionRequest.shouldReportPartialResults = NO;
             recognitionRequest = nil;
             recognitionTask = nil;
         }
@@ -304,12 +306,13 @@
 }
 
 - (void)textToSpeech:(NSString *)text {
-    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
-    utterance.voice = language;
-    [utterance setRate:0.5];
-    [synthesizer speakUtterance:utterance];
+    if (self.synthesizer.isSpeaking == NO) {
+        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+        AVSpeechSynthesisVoice *language = [AVSpeechSynthesisVoice voiceWithLanguage:@"ro_RO"];
+        utterance.voice = language;
+        [utterance setRate:0.5];
+        [self.synthesizer speakUtterance:utterance];
+    }
 }
 
 @end
