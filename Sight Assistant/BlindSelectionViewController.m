@@ -18,6 +18,8 @@
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
+@property (nonatomic, strong) NSString *helpedBy;
+
 @property (nonatomic) BOOL viewWillAppearCheck;
 
 @property (nonatomic,strong) UILongPressGestureRecognizer *changeUIModePress;
@@ -71,7 +73,21 @@
         NSLog(@"Location services are not enabled");
     }
     
+    for (Position *position in [Position sharedInstance].positions) {
+        if ([position.user isEqualToString:[User sharedInstance].currentUserName]) {
+            self.helpedBy = position.helpedBy;
+        }
+    }
+    
     self.viewWillAppearCheck = NO;
+    
+    FIRDatabaseReference *newref2 = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
+    [newref2 observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if ([snapshot.key isEqualToString:@"rated"] && [snapshot.value doubleValue] == 1) {
+            [self textToSpeech:@"Vă rugăm dați o notă voluntarului"];
+        }
+    }];
+    
     FIRDatabaseReference *isHelpedRef = [[[FIRDatabase database] referenceWithPath:@"positions"] child:[User sharedInstance].currentUserName];
     [isHelpedRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         if (self.viewWillAppearCheck && [snapshot.key isEqualToString:@"isHelped"] && [[User sharedInstance].currentUserType isEqualToString:@"blind"]) {
@@ -146,7 +162,7 @@
 - (void)helperDeclineNotification {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.title = @"Help declined";
-    content.body = @"Utilizatorul care a acceptat să ofere ajutor, a anulat din motive necunoscute";
+    content.body = @"Voluntarul care a acceptat să ofere ajutor, a anulat din motive necunoscute";
     content.sound = [UNNotificationSound defaultSound];
     
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1
@@ -170,7 +186,7 @@
 - (void)helperAcceptNotification {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.title = @"Help accepted";
-    content.body = @"Utilizatorul a acceptat să ofere ajutor";
+    content.body = @"Un voluntar a acceptat să ofere ajutor";
     content.sound = [UNNotificationSound defaultSound];
     
     UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1
@@ -258,7 +274,7 @@
     // process if there's an error.
     recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     AVAudioInputNode *inputNode = audioEngine.inputNode;
-    recognitionRequest.shouldReportPartialResults = YES;
+    recognitionRequest.shouldReportPartialResults = NO;
     recognitionTask = [speechRecognizer recognitionTaskWithRequest:recognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
         BOOL isFinal = NO;
         
@@ -271,6 +287,37 @@
                 [self performSegueWithIdentifier:@"createRoute" sender:self];
             } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"ajutor"]) {
                 [self getLocation:nil];
+            } else if ([[result.bestTranscription.formattedString lowercaseString] containsString:@"nota"]) {
+                NSString *nota = [[result.bestTranscription.formattedString lowercaseString] stringByReplacingOccurrencesOfString:@"nota" withString:@""];
+                NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                formatter.numberStyle = NSNumberFormatterSpellOutStyle;
+                formatter.locale = [[NSLocale alloc]initWithLocaleIdentifier:[NSLocale localeIdentifierFromComponents:@{NSLocaleLanguageCode: @"ro_RO"}]];
+                NSNumber *notaFormatata = [formatter numberFromString:nota];
+                if ([nota integerValue] > 0 && [nota integerValue] < 6 && !notaFormatata) {
+                    FIRDatabaseReference *newref2 = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.helpedBy];
+                    NSUInteger currentUserRate = 0;
+                    for (User *user in [User sharedInstance].users) {
+                        if ([user.name isEqualToString:self.helpedBy]) {
+                            currentUserRate = user.rating;
+                        }
+                    }
+                    NSDictionary *post2 = @{@"rating": @(([nota integerValue] + currentUserRate) / 2)};
+                    [newref2 updateChildValues:post2];
+                    [self textToSpeech:@"Nota adăugată cu succes în baza de date"];
+                } else if (notaFormatata) {
+                    FIRDatabaseReference *newref2 = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.helpedBy];
+                    NSUInteger currentUserRate = 0;
+                    for (User *user in [User sharedInstance].users) {
+                        if ([user.name isEqualToString:self.helpedBy]) {
+                            currentUserRate = user.rating;
+                        }
+                    }
+                    NSDictionary *post2 = @{@"rating": @(([notaFormatata integerValue] + currentUserRate) / 2)};
+                    [newref2 updateChildValues:post2];
+                    [self textToSpeech:@"Nota adăugată cu succes în baza de date"];
+                } else {
+                    [self textToSpeech:@"Nota trebuie să fie mai mică decât 6 și mai mare decât 0"];
+                }
             } else {
                 [self textToSpeech:@"Comandă necunoscută"];
             }

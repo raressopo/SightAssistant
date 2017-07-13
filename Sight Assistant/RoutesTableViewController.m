@@ -106,7 +106,7 @@
     recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     AVAudioInputNode *inputNode = audioEngine.inputNode;
     SFSpeechAudioBufferRecognitionRequest *recogReq = recognitionRequest;
-    recogReq.shouldReportPartialResults = YES;
+    recogReq.shouldReportPartialResults = NO;
     recognitionTask = [speechRecognizer recognitionTaskWithRequest:recogReq resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
         BOOL isFinal = NO;
         if (result) {

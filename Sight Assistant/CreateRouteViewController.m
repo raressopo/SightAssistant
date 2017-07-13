@@ -156,7 +156,7 @@
     // process if there's an error.
     recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     AVAudioInputNode *inputNode = audioEngine.inputNode;
-    recognitionRequest.shouldReportPartialResults = YES;
+    recognitionRequest.shouldReportPartialResults = NO;
     recognitionTask = [speechRecognizer recognitionTaskWithRequest:recognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
         BOOL isFinal = NO;
         if (result) {
@@ -182,7 +182,10 @@
                 [self textToSpeech:@"Longitudine introdusă cu succes"];
             } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"creează"]) {
                 [self createPressed:nil];
-            } else {
+            } else if ([[result.bestTranscription.formattedString lowercaseString] containsString:@"nume"]) {
+                NSString *nume = [[result.bestTranscription.formattedString lowercaseString] stringByReplacingOccurrencesOfString:@"nume" withString:@""];
+                self.routeName.text = nume;
+            } {
                 [self textToSpeech:@"Comandă necunoscută"];
             }
             

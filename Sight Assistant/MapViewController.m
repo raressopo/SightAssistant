@@ -66,8 +66,11 @@ NSInteger const radius = 10000;
         [self centerMapOnLocation:self.userPosition withName:self.position.user];
     }
     
-//    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
-//    [[positionsRef child:self.position.user] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    FIRDatabaseReference *positionsRef = [[FIRDatabase database] referenceWithPath:@"positions"];
+    [[positionsRef child:self.position.user] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if ([snapshot.key isEqualToString:@"rated"] && snapshot.value) {
+            [[Position sharedInstance].positions removeObject:self.position];
+        }
 //        if ([snapshot.key isEqualToString:@"isHelped"]) {
 //            self.pos2.helped = [snapshot.value boolValue];
 //        } else if ([snapshot.key isEqualToString:@"helpedBy"]) {
@@ -77,7 +80,7 @@ NSInteger const radius = 10000;
 //        } else if ([snapshot.key isEqualToString:@"rating"]) {
 //            self.pos2.rating = [snapshot.value doubleValue];
 //        }
-//    }];
+    }];
     
     [self.navigationController setToolbarHidden:YES];
 }
@@ -169,19 +172,19 @@ NSInteger const radius = 10000;
     
     // TODO: remove this on real device
     // Position hardcoded to see that the route is created correctly
-    MKPointAnnotation *plmrk2 = [[MKPointAnnotation alloc] init];
-    plmrk2.coordinate = CLLocationCoordinate2DMake(46.760471, 23.558025);
-    plmrk2.title = @"Me";
-    [self.mapView addAnnotation:plmrk2];
-    [self.mapView selectAnnotation:plmrk2 animated:YES];
+//    MKPointAnnotation *plmrk2 = [[MKPointAnnotation alloc] init];
+//    plmrk2.coordinate = CLLocationCoordinate2DMake(46.760471, 23.558025);
+//    plmrk2.title = @"Me";
+//    [self.mapView addAnnotation:plmrk2];
+//    [self.mapView selectAnnotation:plmrk2 animated:YES];
     
     // Create 2 placemarks, one for the blind user and one for helper
     MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue]) addressDictionary:nil];
-    //[p1 setCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
-                       //initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
-//    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
+//    [p1 setCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
+//                       initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
+    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
     
-    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(46.760471, 23.558025) addressDictionary:nil];
+//    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(46.760471, 23.558025) addressDictionary:nil];
 
     
     // Create 2 mapitems from that 2 placemarks
