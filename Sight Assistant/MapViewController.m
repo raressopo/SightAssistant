@@ -170,22 +170,9 @@ NSInteger const radius = 10000;
     
     self.acceptButton.enabled = NO;
     
-    // TODO: remove this on real device
-    // Position hardcoded to see that the route is created correctly
-//    MKPointAnnotation *plmrk2 = [[MKPointAnnotation alloc] init];
-//    plmrk2.coordinate = CLLocationCoordinate2DMake(46.760471, 23.558025);
-//    plmrk2.title = @"Me";
-//    [self.mapView addAnnotation:plmrk2];
-//    [self.mapView selectAnnotation:plmrk2 animated:YES];
-    
     // Create 2 placemarks, one for the blind user and one for helper
     MKPlacemark *p1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue]) addressDictionary:nil];
-//    [p1 setCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
-//                       initWithCoordinate:CLLocationCoordinate2DMake([self.position.lat doubleValue], [self.position.lon doubleValue])];
     MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude) addressDictionary:nil];
-    
-//    MKPlacemark *p2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(46.760471, 23.558025) addressDictionary:nil];
-
     
     // Create 2 mapitems from that 2 placemarks
     MKMapItem *mi1 = [[MKMapItem alloc] initWithPlacemark:p1];
@@ -235,7 +222,7 @@ NSInteger const radius = 10000;
     NSDictionary *post = @{@"rating": @(self.rateSegmentedControl.selectedSegmentIndex + 1), @"rated": @(YES)};
     
     FIRDatabaseReference *newref2 = [[[FIRDatabase database] referenceWithPath:@"users"] child:self.position.user];
-    NSDictionary *post2 = @{@"rating": @((self.rateSegmentedControl.selectedSegmentIndex + 1 + [User sharedInstance].currentUserRate) / 2)};
+    NSDictionary *post2 = @{@"rating": @(((self.rateSegmentedControl.selectedSegmentIndex + 1 + [User sharedInstance].currentUserRate) / ([User sharedInstance].currentUserRate == 0)) ? 1 : 2)};
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                     message:@"Please wait and please do not close the app!\n\n\n"

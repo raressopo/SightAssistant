@@ -182,10 +182,12 @@
                 [self textToSpeech:@"Longitudine introdusă cu succes"];
             } else if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:@"creează"]) {
                 [self createPressed:nil];
+                [self textToSpeech:@"Destinație adăugată cu succes"];
             } else if ([[result.bestTranscription.formattedString lowercaseString] containsString:@"nume"]) {
                 NSString *nume = [[result.bestTranscription.formattedString lowercaseString] stringByReplacingOccurrencesOfString:@"nume" withString:@""];
                 self.routeName.text = nume;
-            } {
+                [self textToSpeech:@"Numele destinației introdus cu succes"];
+            } else {
                 [self textToSpeech:@"Comandă necunoscută"];
             }
             

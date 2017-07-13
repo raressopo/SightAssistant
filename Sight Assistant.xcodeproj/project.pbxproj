@@ -384,7 +384,7 @@
 				TargetAttributes = {
 					8E9251BC1E350C9700003EA6 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6NJP67NGE2;
+						DevelopmentTeam = 84ANJR2J9Z;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -766,7 +766,7 @@
 			baseConfigurationReference = 1FA6BA5E8C170CBE7B306BB8 /* Pods-Sight Assistant.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6NJP67NGE2;
+				DEVELOPMENT_TEAM = 84ANJR2J9Z;
 				INFOPLIST_FILE = "Sight Assistant/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -780,7 +780,7 @@
 			baseConfigurationReference = 4BC82370B4138B8836937886 /* Pods-Sight Assistant.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6NJP67NGE2;
+				DEVELOPMENT_TEAM = 84ANJR2J9Z;
 				INFOPLIST_FILE = "Sight Assistant/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

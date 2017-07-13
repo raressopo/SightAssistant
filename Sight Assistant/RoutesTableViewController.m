@@ -35,11 +35,20 @@
     self.currentRowSelected = 0;
     self.userRoutes = [[NSMutableArray alloc] init];
     
-    for (UserRoutes *user in [UserRoutes sharedInstance].routesOfAllUsers) {
-        if ([user.user isEqualToString:[User sharedInstance].currentUserName]) {
-            self.userRoutes = user.allRoutes;
-        }
-    }
+    UserRoutes *userRoutes = [[UserRoutes alloc] init];
+    FIRDatabaseReference *routesRef = [[[FIRDatabase database] referenceWithPath:@"routes"] child:[User sharedInstance].currentUserName];
+    [routesRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        Route *route = [[Route alloc] init];
+        route.destinationName = snapshot.key;
+        route.lat = [snapshot.value valueForKey:@"latitude"];
+        route.lon = [snapshot.value valueForKey:@"longitude"];
+        [userRoutes.allRoutes addObject:route];
+    }];
+//    for (UserRoutes *user in [UserRoutes sharedInstance].routesOfAllUsers) {
+//        if ([user.user isEqualToString:[User sharedInstance].currentUserName]) {
+            self.userRoutes = userRoutes.allRoutes;
+//        }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,12 +71,12 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.synthesizer continueSpeaking];
+    [self.tableView reloadData];
     [self textToSpeech:@"Selectați ruta"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self textToSpeech:@"Rută selectată cu succes"];
     sleep(2);
 }
 
@@ -113,7 +122,7 @@
             // Whatever you say in the mic after pressing the button should be being logged
             // in the console.
             for (Route *route in self.userRoutes){
-                if ([[result.bestTranscription.formattedString lowercaseString] isEqualToString:route.destinationName]) {
+                if ([[result.bestTranscription.formattedString uppercaseString] isEqualToString:[route.destinationName uppercaseString]]) {
                     NSInteger a = [self.userRoutes indexOfObject:route];
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:a inSection:0];
                     [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -184,13 +193,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.currentRowSelected = indexPath.row;
+    [self textToSpeech:@"Rută selectată cu succes"];
     [self performSegueWithIdentifier:@"route" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"route"]) {
         RouteMapViewController *destinationVC = segue.destinationViewController;
-        destinationVC.currentRowSelected = self.currentRowSelected + 1;
+        destinationVC.currentRowSelected = self.currentRowSelected;
     }
 }
 

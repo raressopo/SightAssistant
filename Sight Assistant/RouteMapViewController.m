@@ -22,6 +22,7 @@
 @property (nonatomic,strong) UILongPressGestureRecognizer *changeUIModePress;
 @property (nonatomic, strong) NSArray *userRoutes;
 @property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
+@property (nonatomic, strong) MKDirections *directions;
 
 @end
 
@@ -35,6 +36,7 @@
             self.userRoutes = user.allRoutes;
         }
     }
+    
     self.synthesizer = [[AVSpeechSynthesizer alloc] init];
     speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"]];
     // Set speech recognizer delegate
@@ -90,6 +92,11 @@
     //[self textToSpeech:@"Hartă deschisă cu succes"];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.directions cancel];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -142,9 +149,9 @@
     directionRequest.requestsAlternateRoutes = YES;
     
     // Get directions for the route and put it on the mapview
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
+    self.directions = [[MKDirections alloc] initWithRequest:directionRequest];
     
-    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error){
+    [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error){
         MKRoute *route = response.routes[0];
         if (route) {
             [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
